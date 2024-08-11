@@ -4,7 +4,7 @@ export const INITIAL_TOOLBOX_JSON = {
   kind: "categoryToolbox",
   name: "Jacly Toolbox",
   contents: [
-    {
+    { // LOGIC
       kind: "category",
       name: "Logic",
       colour: 210,
@@ -387,29 +387,6 @@ export const INITIAL_TOOLBOX_JSON = {
             "      </value>\n" +
             "    </block>\n",
         },
-        // {
-        //   kind: "block",
-        //   blockxml:
-        //     '    <block type="text_print">\n' +
-        //     '      <value name="TEXT">\n' +
-        //     '        <shadow type="text">\n' +
-        //     '          <field name="TEXT">abc</field>\n' +
-        //     "        </shadow>\n" +
-        //     "      </value>\n" +
-        //     "    </block>\n",
-        // },
-        {
-          kind: "block",
-          blockxml:
-            '    <block type="console">\n' +
-            '      <field name="TYPE">log</field>\n' +
-            '      <value name="TEXT">\n' +
-            '        <shadow type="text">\n' +
-            '          <field name="TEXT">abc</field>\n' +
-            "        </shadow>\n" +
-            "      </value>\n" +
-            "    </block>\n",
-        },
         {
           kind: "block",
           blockxml:
@@ -606,13 +583,25 @@ export const INITIAL_TOOLBOX_JSON = {
       
       colour: 128,
       contents: [
-        {
+        { // sleep
           kind: "block",
           blockxml:
             '    <block type="sleep">\n' +
             '      <value name="TIME">\n' +
             '        <shadow type="math_number">\n' +
             '          <field name="NUM">100</field>\n' +
+            "        </shadow>\n" +
+            "      </value>\n" +
+            "    </block>\n",
+        },
+        { // console
+          kind: "block",
+          blockxml:
+            '    <block type="console">\n' +
+            '      <field name="type">log</field>\n' +
+            '      <value name="text">\n' +
+            '        <shadow type="text">\n' +
+            '          <field name="text">abc</field>\n' +
             "        </shadow>\n" +
             "      </value>\n" +
             "    </block>\n",
@@ -674,23 +663,50 @@ export const INITIAL_TOOLBOX_JSON = {
         },
         {
           kind: "block",
-          type: "set_hsv",
+          blockxml:
+          '    <block type="set_hsv">\n' +
+          '      <value name="NAME">\n' +
+          '        <shadow type="text">\n' +
+          '          <field name="text">ledStrip</field>\n' +
+          "        </shadow>\n" +
+          "      </value>\n" +
+          '      <value name="INDEX">\n' +
+          '        <shadow type="math_number">\n' +
+          '          <field name="num">0</field>\n' +
+          "        </shadow>\n" +
+          "      </value>\n" +
+          '      <value name="HUE">\n' +
+          '        <shadow type="math_number">\n' +
+          '          <field name="HUE">0</field>\n' +
+          "        </shadow>\n" +
+          "      </value>\n" +
+          '      <value name="SATURATION">\n' +
+          '        <shadow type="math_number">\n' +
+          '          <field name="SATURATION">0</field>\n' +
+          "        </shadow>\n" +
+          "      </value>\n" +
+          '      <value name="VALUE">\n' +
+          '        <shadow type="math_number">\n' +
+          '          <field name="VALUE">0</field>\n' +
+          "        </shadow>\n" +
+          "      </value>\n" +
+          "    </block>\n",
         },
         {
           kind: "block",
           blockxml:
             '    <block type="set_hex">\n' +
-            '      <value name="ID">\n' +
+            '      <value name="NAME">\n' +
             '        <shadow type="text">\n' +
             '          <field name="text">ledStrip</field>\n' +
             "        </shadow>\n" +
             "      </value>\n" +
-            '       <value name="index">\n' +
+            '      <value name="INDEX">\n' +
             '        <shadow type="math_number">\n' +
-            '          <field name="NUM">0</field>\n' +
+            '          <field name="num">0</field>\n' +
             "        </shadow>\n" +
             "      </value>\n" +
-            '      <value name="color">\n' +
+            '      <value name="COLOR">\n' +
             '        <shadow type="colour_picker">\n' +
             '          <field name="COLOUR">#fe8800</field>\n' +
             "        </shadow>\n" +
