@@ -5,7 +5,7 @@ import './index.css'
 
 function NotSupported() {
   return <div className='h-full w-full bg-red-500 text-white p-8'>
-    Your browser doesn't support web serial. You cannot use this application.
+    Your browser doesn't support web serial. You cannot use this application. Use Chrome or other Chromium based browsers.
   </div>
 }
 

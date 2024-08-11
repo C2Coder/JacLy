@@ -25,14 +25,14 @@ const ConnectionBtn: FC<ConnectionBtnProps> = ({}) => {
 
     let whenDisconnected = () => {
         return <>
-            <span className="px-2 text-orange-500">Not connected</span>
+            <span className="px-2 my-auto font-bold text-orange-600">Not connected</span>
             <Button text="Connect" onClick={connectDevice}/>
         </>;
     }
 
     let whenConnected = () => {
         return <>
-            <span className="px-2 text-green-500">Connected</span>
+            <span className="px-2 my-auto font-bold text-green-600">Connected</span>
             <Button text="Disconnect" onClick={disconnectDevice}/>
         </>;
     }
