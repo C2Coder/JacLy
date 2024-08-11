@@ -128,6 +128,23 @@ javascriptGenerator.forBlock['call_func'] = function (block: BlockSvg, generator
 }
 
 
+Blockly.Blocks['raw_code'] = {
+    init: function() {
+        this.appendDummyInput('abc')
+          .appendField('code')
+          .appendField(new Blockly.FieldTextInput('default'), 'code');
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setTooltip('');
+        this.setHelpUrl('');
+        this.setColour("#888");
+      }
+}   
+
+javascriptGenerator.forBlock['raw_code'] = function (block: BlockSvg, generator: CodeGenerator) {
+    return block.getFieldValue('code') + '\n';
+}
+
 
 // ========== SMARTLEDS ==========
 

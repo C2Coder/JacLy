@@ -2,6 +2,7 @@ import { type } from "os";
 
 export const INITIAL_TOOLBOX_JSON = {
   kind: "categoryToolbox",
+  name: "Jacly Toolbox",
   contents: [
     {
       kind: "category",
@@ -637,6 +638,10 @@ export const INITIAL_TOOLBOX_JSON = {
             "        </shadow>\n" +
             "      </value>\n" +
             "    </block>\n",
+        },
+        {
+          kind: "block",
+          type: "raw_code",
         },
       ],
     },
