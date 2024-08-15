@@ -17,7 +17,7 @@ export interface HeaderProps extends InputHTMLAttributes<HTMLInputElement> { }
 const Monitor: FC<HeaderProps> = ({ }) => {
     const { device } = useDevice();
 
-    const [lines, setLines] = useState(14); // TODO: add UI for this - DONE
+    const [lines, setLines] = useState(10); // TODO: add UI for this - DONE
 
     const [text, setText] = useState("\n".repeat(lines));
 
@@ -60,7 +60,7 @@ const Monitor: FC<HeaderProps> = ({ }) => {
     }, [device, setText, text]);
 
     return (
-        <div className="monitor w-ful lh-full flex flex-col">
+        <div className="monitor w-full h-full flex flex-col">
             <div className="my-2 white_text flex flex-row">
                 <Button text="Clear" classNames="mr-4" onClick={() => setText("\n".repeat(lines))} />
                 <Label text={"Showing " + lines + " lines"}></Label>

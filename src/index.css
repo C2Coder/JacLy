@@ -16,6 +16,11 @@
 }
 
 
+* {
+  box-sizing: border-box;
+}
+
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -92,4 +97,11 @@ button:focus-visible {
   overflow-y: auto; /* allows vertical scrolling within the pre element */
   overflow-x: auto; /* allows horizontal scrolling if lines are too long */
   white-space: pre-wrap; /* ensures long lines wrap; use 'pre' to disable wrapping */
+}
+
+.code-result pre code {
+  width: 50%;
+  overflow: hidden;
+  white-space: pre-wrap;
+  
 }

@@ -17,16 +17,16 @@ function App() {
                 <div className="flex flex-col h-full w-full">
                     <Header />
                     <ConnectionBar />
-                    <div className="flex flex-row h-full">
-                        <div className="w-2/3 min-h-full">
+                    <div className="grid grid-cols-3 gap-2 h-full">
+                        <div className="col-span-2 min-h-full">
                             <BlocklyEditorFixer />
                             <BlocklyEditor />
                         </div>
-                        <div className="w-1/3 ml-2 flex flex-col">
-                            <div className="">
+                        <div className="col-span-1 flex flex-col">
+                            <div className="w-full">
                                 <CodeResult />
                             </div>
-                            <div className="">
+                            <div className="w-full">
                                 <Monitor />
                             </div>
                         </div>

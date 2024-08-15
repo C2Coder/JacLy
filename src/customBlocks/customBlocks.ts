@@ -115,9 +115,8 @@ Blockly.Blocks['smartled_init'] = {
 
 javascriptGenerator.forBlock['smartled_init'] = function (block: BlockSvg, generator: CodeGenerator) {
     var code = 'import { SmartLed, LED_WS2812, LED_WS2812B, LED_WS2812B_2020, LED_SK6812, LED_WS2813 } from "smartled";\n'
-    +'const HSVtoRgb = (c) => ( i = Math.floor(c.h * 6), f = c.h * 6 - i, p = c.v * (1 - c.s), q = c.v * (1 - f * c.s), t = c.v * (1 - (1 - f) * c.s), \n'
-    +'  {r: Math.round([c.v, q, p, p, t, c.v][i % 6] * 255), g: Math.round([t, c.v, c.v, q, p, p][i % 6] * 255), b: Math.round([p, p, t, c.v, c.v, q][i % 6] * 255)});\n'
-    +'const HEXtoRgb = hex => ((result = hex.replace("#", "").match(/.{1,2}/g)), {r: parseInt(result[0], 16), g: parseInt(result[1], 16), b: parseInt(result[2], 16)});\n'
+    +'const HSVtoRgb = (c) => ( i = Math.floor(c.h * 6), f = c.h * 6 - i, p = c.v * (1 - c.s), q = c.v * (1 - f * c.s), t = c.v * (1 - (1 - f) * c.s), {r: Math.round([c.v, q, p, p, t, c.v][i % 6] * 255), g: Math.round([t, c.v, c.v, q, p, p][i % 6] * 255), b: Math.round([p, p, t, c.v, c.v, q][i % 6] * 255)});\n'
+    +'const HEXtoRgb = hex => ((result = hex.replace("#", "").match(/.{1,2}/g)), {r: parseInt(result[0], 16), g: parseInt(result[1], 16), b: parseInt(result[2], 16)});\n\n'
     return code;
 }
 
@@ -162,11 +161,11 @@ Blockly.Blocks['set_hex'] = {
         this.appendDummyInput('abcd')
             .appendField('set hex');
         this.appendValueInput('NAME')
-            .appendField('  name');
+            .appendField('  name:');
         this.appendValueInput('COLOR')
-            .appendField('  color');
+            .appendField('  color:');
         this.appendValueInput('INDEX')
-            .appendField('  index')
+            .appendField('  index:')
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setTooltip('');
@@ -187,9 +186,9 @@ Blockly.Blocks['set_hsv'] = {
         this.appendDummyInput('abcd')
             .appendField('set hsv');
         this.appendValueInput('NAME')
-            .appendField('  name');
+            .appendField('  name:');
         this.appendValueInput('INDEX')
-            .appendField('  index');
+            .appendField('  index:');
         this.appendValueInput('HUE')
             .appendField('  H (0-360):')
         this.appendValueInput('SATURATION')
