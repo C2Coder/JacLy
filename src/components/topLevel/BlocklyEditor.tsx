@@ -5,9 +5,7 @@ import {javascriptGenerator} from "blockly/javascript";
 import {BlocklyWorkspace} from "react-blockly";
 import "./../../customBlocks/customBlocks";
 
-// @ts-expect-error
-import {INITIAL_TOOLBOX_JSON} from "../../blockly-config";
-
+import {toolbox} from "../../customBlocks/toolbox";
 export interface HeaderProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
@@ -40,7 +38,7 @@ const BlocklyEditor: FC<HeaderProps> = ({}) => {
     return (
         <BlocklyWorkspace
             className="w-full h-full"
-            toolboxConfiguration={INITIAL_TOOLBOX_JSON}
+            toolboxConfiguration={toolbox}
             onWorkspaceChange={handleWorkspaceChange}
             initialJson={json}
             onJsonChange={onJsonChange}
