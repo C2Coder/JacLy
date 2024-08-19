@@ -10,7 +10,7 @@ export type ToolboxItem = {
 export type CustomCategory = {
   kind: "category";
   name: string;
-  colour?: number;
+  colour?: number | string;
   custom?: "PROCEDURE" | "VARIABLE"; // Custom types
   contents?: ToolboxItem[];          // Optional contents array
 };
@@ -22,33 +22,119 @@ export type Toolbox = {
 };
 
 // Color to HEX
-// hue        = 220
+// hue        = ???
 // saturation = 45%
 // value      = 50%
 
+
+const color_blocks = [[30, 110], [130, 150], [170, 200], [300, 320], [340, 10]];
+
+
+function generateRanges(arr:number[][], increment:number) {
+  return arr.map(pair => {
+      let [start, end] = pair;
+      let range = [];
+
+      while (start !== end) {
+          range.push(start);
+          start = (start + increment) % 360;
+          if (start === 0) start = 360; // Handle the case when start reaches exactly 360
+      }
+      range.push(end); // Include the end value in the range
+      return range;
+  });
+}
+
+const saturation = 0.45;
+const value = 0.50;
+
+const hexColors = generateRanges(color_blocks, 10)
+
+console.log(hexColors);
+
 export const colors = {
-  "Logic":        "#5B80A5",
-  "Loops":        "#5BA55B",  
-  "Math":         "#5B67A5",
-  "Text":         "#5BA55B",
-  "Lists":        "#725BA5",
-  "Colour":       "#A5725B",
-  "Basic":        "#5BA565",
-  "Basic_gray":   "#888",
-  "Smartled":     "#725BA5",
-  "Custom Button":"#A5725B",
-  "Variables":    "#A55B80",
-  "Functions":    "#995BA5",
+  "Basic":        "#615BA5", /* 245    */"Basic_gray":   "#888",
+  "Logic":        "#5B80A5", // 210
+  "Loops":        "#5BA55B", // 120
+  "Math":         "#5B67A5", // 230
+  "Text":         "#5BA55B", // 160
+  "Lists":        "#725BA5", // 259
+  "Colour":       "#A5725B", // 19
+                            
+  "Variables":    "#A55B80", // 330
+  "Functions":    "#995BA5", // 290
+                            
+  "GPIO":         hexColors[2][0],
+  "ADC":          hexColors[2][1],
+  "Smartled":     hexColors[2][2],
+  "SimpleRadio":  hexColors[2][3],
+
+  // custom libs
+  "Servo":        hexColors[4][0],
+  "Colors":       hexColors[4][1],
+  "Readline":     hexColors[4][2],
+  //"":        hexColors[4][3],
+  //"":        hexColors[4][4],
+
+  // project specific libs
+  "Robutek":      hexColors[3][0],
+  //"":        hexColors[3][1],
+  //"":        hexColors[3][2],
+  //"":        hexColors[3][3],
+
+  //"":        hexColors[1][0],
+  //"":        hexColors[1][1],
+  //"":        hexColors[1][2],
+  //"":        hexColors[1][3],
+
+  "LEDC":         hexColors[0][0],
+  "PulseCounter": hexColors[0][1], 
+  "Motor":        hexColors[0][2], 
+  "WiFi":         hexColors[0][3], 
+  "GridUI":       hexColors[0][4], 
+  "I2C":          hexColors[0][5], 
+  "FS":           hexColors[0][6], 
+                          
+  "Custom Button":"#5BA57A",
 };
 
 export const toolbox: Toolbox = {
     kind: "categoryToolbox",
     name: "Jacly Toolbox",
     contents: [
+      { // BASIC
+        kind: "category",
+        name: "Basic",
+        colour: colors["Basic"],
+        contents: [
+          /*{
+            kind: "block",
+            blockxml:
+              '    <block type="async_func">\n' +
+              '      <value name="NAME">\n' +
+              '        <shadow type="text">\n' +
+              '          <field name="TEXT">main</field>\n' +
+              "        </shadow>\n" +
+              "      </value>\n" +
+              "    </block>\n",
+          },
+          {
+            kind: "block",
+            blockxml:
+              '    <block type="call_func">\n' +
+              '      <value name="NAME">\n' +
+              '        <shadow type="text">\n' +
+              '          <field name="TEXT">main</field>\n' +
+              "        </shadow>\n" +
+              "      </value>\n" +
+              "    </block>\n",
+          },*/
+        ],
+      },
       { // LOGIC
         kind: "category",
         name: "Logic",
-        colour: 210,
+        colour: colors["Logic"],
         contents: [
           {
             kind: "block",
@@ -86,7 +172,7 @@ export const toolbox: Toolbox = {
       { // LOOPS
         kind: "category",
         name: "Loops",
-        colour: 120,
+        colour: colors["Loops"],
         contents: [
           {
             kind: "block",
@@ -147,7 +233,7 @@ export const toolbox: Toolbox = {
       { // MATH
         kind: "category",
         name: "Math",
-        colour: 230,
+        colour: colors["Math"],
         contents: [
           {
             kind: "block",
@@ -299,7 +385,7 @@ export const toolbox: Toolbox = {
       { // TEXT
         kind: "category",
         name: "Text",
-        colour: 160,
+        colour: colors["Text"],
         contents: [
           {
             kind: "block",
@@ -435,7 +521,7 @@ export const toolbox: Toolbox = {
       { // LISTS
         kind: "category",
         name: "Lists",
-        colour: 259,
+        colour: colors["Lists"],
         contents: [
           {
             kind: "block",
@@ -550,7 +636,7 @@ export const toolbox: Toolbox = {
       { // COLOUR
         kind: "category",
         name: "Colour",
-        colour: 19,
+        colour: colors["Colour"],
         contents: [
           {
             kind: "block",
@@ -607,48 +693,118 @@ export const toolbox: Toolbox = {
           },
         ],
       },
-      { // BASIC
+      { kind: "sep" },
+      { // VARIABLES
         kind: "category",
-        name: "Basic",
-        
-        colour: 128,
-        contents: [
-          {
-            kind: "block",
-            blockxml:
-              '    <block type="async_func">\n' +
-              '      <value name="NAME">\n' +
-              '        <shadow type="text">\n' +
-              '          <field name="TEXT">main</field>\n' +
-              "        </shadow>\n" +
-              "      </value>\n" +
-              "    </block>\n",
-          },
-          {
-            kind: "block",
-            blockxml:
-              '    <block type="call_func">\n' +
-              '      <value name="NAME">\n' +
-              '        <shadow type="text">\n' +
-              '          <field name="TEXT">main</field>\n' +
-              "        </shadow>\n" +
-              "      </value>\n" +
-              "    </block>\n",
-          },
-        ],
+        name: "Variables",
+        custom: "VARIABLE",
+        colour: colors["Variables"],
+      },
+      { // FUNCTIONS
+        kind: "category",
+        name: "Functions",
+        custom: "PROCEDURE",
+        colour: colors["Functions"],
+      },
+      { kind: "sep" },
+      { // GPIO 
+        kind: "category",
+        name: "GPIO",
+        colour: colors["GPIO"],
+        contents: [],
+      },
+      { // ADC
+        kind: "category",
+        name: "ADC",
+        colour: colors["ADC"],
+        contents: [],
       },
       { // SMARTLED
         kind: "category",
         name: "Smartled",
-        colour: 259,
-        contents: [
-        ],
+        colour: colors["Smartled"],
+        contents: [],
+      },
+      { // Radio
+        kind: "category",
+        name: "SimpleRadio",
+        colour: colors["SimpleRadio"],
+        contents: [],
+      },
+      { kind: "sep" },
+      { // Servo
+        kind: "category",
+        name: "Servo",
+        colour: colors["Servo"],
+        contents: [],
+      },
+      { // Colors
+        kind: "category",
+        name: "Colors",
+        colour: colors["Colors"],
+        contents: [],
+      },
+      { // Readline
+        kind: "category",
+        name: "Readline",
+        colour: colors["Readline"],
+        contents: [],
+      },
+      { kind: "sep" },
+      {
+        kind: "category",
+        name: "Robutek",
+        colour: colors["Robutek"],
+        contents: [],
+      },
+      { kind: "sep" },
+      { // LEDC
+        kind: "category",
+        name: "LEDC",
+        colour: colors["LEDC"],
+        contents: [],
+      },
+      { // PulseCounter
+        kind: "category",
+        name: "PulseCounter",
+        colour: colors["PulseCounter"],
+        contents: [],
+      },
+      { // Motor
+        kind: "category",
+        name: "Motor",
+        colour: colors["Motor"],
+        contents: [],
+      },
+      { // WiFi
+        kind: "category",
+        name: "WiFi",
+        colour: colors["WiFi"],
+        contents: [],
+      },
+      { // GridUI
+        kind: "category",
+        name: "GridUI",
+        colour: colors["GridUI"],
+        contents: [],
+      },
+      { // I2C
+        kind: "category",
+        name: "I2C",
+        colour: colors["I2C"],
+        contents: [],
+      },
+      { // FS
+        kind: "category",
+        name: "FS",
+        colour: colors["FS"],
+        contents: [],
       },
       { kind: "sep" },
       { // CUSTOM BUTTON
         kind: "category",
         name: "Custom Button",
-        colour: 19,
+        colour: colors["Custom Button"],
         contents: [
           {
             kind: "button",
@@ -657,17 +813,7 @@ export const toolbox: Toolbox = {
           },
         ],
       },
-      { // VARIABLES
-        kind: "category",
-        name: "Variables",
-        custom: "VARIABLE",
-        colour: 330,
-      },
-      { // FUNCTIONS
-        kind: "category",
-        name: "Functions",
-        custom: "PROCEDURE",
-        colour: 290,
-      },
+
+
     ],
   };
