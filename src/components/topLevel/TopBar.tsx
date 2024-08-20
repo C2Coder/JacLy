@@ -4,8 +4,10 @@ import UploadBtn from "../buttons/UploadBtn";
 import StartBtn from "../buttons/StartBtn";
 import StopBtn from "../buttons/StopBtn";
 import RestartBtn from "../buttons/RestartBtn";
+import CopyBtn from "../buttons/CopyBtn";
 export interface buttonProps extends InputHTMLAttributes<HTMLInputElement> {
 }
+
 
 const ConnectionBar: FC<buttonProps> = ({}) => {
 
@@ -16,6 +18,8 @@ const ConnectionBar: FC<buttonProps> = ({}) => {
             <StartBtn/>
             <StopBtn/>
             <RestartBtn/>
+            <div className="flex flex-grow"></div>
+            <CopyBtn/>
         </div>
     );
 }

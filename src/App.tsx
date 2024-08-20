@@ -1,7 +1,7 @@
 import "./index.css";
 import DeviceProvider from "./context/JaculusContext";
 import GenerateCodeProvider from "./context/GenerateCodeContext";
-import ConnectionBar from "./components/topLevel/ConnectionBar";
+import TopBar from "./components/topLevel/TopBar";
 import Header from "./components/topLevel/Header";
 import BlocklyEditor from "./components/topLevel/BlocklyEditor";
 import BlocklyEditorFixer from "./components/topLevel/BlockyEditorFixer";
@@ -16,7 +16,7 @@ function App() {
             <GenerateCodeProvider>
                 <div className="flex flex-col h-full w-full">
                     <Header />
-                    <ConnectionBar />
+                    <TopBar />
                     <div className="grid grid-cols-3 gap-2 h-full">
                         <div className="col-span-2 min-h-full">
                             <BlocklyEditorFixer />
