@@ -5,6 +5,31 @@ import { toolbox, Toolbox, ToolboxItem, CustomCategory, colors } from "./toolbox
 
 export const cfg_inlineInputs = true;
 
+export function dummy(that:any, text:string) {
+    that.appendDummyInput('')
+        .appendField(text);
+}
+
+export function value(that:any, name:string, text:string) {
+    that.appendValueInput(name)
+        .appendField(text);
+}
+
+export function inline(that:any){
+        that.setInputsInline(cfg_inlineInputs);
+        that.setPreviousStatement(true, null);
+        that.setNextStatement(true, null);
+}
+
+export function output(that:any){
+        that.setInputsInline(cfg_inlineInputs);
+        that.setOutput(true, String);
+}
+
+export function color(that: any, categoryName: keyof typeof colors) {
+    that.setColour(colors[categoryName]);
+}
+
 export function addItemToToolbox(
     toolbox: Toolbox,
     categoryName: string,
@@ -118,6 +143,10 @@ import "./categories/I2C"
 // ========== FS ==========
 
 import "./categories/FS"
+
+// ========== Path ==========
+
+import "./categories/Path"
 
 // #################### SEPARATOR ####################
 

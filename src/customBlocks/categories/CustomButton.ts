@@ -2,19 +2,13 @@ import Blockly, { BlockSvg } from "blockly";
 import { javascriptGenerator, Order } from "blockly/javascript";
 import { CodeGenerator } from "blockly/core/generator";
 import { toolbox, colors } from "../toolbox";
-import { addItemToToolbox, cfg_inlineInputs } from "../customBlocks";
-
+import { addItemToToolbox, cfg_inlineInputs, dummy, value, inline, output, color } from "../customBlocks";
 
 Blockly.Blocks['async_func'] = {
     init: function () {
-        this.appendValueInput("NAME")
-            .appendField("async function")
-        this.appendStatementInput("CODE")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["Functions"]);
+        value(this, "NAME", "async function name");
+        inline(this);
+        color(this, "Functions");
     }
 }
 
@@ -25,13 +19,9 @@ javascriptGenerator.forBlock['async_func'] = function (block: BlockSvg, generato
 
 Blockly.Blocks['call_func'] = {
     init: function () {
-        this.appendValueInput("NAME")
-            .appendField("call function")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["Functions"]);
+        value(this, "NAME", "function name");
+        inline(this);
+        color(this, "Functions");
     }
 }
 

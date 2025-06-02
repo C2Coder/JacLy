@@ -2,8 +2,7 @@ import Blockly, { BlockSvg } from "blockly";
 import { javascriptGenerator, Order } from "blockly/javascript";
 import { CodeGenerator } from "blockly/core/generator";
 import { toolbox, colors } from "../toolbox";
-import { addItemToToolbox, cfg_inlineInputs } from "../customBlocks";
-
+import { addItemToToolbox, cfg_inlineInputs, dummy, value, inline, output, color } from "../customBlocks";
 // GridUI import
 addItemToToolbox(toolbox, "GridUI",
     {
@@ -14,13 +13,10 @@ addItemToToolbox(toolbox, "GridUI",
 
 Blockly.Blocks['gridui_import'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Import GridUI');
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
         this.setColour(colors["GridUI"]);
+        dummy(this, 'Import GridUI');
+        inline(this);
+        color(this, "GridUI");
     }
 }
 

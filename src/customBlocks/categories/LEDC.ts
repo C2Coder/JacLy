@@ -2,7 +2,8 @@ import Blockly, { BlockSvg } from "blockly";
 import { javascriptGenerator, Order } from "blockly/javascript";
 import { CodeGenerator } from "blockly/core/generator";
 import { toolbox, colors } from "../toolbox";
-import { addItemToToolbox, cfg_inlineInputs } from "../customBlocks";
+import { addItemToToolbox, cfg_inlineInputs, dummy, value, inline, output, color } from "../customBlocks";
+
 
 
 // LEDC import
@@ -15,13 +16,9 @@ addItemToToolbox(toolbox, "LEDC",
 
 Blockly.Blocks['ledc_import'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Import LEDC');
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["LEDC"]);
+        dummy(this, 'Import LEDC');
+        inline(this);
+        color(this, "LEDC");
     }
 }
 
@@ -54,17 +51,11 @@ addItemToToolbox(toolbox, "LEDC",
 
 Blockly.Blocks['ledc_configure_timer'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Configure timer');
-        this.appendValueInput("TIMER")
-            .appendField("  timer:")
-        this.appendValueInput("FREQUENCY")
-            .appendField("  frequency:")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["LEDC"]);
+        dummy(this, 'Configure timer');
+        value(this, "TIMER", "  timer:");
+        value(this, "FREQUENCY", "  frequency:");
+        inline(this);
+        color(this, "LEDC");
     }
 }
 
@@ -102,19 +93,12 @@ addItemToToolbox(toolbox, "LEDC",
 
 Blockly.Blocks['ledc_configure_timer_resolution'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Configure timer');
-        this.appendValueInput("TIMER")
-            .appendField("  timer:")
-        this.appendValueInput("FREQUENCY")
-            .appendField("  frequency:")
-        this.appendValueInput("RESOLUTION")
-            .appendField("  resolution:")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["LEDC"]);
+        dummy(this, 'Configure timer');
+        value(this, "TIMER", "  timer:");
+        value(this, "FREQUENCY", "  frequency:");
+        value(this, "RESOLUTION", "  resolution:");
+        inline(this);
+        color(this, "LEDC");
     }
 }
 
@@ -157,21 +141,13 @@ addItemToToolbox(toolbox, "LEDC",
 
 Blockly.Blocks['ledc_configure_channel'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Configure channel');
-        this.appendValueInput("CHANNEL")
-            .appendField("  channel:")
-        this.appendValueInput("PIN")
-            .appendField("  pin:")
-        this.appendValueInput("TIMER")
-            .appendField("  timer:")
-        this.appendValueInput("DUTY")
-            .appendField("  duty:")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["LEDC"]);
+        dummy(this, 'Configure channel');
+        value(this, "CHANNEL", "  channel:");
+        value(this, "PIN", "  pin:");
+        value(this, "TIMER", "  timer:");
+        value(this, "DUTY", "  duty:");
+        inline(this);
+        color(this, "LEDC");
     }
 }
 
@@ -204,17 +180,12 @@ addItemToToolbox(toolbox, "LEDC",
 
 Blockly.Blocks['ledc_set_frequency'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Set frequency');
-        this.appendValueInput("TIMER")
-            .appendField("  timer:")
-        this.appendValueInput("FREQUENCY")
-            .appendField("  frequency:")
 
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["LEDC"]);
+        dummy(this, 'Set frequency');
+        value(this, "TIMER", "  timer:");
+        value(this, "FREQUENCY", "  frequency:");
+        inline(this);
+        color(this, "LEDC");
     }
 }
 
@@ -247,17 +218,11 @@ addItemToToolbox(toolbox, "LEDC",
 
 Blockly.Blocks['ledc_set_duty'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Set duty');
-        this.appendValueInput("CHANNEL")
-            .appendField("  channel:")
-        this.appendValueInput("DUTY")
-            .appendField("  duty:")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["LEDC"]);
+        dummy(this, 'Set duty');
+        value(this, "CHANNEL", "  channel:");
+        value(this, "DUTY", "  duty:");
+        inline(this);
+        color(this, "LEDC");
     }
 }
 
@@ -285,15 +250,10 @@ addItemToToolbox(toolbox, "LEDC",
 
 Blockly.Blocks['ledc_stop_timer'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Stop timer');
-        this.appendValueInput("TIMER")
-            .appendField("  timer:")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["LEDC"]);
+        dummy(this, 'Stop timer');
+        value(this, "TIMER", "  timer:");
+        inline(this);
+        color(this, "LEDC");
     }
 }
 
@@ -321,15 +281,10 @@ addItemToToolbox(toolbox, "LEDC",
 
 Blockly.Blocks['ledc_stop_channel'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Stop channel');
-        this.appendValueInput("CHANNEL")
-            .appendField("  channel:")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["LEDC"]);
+        dummy(this, 'Stop channel');
+        value(this, "CHANNEL", "  channel:");
+        inline(this);
+        color(this, "LEDC");
     }
 }
 

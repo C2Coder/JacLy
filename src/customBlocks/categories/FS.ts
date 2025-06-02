@@ -2,8 +2,7 @@ import Blockly, { BlockSvg } from "blockly";
 import { javascriptGenerator, Order } from "blockly/javascript";
 import { CodeGenerator } from "blockly/core/generator";
 import { toolbox, colors } from "../toolbox";
-import { addItemToToolbox, cfg_inlineInputs } from "../customBlocks";
-
+import { addItemToToolbox, cfg_inlineInputs, dummy, value, inline, output, color } from "../customBlocks";
 
 // FS import
 addItemToToolbox(toolbox, "FS",
@@ -15,13 +14,9 @@ addItemToToolbox(toolbox, "FS",
 
 Blockly.Blocks['fs_import'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Import FS');
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["FS"]);
+        dummy(this, 'Import FS');
+        inline(this);
+        color(this, "FS");
     }
 }
 

@@ -94,6 +94,7 @@ export const colors = {
   "GridUI":       hexColors[0][4], 
   "I2C":          hexColors[0][5], 
   "FS":           hexColors[0][6], 
+  "Path":         hexColors[0][7], 
                           
   "Custom Button":"#5BA57A",
 };
@@ -798,6 +799,12 @@ export const toolbox: Toolbox = {
         kind: "category",
         name: "FS",
         colour: colors["FS"],
+        contents: [],
+      },
+      { // Path
+        kind: "category",
+        name: "Path",
+        colour: colors["Path"],
         contents: [],
       },
       { kind: "sep" },

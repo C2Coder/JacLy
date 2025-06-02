@@ -2,8 +2,7 @@ import Blockly, { BlockSvg } from "blockly";
 import { javascriptGenerator, Order } from "blockly/javascript";
 import { CodeGenerator } from "blockly/core/generator";
 import { toolbox, colors } from "../toolbox";
-import { addItemToToolbox, cfg_inlineInputs } from "../customBlocks";
-
+import { addItemToToolbox, cfg_inlineInputs, dummy, value, inline, output, color } from "../customBlocks";
 // GPIO import
 addItemToToolbox(toolbox, "GPIO",
     {
@@ -14,13 +13,9 @@ addItemToToolbox(toolbox, "GPIO",
 
 Blockly.Blocks['gpio_import'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Import GPIO');
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["GPIO"]);
+        dummy(this, 'Import GPIO');
+        inline(this);
+        color(this, "GPIO");
     }
 }
 
@@ -51,17 +46,12 @@ addItemToToolbox(toolbox, "GPIO",
 
 Blockly.Blocks['gpio_pinmode'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Set pin mode');
-        this.appendValueInput("PIN")
-            .appendField("  pin:")
+        dummy(this, 'Set pin mode');
+        value(this, "PIN", "  pin:");
         this.appendDummyInput()
             .appendField(new Blockly.FieldDropdown([["INPUT", "INPUT"], ["INPUT_PULLUP", "INPUT_PULLUP"], ["INPUT_PULLDOWN", "INPUT_PULLDOWN"], ["OUTPUT", "OUTPUT"], ["DISABLE", "DISABLE"]]), "MODE");
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["GPIO"]);
+        inline(this);
+        color(this, "GPIO");
     }
 }
 
@@ -95,17 +85,11 @@ addItemToToolbox(toolbox, "GPIO",
 
 Blockly.Blocks['gpio_write'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Pin write');
-        this.appendValueInput("PIN")
-            .appendField("  pin:")
-        this.appendValueInput("VALUE")
-            .appendField("  value:")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["GPIO"]);
+        dummy(this, 'Pin write');
+        value(this, "PIN", "  pin:");
+        value(this, "VALUE", "  value:");
+        inline(this);
+        color(this, "GPIO");
     }
 }
 
@@ -134,14 +118,10 @@ addItemToToolbox(toolbox, "GPIO",
 
 Blockly.Blocks['gpio_read'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Pin read');
-        this.appendValueInput("PIN")
-            .appendField("  pin:")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setOutput(true, Boolean);
-        this.setColour(colors["GPIO"]);
+        dummy(this, 'Pin read');
+        value(this, "PIN", "  pin:");
+        output(this);
+        color(this, "GPIO");
     }
 }
 
@@ -170,18 +150,15 @@ addItemToToolbox(toolbox, "GPIO",
 
 Blockly.Blocks['gpio_on'] = {
     init: function () {
-        this.appendValueInput("PIN")
-            .appendField("Pin:")
+        value(this, "PIN", "  pin:");
         this.appendDummyInput()
             .appendField("  on: ")
             .appendField(new Blockly.FieldDropdown([["rising", "rising"], ["falling", "falling"], ["change", "change"]]), "MODE");
         this.appendStatementInput("CODE")
             .appendField("");
 
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["GPIO"]);
+        inline(this);
+        color(this, "GPIO");
     }
 }
 
@@ -210,17 +187,13 @@ addItemToToolbox(toolbox, "GPIO",
 
 Blockly.Blocks['gpio_off'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Pin off');
-        this.appendValueInput("PIN")
-            .appendField("pin:")
+        dummy(this, 'Pin off');
+        value(this, "PIN", "  pin:");
         this.appendDummyInput()
             .appendField(new Blockly.FieldDropdown([["rising", "rising"], ["falling", "falling"], ["change", "change"]]), "MODE");
 
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["GPIO"]);
+        inline(this);
+        color(this, "GPIO");
     }
 }
 

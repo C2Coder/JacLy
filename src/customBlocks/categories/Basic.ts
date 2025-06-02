@@ -2,7 +2,8 @@ import Blockly, { BlockSvg } from "blockly";
 import { javascriptGenerator, Order } from "blockly/javascript";
 import { CodeGenerator } from "blockly/core/generator";
 import { toolbox, colors } from "../toolbox";
-import { addItemToToolbox, cfg_inlineInputs } from "../customBlocks";
+import { addItemToToolbox, cfg_inlineInputs, dummy, value, inline, output, color } from "../customBlocks";
+import { allUsedVarModels } from "blockly/core/variables";
 
 // Basic console
 addItemToToolbox(toolbox, "Basic",
@@ -26,10 +27,8 @@ Blockly.Blocks['console'] = {
             .appendField("console")
             .appendField(new Blockly.FieldDropdown([["log", "log"], ["error", "error"], ["info", "info"], ["debug", "debug"]]), "TYPE");
 
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["Basic"]);
+        inline(this);
+        color(this, "Basic");
     }
 };
 
@@ -53,15 +52,12 @@ addItemToToolbox(toolbox, "Basic",
 
 Blockly.Blocks['await'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('await');
+        dummy(this, 'Await');
         this.appendValueInput("CODE")
             .setCheck(Function)
 
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["Basic"]);
+        inline(this);
+        color(this, "Basic");
     }
 }
 
@@ -89,15 +85,13 @@ addItemToToolbox(toolbox, "Basic",
 
 Blockly.Blocks['sleep'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('sleep');
+        dummy(this, 'Sleep');
         this.appendValueInput("TIME")
             .setAlign(Blockly.inputs.Align.RIGHT)
             .appendField("ms:")
 
-        this.setInputsInline(cfg_inlineInputs);
-        this.setOutput(true, Function);
-        this.setColour(colors["Basic"]);
+        output(this);
+        color(this, "Basic");
     }
 }
 
@@ -125,13 +119,11 @@ addItemToToolbox(toolbox, "Basic",
 
 Blockly.Blocks['raw_code'] = {
     init: function () {
-        this.appendValueInput('CODE')
-            .appendField('')
+        this.appendValueInput("CODE")
+            .appendField("");
 
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["Basic_gray"]);
+        inline(this);
+        color(this, "Basic_gray");
     }
 }
 
@@ -158,13 +150,9 @@ addItemToToolbox(toolbox, "Basic",
 
 Blockly.Blocks['comment'] = {
     init: function () {
-        this.appendValueInput('COMMENT')
-            .appendField('  //');
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["Basic_gray"]);
+        value(this, 'COMMENT', '  //');
+        inline(this);
+        color(this, "Basic_gray");
     }
 }
 
@@ -197,19 +185,14 @@ addItemToToolbox(toolbox, "Basic",
 
 Blockly.Blocks['set_interval'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('setInterval')
-        this.appendValueInput("NAME")
-            .appendField("  name:")
+
+        dummy(this, 'Set interval');
+        value(this, "NAME", "  name:");
         this.appendStatementInput("CODE")
             .appendField("do");
-        this.appendValueInput("INTERVAL")
-            .appendField("ms: ")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["Basic"]);
+        value(this, "INTERVAL", "  ms:");
+        inline(this);
+        color(this, "Basic");
     }
 }
 
@@ -237,15 +220,10 @@ addItemToToolbox(toolbox, "Basic",
 
 Blockly.Blocks['clear_interval'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('clearInterval')
-        this.appendValueInput("NAME")
-            .appendField("  name:")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["Basic"]);
+        dummy(this, 'Clear interval');
+        value(this, "NAME", "  name:");
+        inline(this);
+        color(this, "Basic");
     }
 }
 
@@ -278,19 +256,13 @@ addItemToToolbox(toolbox, "Basic",
 
 Blockly.Blocks['set_timeout'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('setTimeout')
-        this.appendValueInput("NAME")
-            .appendField("  name:")
+        dummy(this, 'Set timeout');
+        value(this, "NAME", "  name:");
         this.appendStatementInput("CODE")
             .appendField("do");
-        this.appendValueInput("TIMEOUT")
-            .appendField("ms: ")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["Basic"]);
+        value(this, "TIMEOUT", "  ms:");
+        inline(this);
+        color(this, "Basic");
     }
 }
 
@@ -318,15 +290,10 @@ addItemToToolbox(toolbox, "Basic",
 
 Blockly.Blocks['clear_timeout'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('clearTimeout')
-        this.appendValueInput("NAME")
-            .appendField("  name:")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["Basic"]);
+        dummy(this, 'Clear timeout');
+        value(this, "NAME", "  name:");
+        inline(this);
+        color(this, "Basic");
     }
 }
 

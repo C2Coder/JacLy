@@ -2,7 +2,7 @@ import Blockly, { BlockSvg } from "blockly";
 import { javascriptGenerator, Order } from "blockly/javascript";
 import { CodeGenerator } from "blockly/core/generator";
 import { toolbox, colors } from "../toolbox";
-import { addItemToToolbox, cfg_inlineInputs } from "../customBlocks";
+import { addItemToToolbox, cfg_inlineInputs, dummy, value, inline, output, color } from "../customBlocks";
 
 // WiFi import
 addItemToToolbox(toolbox, "WiFi",
@@ -14,13 +14,9 @@ addItemToToolbox(toolbox, "WiFi",
 
 Blockly.Blocks['wifi_import'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Import WiFi');
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["WiFi"]);
+        dummy(this, 'Import WiFi');
+        inline(this);
+        color(this, "WiFi");
     }
 }
 
@@ -42,12 +38,9 @@ addItemToToolbox(toolbox, "WiFi",
 
 Blockly.Blocks['wifi_currentip'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Current IP');
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setOutput(true, String);
-        this.setColour(colors["WiFi"]);
+        dummy(this, 'Get Current IP');
+        output(this);
+        color(this, "WiFi");
     }
 }
 

@@ -2,7 +2,8 @@ import Blockly, { BlockSvg } from "blockly";
 import { javascriptGenerator, Order } from "blockly/javascript";
 import { CodeGenerator } from "blockly/core/generator";
 import { toolbox, colors } from "../toolbox";
-import { addItemToToolbox, cfg_inlineInputs } from "../customBlocks";
+import { addItemToToolbox, cfg_inlineInputs, dummy, value, inline, output, color } from "../customBlocks";
+
 
 // !Motor !import
 addItemToToolbox(toolbox, "Motor",
@@ -14,13 +15,9 @@ addItemToToolbox(toolbox, "Motor",
 
 Blockly.Blocks['motor_import'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Import Motor');
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["Motor"]);
+        dummy(this, 'Import Motor');
+        inline(this);
+        color(this, "Motor");
     }
 }
 

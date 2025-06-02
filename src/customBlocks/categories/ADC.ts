@@ -2,8 +2,8 @@ import Blockly, { BlockSvg } from "blockly";
 import { javascriptGenerator, Order } from "blockly/javascript";
 import { CodeGenerator } from "blockly/core/generator";
 import { toolbox, colors } from "../toolbox";
-import { addItemToToolbox, cfg_inlineInputs } from "../customBlocks";
-
+import { addItemToToolbox, cfg_inlineInputs, dummy, value, inline, output, color } from "../customBlocks";
+import { read } from "fs";
 
 // ADC import
 addItemToToolbox(toolbox, "ADC",
@@ -15,13 +15,9 @@ addItemToToolbox(toolbox, "ADC",
 
 Blockly.Blocks['adc_import'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Import ADC');
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["ADC"]);
+        dummy(this, 'Import ADC');
+        inline(this);
+        color(this, "ADC");
     }
 }
 
@@ -49,15 +45,10 @@ addItemToToolbox(toolbox, "ADC",
 
 Blockly.Blocks['adc_configure'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Configure ADC')
-        this.appendValueInput("PIN")
-            .appendField("  pin:")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["ADC"]);
+        dummy(this, 'Configure ADC');
+        value(this, "PIN", "  pin:");
+        inline(this);
+        color(this, "ADC");
     }
 };
 
@@ -85,14 +76,10 @@ addItemToToolbox(toolbox, "ADC",
 
 Blockly.Blocks['adc_read'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Read ADC');
-        this.appendValueInput("PIN")
-            .appendField("  pin:");
-        
-        this.setInputsInline(cfg_inlineInputs);
-        this.setOutput(true, Number);
-        this.setColour(colors["ADC"]);
+        dummy(this, 'ADC read');
+        value(this, "PIN", "  pin:");
+        output(this);
+        color(this, "ADC");
     }
 }
 

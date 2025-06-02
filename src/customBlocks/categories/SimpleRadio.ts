@@ -1,8 +1,8 @@
-import Blockly, { BlockSvg } from "blockly";
+import Blockly, { BlockSvg, inputTypes } from "blockly";
 import { javascriptGenerator, Order } from "blockly/javascript";
 import { CodeGenerator } from "blockly/core/generator";
 import { toolbox, colors } from "../toolbox";
-import { addItemToToolbox, cfg_inlineInputs } from "../customBlocks";
+import { addItemToToolbox, cfg_inlineInputs, dummy, value, inline, output, color } from "../customBlocks";
 
 
 // SimpleRadio import
@@ -15,13 +15,9 @@ addItemToToolbox(toolbox, "SimpleRadio",
 
 Blockly.Blocks['simpleradio_import'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Import SimpleRadio');
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["SimpleRadio"]);
+        dummy(this, 'Import SimpleRadio');
+        inline(this);
+        color(this, "SimpleRadio");
     }
 }
 
@@ -49,15 +45,10 @@ addItemToToolbox(toolbox, "SimpleRadio",
 
 Blockly.Blocks['simpleradio_begin'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Begin');
-        this.appendValueInput("GROUP")
-            .appendField("  group:")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["SimpleRadio"]);
+        dummy(this, 'Begin');
+        value(this, "GROUP", "  group:");
+        inline(this);
+        color(this, "SimpleRadio");
     }
 }
 
@@ -86,15 +77,10 @@ addItemToToolbox(toolbox, "SimpleRadio",
 
 Blockly.Blocks['simpleradio_sendstring'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Send string');
-        this.appendValueInput("STRING")
-            .appendField("  string:")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["SimpleRadio"]);
+        dummy(this, 'Send string');
+        value(this, "STRING", "  string:");
+        inline(this);
+        color(this, "SimpleRadio");
     }
 }
 
@@ -122,15 +108,10 @@ addItemToToolbox(toolbox, "SimpleRadio",
 
 Blockly.Blocks['simpleradio_sendnumber'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Send number');
-        this.appendValueInput("NUMBER")
-            .appendField("  number:")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["SimpleRadio"]);
+        dummy(this, 'Send number');
+        value(this, "NUMBER", "  number:");
+        inline(this);
+        color(this, "SimpleRadio");
     }
 }
 
@@ -163,17 +144,11 @@ addItemToToolbox(toolbox, "SimpleRadio",
 
 Blockly.Blocks['simpleradio_sendkeyvalue'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Send key value');
-        this.appendValueInput("KEY")
-            .appendField("  key:")
-        this.appendValueInput("VALUE")
-            .appendField("  value:")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["SimpleRadio"]);
+        dummy(this, 'Send key value');
+        value(this, "KEY", "  key:");
+        value(this, "VALUE", "  value:");
+        inline(this);
+        color(this, "SimpleRadio");
     }
 }
 
@@ -206,10 +181,8 @@ Blockly.Blocks['simpleradio_on'] = {
             .appendField(new Blockly.FieldDropdown([["number", "number"], ["string", "string"], ["keyvalue", "keyvalue"]]), "TYPE");
         this.appendStatementInput("CODE")
 
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["SimpleRadio"]);
+        inline(this);
+        color(this, "SimpleRadio");
     }
 }
 
@@ -248,9 +221,8 @@ Blockly.Blocks['simpleradio_values'] = {
         this.appendDummyInput('')
             .appendField(new Blockly.FieldDropdown([["num", "num"], ["str", "str"], ["key", "key"], ["value", "value"]]), "TYPE");
 
-        this.setInputsInline(cfg_inlineInputs);
-        this.setOutput(true, null);
-        this.setColour(colors["SimpleRadio"]);
+        output(this);
+        color(this, "SimpleRadio");
     }
 }
 
@@ -277,9 +249,8 @@ Blockly.Blocks['simpleradio_info'] = {
             .appendField('info.')
             .appendField(new Blockly.FieldDropdown([["group", "group"], ["address", "address"], ["rssi", "rssi"]]), "TYPE");
 
-        this.setInputsInline(cfg_inlineInputs);
-        this.setOutput(true, null);
-        this.setColour(colors["SimpleRadio"]);
+        output(this);
+        color(this, "SimpleRadio");
     }
 }
 
@@ -302,12 +273,9 @@ addItemToToolbox(toolbox, "SimpleRadio",
 
 Blockly.Blocks['simpleradio_adress'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Adress');
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setOutput(true, String);
-        this.setColour(colors["SimpleRadio"]);
+        dummy(this, 'Address');
+        output(this);
+        color(this, "SimpleRadio");
     }
 }
 
@@ -329,12 +297,9 @@ addItemToToolbox(toolbox, "SimpleRadio",
 
 Blockly.Blocks['simpleradio_group'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Group');
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setOutput(true, Number);
-        this.setColour(colors["SimpleRadio"]);
+        dummy(this, 'Group');
+        output(this);
+        color(this, "SimpleRadio");
     }
 }
 
@@ -363,15 +328,10 @@ addItemToToolbox(toolbox, "SimpleRadio",
 
 Blockly.Blocks['simpleradio_setgroup'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Set group');
-        this.appendValueInput("GROUP")
-            .appendField("  group:")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["SimpleRadio"]);
+        dummy(this, 'Set group');
+        value(this, "GROUP", "  group:");
+        inline(this);
+        color(this, "SimpleRadio");
     }
 }
 
@@ -392,13 +352,9 @@ addItemToToolbox(toolbox, "SimpleRadio",
 
 Blockly.Blocks['simpleradio_end'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('End');
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["SimpleRadio"]);
+        dummy(this, 'End SimpleRadio');
+        inline(this);
+        color(this, "SimpleRadio");
     }
 }
 
@@ -424,10 +380,8 @@ Blockly.Blocks['simpleradio_off'] = {
             .appendField(new Blockly.FieldDropdown([["number", "number"], ["string", "string"], ["keyvalue", "keyvalue"]]), "TYPE");
 
 
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["SimpleRadio"]);
+        inline(this);
+        color(this, "SimpleRadio");
     }
 }
 

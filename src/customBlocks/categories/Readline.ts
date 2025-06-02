@@ -2,7 +2,8 @@ import Blockly, { BlockSvg } from "blockly";
 import { javascriptGenerator, Order } from "blockly/javascript";
 import { CodeGenerator } from "blockly/core/generator";
 import { toolbox, colors } from "../toolbox";
-import { addItemToToolbox, cfg_inlineInputs } from "../customBlocks";
+import { addItemToToolbox, cfg_inlineInputs, dummy, value, inline, output, color } from "../customBlocks";
+
 
 // Readline import
 addItemToToolbox(toolbox, "Readline",
@@ -14,13 +15,9 @@ addItemToToolbox(toolbox, "Readline",
 
 Blockly.Blocks['readline_import'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Import Readline');
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["Readline"]);
+        dummy(this, 'Import Readline');
+        inline(this);
+        color(this, "Readline");
     }
 }
 

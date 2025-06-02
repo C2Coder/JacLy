@@ -2,8 +2,7 @@ import Blockly, { BlockSvg } from "blockly";
 import { javascriptGenerator, Order } from "blockly/javascript";
 import { CodeGenerator } from "blockly/core/generator";
 import { toolbox, colors } from "../toolbox";
-import { addItemToToolbox, cfg_inlineInputs } from "../customBlocks";
-
+import { addItemToToolbox, cfg_inlineInputs, dummy, value, inline, output, color } from "../customBlocks";
 
 // Smartled import
 addItemToToolbox(toolbox, "Smartled",
@@ -15,13 +14,9 @@ addItemToToolbox(toolbox, "Smartled",
 
 Blockly.Blocks['smartled_import'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Import smartled');
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["Smartled"]);
+        dummy(this, 'Import smartled');
+        inline(this);
+        color(this, "Smartled");
     }
 }
 
@@ -69,14 +64,10 @@ addItemToToolbox(toolbox, "Smartled",
 
 Blockly.Blocks['create_strip'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Create strip');
-        this.appendValueInput("NAME")
-            .appendField("  name:")
-        this.appendValueInput("PIN")
-            .appendField("  pin:")
-        this.appendValueInput("COUNT")
-            .appendField("  count:")
+        dummy(this, 'Create strip');
+        value(this, "NAME", "  name:");
+        value(this, "PIN", "  pin:");
+        value(this, "COUNT", "  count:");
         this.appendDummyInput("")
             .appendField("  type:")
             .appendField(new Blockly.FieldDropdown([
@@ -87,10 +78,8 @@ Blockly.Blocks['create_strip'] = {
                 ['WS2813', 'LED_WS2813']
             ]), 'TYPE');
 
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["Smartled"]);
+        inline(this);
+        color(this, "Smartled");
     }
 }
 
@@ -127,19 +116,12 @@ addItemToToolbox(toolbox, "Smartled",
 
 Blockly.Blocks['set_hex'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Set HEX');
-        this.appendValueInput('NAME')
-            .appendField('  name:');
-        this.appendValueInput('COLOR')
-            .appendField('  color:');
-        this.appendValueInput('INDEX')
-            .appendField('  index:')
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["Smartled"]);
+        dummy(this, 'Set HEX');
+        value(this, 'NAME', '  name:');
+        value(this, 'COLOR', '  color:');
+        value(this, 'INDEX', '  index:');
+        inline(this);
+        color(this, "Smartled");
     }
 }
 
@@ -189,23 +171,15 @@ addItemToToolbox(toolbox, "Smartled",
 
 Blockly.Blocks['set_hsv'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Set HSV');
-        this.appendValueInput('NAME')
-            .appendField('  name:');
-        this.appendValueInput('INDEX')
-            .appendField('  index:');
-        this.appendValueInput('HUE')
-            .appendField('  H (0-360):')
-        this.appendValueInput('SATURATION')
-            .appendField('  S (0-1):')
-        this.appendValueInput('VALUE')
-            .appendField('  V (0-1):')
+        dummy(this, 'Set HSV');
+        value(this, 'NAME', '  name:');
+        value(this, 'INDEX', '  index:');        
+        value(this, 'HUE', '  H (0-360):');
+        value(this, 'SATURATION', '  S (0-1):');
+        value(this, 'VALUE', '  V (0-1):');
 
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["Smartled"]);
+        inline(this);
+        color(this, "Smartled");
     }
 }
 
@@ -257,23 +231,14 @@ addItemToToolbox(toolbox, "Smartled",
 
 Blockly.Blocks['set_rgb'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Set RGB');
-        this.appendValueInput('NAME')
-            .appendField('  name:');
-        this.appendValueInput('INDEX')
-            .appendField('  index:');
-        this.appendValueInput('R')
-            .appendField('  R (0-256):')
-        this.appendValueInput('G')
-            .appendField('  G (0-256):')
-        this.appendValueInput('B')
-            .appendField('  B (0-256):')
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["Smartled"]);
+        dummy(this, 'Set RGB');
+        value(this, 'NAME', '  name:');
+        value(this, 'INDEX', '  index:');
+        value(this, 'R', '  R (0-256):');
+        value(this, 'G', '  G (0-256):');
+        value(this, 'B', '  B (0-256):');
+        inline(this);
+        color(this, "Smartled");
     }
 }
 
@@ -305,15 +270,10 @@ addItemToToolbox(toolbox, "Smartled",
 
 Blockly.Blocks['strip_clear'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Clear strip');
-        this.appendValueInput("NAME")
-            .appendField("  name:")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["Smartled"]);
+        dummy(this, 'Clear strip');
+        value(this, "NAME", "  name:");
+        inline(this);
+        color(this, "Smartled");
     }
 }
 
@@ -341,15 +301,10 @@ addItemToToolbox(toolbox, "Smartled",
 
 Blockly.Blocks['strip_show'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Show strip');
-        this.appendValueInput("NAME")
-            .appendField("  name:")
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["Smartled"]);
+        dummy(this, 'Show strip');
+        value(this, "NAME", "  name:");
+        inline(this);
+        color(this, "Smartled");
     }
 }
 
