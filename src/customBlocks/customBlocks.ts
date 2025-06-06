@@ -3,27 +3,55 @@ import { javascriptGenerator, Order } from "blockly/javascript";
 import { CodeGenerator } from "blockly/core/generator";
 import { toolbox, Toolbox, ToolboxItem, CustomCategory, colors } from "./toolbox";
 
-export const cfg_inlineInputs = true;
 
-export function dummy(that:any, text:string) {
+export function getField(_b:BlockSvg, name: string) {
+    return _b.getFieldValue(name)
+}
+
+export function getVal(_g:CodeGenerator, _b:BlockSvg, name: string) {
+    return _g.valueToCode(_b, name, 0)
+}
+export function getStatement(_g:CodeGenerator, _b:BlockSvg, name: string) {
+    return _g.statementToCode(_b, name)
+}
+
+
+export function dummy(that: any, text: string) {
     that.appendDummyInput('')
         .appendField(text);
 }
 
-export function value(that:any, name:string, text:string) {
+export function value(that: any, name: string, text: string) {
     that.appendValueInput(name)
         .appendField(text);
 }
 
-export function inline(that:any){
-        that.setInputsInline(cfg_inlineInputs);
-        that.setPreviousStatement(true, null);
-        that.setNextStatement(true, null);
+export function dropdown(that: any, name: string, text: string, options: Blockly.MenuGenerator) {
+    if (text === undefined || text === null || text === "") {
+        that.appendDummyInput(name)
+            .appendField(new Blockly.FieldDropdown(options), name);
+    }
+    else {
+        that.appendDummyInput(name)
+        .appendField(text)
+        .appendField(new Blockly.FieldDropdown(options), name);
+    }
 }
 
-export function output(that:any){
-        that.setInputsInline(cfg_inlineInputs);
-        that.setOutput(true, String);
+export function statement(that: any, name: string, text: string) {
+    that.appendStatementInput(name)
+        .appendField(text);
+}
+
+export function inline(that: any) {
+    that.setInputsInline(true);
+    that.setPreviousStatement(true, null);
+    that.setNextStatement(true, null);
+}
+
+export function output(that: any, type: any) {
+    that.setInputsInline(true);
+    that.setOutput(true, type);
 }
 
 export function color(that: any, categoryName: keyof typeof colors) {

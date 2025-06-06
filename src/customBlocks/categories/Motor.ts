@@ -1,8 +1,8 @@
 import Blockly, { BlockSvg } from "blockly";
 import { javascriptGenerator, Order } from "blockly/javascript";
 import { CodeGenerator } from "blockly/core/generator";
-import { toolbox, colors } from "../toolbox";
-import { addItemToToolbox, cfg_inlineInputs, dummy, value, inline, output, color } from "../customBlocks";
+import { toolbox } from "../toolbox";
+import { addItemToToolbox, dummy, value, inline, output, color } from "../customBlocks";
 
 
 // !Motor !import
@@ -21,7 +21,6 @@ Blockly.Blocks['motor_import'] = {
     }
 }
 
-javascriptGenerator.forBlock['motor_import'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = "import * as motor from 'motor';\n"
-    return code;
+javascriptGenerator.forBlock['motor_import'] = function (b: BlockSvg, g: CodeGenerator) {
+    return "import * as motor from 'motor';\n"
 }

@@ -19,10 +19,6 @@ const BlocklyEditor: FC<HeaderProps> = ({}) => {
         console.log("Workspace changed")
         try {
             let jsCode = javascriptGenerator.workspaceToCode(newWorkspace);
-
-            // window.alert to console.log
-            // jsCode = jsCode.replaceAll("window.alert", "await sleep(1000);console.log");
-            // jsCode = jsCode.replaceAll("function", "async function");
             setCode(jsCode);
         } catch (e) {
             console.error("Error generating code: " + e);

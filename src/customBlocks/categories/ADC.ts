@@ -1,9 +1,8 @@
 import Blockly, { BlockSvg } from "blockly";
 import { javascriptGenerator, Order } from "blockly/javascript";
 import { CodeGenerator } from "blockly/core/generator";
-import { toolbox, colors } from "../toolbox";
-import { addItemToToolbox, cfg_inlineInputs, dummy, value, inline, output, color } from "../customBlocks";
-import { read } from "fs";
+import { toolbox } from "../toolbox";
+import { addItemToToolbox, dummy, value, inline, output, color } from "../customBlocks";
 
 // ADC import
 addItemToToolbox(toolbox, "ADC",
@@ -21,9 +20,8 @@ Blockly.Blocks['adc_import'] = {
     }
 }
 
-javascriptGenerator.forBlock['adc_import'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = "import * as adc from 'adc';\n"
-    return code;
+javascriptGenerator.forBlock['adc_import'] = function (b: BlockSvg, g: CodeGenerator) {
+    return  "import * as adc from 'adc';\n";
 }
 
 // ---- //
@@ -52,9 +50,8 @@ Blockly.Blocks['adc_configure'] = {
     }
 };
 
-javascriptGenerator.forBlock['adc_configure'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = 'adc.configure(' + generator.valueToCode(block, 'PIN', 0) + ');\n';
-    return code;
+javascriptGenerator.forBlock['adc_configure'] = function (b: BlockSvg, g: CodeGenerator) {
+    return  'adc.configure(' + g.valueToCode(b, 'PIN', 0) + ');\n';
 }
 
 // ---- //
@@ -78,12 +75,11 @@ Blockly.Blocks['adc_read'] = {
     init: function () {
         dummy(this, 'ADC read');
         value(this, "PIN", "  pin:");
-        output(this);
+        output(this, Number);
         color(this, "ADC");
     }
 }
 
-javascriptGenerator.forBlock['adc_read'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = 'adc.read(' + generator.valueToCode(block, 'PIN', 0) + ')';
-    return [code, Order.NONE];
+javascriptGenerator.forBlock['adc_read'] = function (b: BlockSvg, g: CodeGenerator) {
+    return ['adc.read(' + g.valueToCode(b, 'PIN', 0) + ')', Order.NONE];
 }

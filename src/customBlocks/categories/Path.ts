@@ -1,8 +1,8 @@
 import Blockly, { BlockSvg } from "blockly";
 import { javascriptGenerator, Order } from "blockly/javascript";
 import { CodeGenerator } from "blockly/core/generator";
-import { toolbox, colors } from "../toolbox";
-import { addItemToToolbox, cfg_inlineInputs } from "../customBlocks";
+import { toolbox } from "../toolbox";
+import { addItemToToolbox, dummy, value, inline, output, color, getVal, getField, getStatement } from "../customBlocks";
 
 // !Path !import
 addItemToToolbox(toolbox, "Path",
@@ -14,19 +14,14 @@ addItemToToolbox(toolbox, "Path",
 
 Blockly.Blocks['path_import'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Import Path');
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(colors["Path"]);
+        dummy(this, 'Import Path');
+        inline(this);
+        color(this, "Path");
     }
 }
 
-javascriptGenerator.forBlock['path_import'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = "import * as path from 'path';\n"
-    return code;
+javascriptGenerator.forBlock['path_import'] = function (b: BlockSvg, g: CodeGenerator) {
+    return "import * as path from 'path';\n"
 }
 
 
@@ -48,20 +43,15 @@ addItemToToolbox(toolbox, "Path",
 
 Blockly.Blocks['path_normalize'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Normalize Path');
-        this.appendValueInput("path")
-            .appendField("  path:");
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setOutput(true, Boolean);
-        this.setColour(colors["Path"]);
+        dummy(this, 'Normalize Path');
+        value(this, "path", "  path:");
+        output(this, Boolean);
+        color(this, "Path");
     }
 }
 
-javascriptGenerator.forBlock['path_normalize'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = 'path.normalize(' + generator.valueToCode(block, 'path', 0) + ')';
-    return [code, Order.NONE];
+javascriptGenerator.forBlock['path_normalize'] = function (b: BlockSvg, g: CodeGenerator) {
+    return ['path.normalize(' + getVal(g, b, 'path') + ')', Order.NONE];
 }
 
 // ---- //
@@ -85,20 +75,15 @@ addItemToToolbox(toolbox, "Path",
 
 Blockly.Blocks['path_dirname'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Path Directory Name');
-        this.appendValueInput("path")
-            .appendField("  path:");
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setOutput(true, Boolean);
-        this.setColour(colors["Path"]);
+        dummy(this, 'Path Directory Name');
+        value(this, "path", "  path:");
+        output(this, Boolean);
+        color(this, "Path");
     }
 }
 
-javascriptGenerator.forBlock['path_dirname'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = 'path.dirname(' + generator.valueToCode(block, 'path', 0) + ')';
-    return [code, Order.NONE];
+javascriptGenerator.forBlock['path_dirname'] = function (b: BlockSvg, g: CodeGenerator) {
+    return ['path.dirname(' + getVal(g, b, 'path') + ')', Order.NONE];
 }
 
 // ---- //
@@ -122,20 +107,16 @@ addItemToToolbox(toolbox, "Path",
 
 Blockly.Blocks['path_basename'] = {
     init: function () {
-        this.appendDummyInput('')
-            .appendField('Basename of Path');
-        this.appendValueInput("path")
-            .appendField("  path:");
-
-        this.setInputsInline(cfg_inlineInputs);
-        this.setOutput(true, Boolean);
-        this.setColour(colors["Path"]);
+        dummy(this, 'Path Basename');
+        value(this, "path", "  path:");
+        output(this, Boolean);
+        color(this, "Path");
+        
     }
 }
 
-javascriptGenerator.forBlock['path_basename'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = 'path.basename(' + generator.valueToCode(block, 'path', 0) + ')';
-    return [code, Order.NONE];
+javascriptGenerator.forBlock['path_basename'] = function (b: BlockSvg, g: CodeGenerator) {
+    return ['path.basename(' + getVal(g, b, 'path') + ')', Order.NONE];
 }
 
 // ---- //

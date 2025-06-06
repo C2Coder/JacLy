@@ -1,8 +1,8 @@
 import Blockly, { BlockSvg } from "blockly";
 import { javascriptGenerator, Order } from "blockly/javascript";
 import { CodeGenerator } from "blockly/core/generator";
-import { toolbox, colors } from "../toolbox";
-import { addItemToToolbox, cfg_inlineInputs, dummy, value, inline, output, color } from "../customBlocks";
+import { toolbox } from "../toolbox";
+import { addItemToToolbox, dummy, value, inline, output, color } from "../customBlocks";
 
 // FS import
 addItemToToolbox(toolbox, "FS",
@@ -20,7 +20,6 @@ Blockly.Blocks['fs_import'] = {
     }
 }
 
-javascriptGenerator.forBlock['fs_import'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = "import * as fs from 'fs';\n"
-    return code;
+javascriptGenerator.forBlock['fs_import'] = function (b: BlockSvg, g: CodeGenerator) {
+    return "import * as fs from 'fs';\n";
 }

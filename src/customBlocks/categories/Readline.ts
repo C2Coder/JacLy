@@ -1,8 +1,8 @@
 import Blockly, { BlockSvg } from "blockly";
 import { javascriptGenerator, Order } from "blockly/javascript";
 import { CodeGenerator } from "blockly/core/generator";
-import { toolbox, colors } from "../toolbox";
-import { addItemToToolbox, cfg_inlineInputs, dummy, value, inline, output, color } from "../customBlocks";
+import { toolbox } from "../toolbox";
+import { addItemToToolbox, dummy, value, inline, output, color } from "../customBlocks";
 
 
 // Readline import
@@ -21,7 +21,6 @@ Blockly.Blocks['readline_import'] = {
     }
 }
 
-javascriptGenerator.forBlock['readline_import'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = "import * as readline from './libs/readline.js';\n"
-    return code;
+javascriptGenerator.forBlock['readline_import'] = function (b: BlockSvg, g: CodeGenerator) {
+    return "import * as readline from './libs/readline.js';\n"
 }

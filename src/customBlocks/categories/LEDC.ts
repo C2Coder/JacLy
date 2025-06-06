@@ -1,8 +1,8 @@
 import Blockly, { BlockSvg } from "blockly";
 import { javascriptGenerator, Order } from "blockly/javascript";
 import { CodeGenerator } from "blockly/core/generator";
-import { toolbox, colors } from "../toolbox";
-import { addItemToToolbox, cfg_inlineInputs, dummy, value, inline, output, color } from "../customBlocks";
+import { toolbox } from "../toolbox";
+import { addItemToToolbox, dummy, value, inline, output, color, getVal, getField, getStatement } from "../customBlocks";
 
 
 
@@ -22,9 +22,8 @@ Blockly.Blocks['ledc_import'] = {
     }
 }
 
-javascriptGenerator.forBlock['ledc_import'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = "import * as ledc from 'ledc';\n"
-    return code;
+javascriptGenerator.forBlock['ledc_import'] = function (b: BlockSvg, g: CodeGenerator) {
+    return "import * as ledc from 'ledc';\n"
 }
 
 // ---- //
@@ -59,9 +58,8 @@ Blockly.Blocks['ledc_configure_timer'] = {
     }
 }
 
-javascriptGenerator.forBlock['ledc_configure_timer'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = 'ledc.configureTimer(' + generator.valueToCode(block, 'TIMER', 0) + ', ' + generator.valueToCode(block, 'FREQUENCY', 0) + ');\n';
-    return code;
+javascriptGenerator.forBlock['ledc_configure_timer'] = function (b: BlockSvg, g: CodeGenerator) {
+    return 'ledc.configureTimer(' + getVal(g, b, 'TIMER') + ', ' + getVal(g, b, 'FREQUENCY') + ');\n';
 }
 
 // ---- //
@@ -102,9 +100,8 @@ Blockly.Blocks['ledc_configure_timer_resolution'] = {
     }
 }
 
-javascriptGenerator.forBlock['ledc_configure_timer_resolution'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = 'ledc.configureTimer(' + generator.valueToCode(block, 'TIMER', 0) + ', ' + generator.valueToCode(block, 'FREQUENCY', 0) + ', ' + generator.valueToCode(block, 'RESOLUTION', 0) + ');\n';
-    return code;
+javascriptGenerator.forBlock['ledc_configure_timer_resolution'] = function (b: BlockSvg, g: CodeGenerator) {
+    return 'ledc.configureTimer(' + getVal(g, b, 'TIMER') + ', ' + getVal(g, b, 'FREQUENCY') + ', ' + getVal(g, b, 'RESOLUTION') + ');\n';
 }
 
 // ---- //
@@ -151,9 +148,8 @@ Blockly.Blocks['ledc_configure_channel'] = {
     }
 }
 
-javascriptGenerator.forBlock['ledc_configure_channel'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = 'ledc.configureChannel(' + generator.valueToCode(block, 'CHANNEL', 0) + ', ' + generator.valueToCode(block, 'PIN', 0) + ', ' + generator.valueToCode(block, 'TIMER', 0) + ', ' + generator.valueToCode(block, 'DUTY', 0) + ');\n';
-    return code;
+javascriptGenerator.forBlock['ledc_configure_channel'] = function (b: BlockSvg, g: CodeGenerator) {
+    return 'ledc.configureChannel(' + getVal(g, b, 'CHANNEL') + ', ' + getVal(g, b, 'PIN') + ', ' + getVal(g, b, 'TIMER') + ', ' + getVal(g, b, 'DUTY') + ');\n';
 }
 
 // ---- //
@@ -189,9 +185,8 @@ Blockly.Blocks['ledc_set_frequency'] = {
     }
 }
 
-javascriptGenerator.forBlock['ledc_set_frequency'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = 'ledc.setFrequency(' + generator.valueToCode(block, 'TIMER', 0) + ', ' + generator.valueToCode(block, 'FREQUENCY', 0) + ');\n';
-    return code;
+javascriptGenerator.forBlock['ledc_set_frequency'] = function (b: BlockSvg, g: CodeGenerator) {
+    return 'ledc.setFrequency(' + getVal(g, b, 'TIMER') + ', ' + getVal(g, b, 'FREQUENCY') + ');\n';
 }   
 
 // ---- //  
@@ -226,9 +221,8 @@ Blockly.Blocks['ledc_set_duty'] = {
     }
 }
 
-javascriptGenerator.forBlock['ledc_set_duty'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = 'ledc.setDuty(' + generator.valueToCode(block, 'CHANNEL', 0) + ', ' + generator.valueToCode(block, 'DUTY', 0) + ');\n';
-    return code;
+javascriptGenerator.forBlock['ledc_set_duty'] = function (b: BlockSvg, g: CodeGenerator) {
+    return 'ledc.setDuty(' + getVal(g, b, 'CHANNEL') + ', ' + getVal(g, b, 'DUTY') + ');\n';
 }
 
 // ---- //
@@ -257,9 +251,8 @@ Blockly.Blocks['ledc_stop_timer'] = {
     }
 }
 
-javascriptGenerator.forBlock['ledc_stop_timer'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = 'ledc.stopTimer(' + generator.valueToCode(block, 'TIMER', 0) + ');\n';
-    return code;
+javascriptGenerator.forBlock['ledc_stop_timer'] = function (b: BlockSvg, g: CodeGenerator) {
+    return 'ledc.stopTimer(' + getVal(g, b, 'TIMER') + ');\n';
 }
 
 // ---- //
@@ -288,7 +281,6 @@ Blockly.Blocks['ledc_stop_channel'] = {
     }
 }
 
-javascriptGenerator.forBlock['ledc_stop_channel'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = 'ledc.stopChannel(' + generator.valueToCode(block, 'CHANNEL', 0) + ');\n';
-    return code;
+javascriptGenerator.forBlock['ledc_stop_channel'] = function (b: BlockSvg, g: CodeGenerator) {
+    return 'ledc.stopChannel(' + getVal(g, b, 'CHANNEL') + ');\n';
 }

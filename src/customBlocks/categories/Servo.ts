@@ -1,8 +1,8 @@
 import Blockly, { BlockSvg } from "blockly";
 import { javascriptGenerator, Order } from "blockly/javascript";
 import { CodeGenerator } from "blockly/core/generator";
-import { toolbox, colors } from "../toolbox";
-import { addItemToToolbox, cfg_inlineInputs, dummy, value, inline, output, color } from "../customBlocks";
+import { toolbox } from "../toolbox";
+import { addItemToToolbox, dummy, value, inline, output, color, dropdown, statement, getVal, getField, getStatement } from "../customBlocks";
 
 
 // Servo import
@@ -21,7 +21,53 @@ Blockly.Blocks['servo_import'] = {
     }
 }
 
-javascriptGenerator.forBlock['servo_import'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = "import * as servo from './libs/servo.js';\n"
-    return code;
+javascriptGenerator.forBlock['servo_import'] = function (b: BlockSvg, g: CodeGenerator) {
+    return "import * as servo from './libs/servo.js';\n"
+}
+
+
+// Servo create
+addItemToToolbox(toolbox, "Servo",
+    {
+        kind: "block",
+        blockxml:
+            '    <block type="create_servo">\n' +
+            '      <value name="NAME">\n' +
+            '        <shadow type="text">\n' +
+            '          <field name="text">servo</field>\n' +
+            "        </shadow>\n" +
+            "      </value>\n" +
+            '      <value name="PIN">\n' +
+            '        <shadow type="math_number">\n' +
+            '          <field name="num">0</field>\n' +
+            "        </shadow>\n" +
+            "      </value>\n" +
+            '      <value name="TIMER">\n' +
+            '        <shadow type="math_number">\n' +
+            '          <field name="num">1</field>\n' +
+            "        </shadow>\n" +
+            "      </value>\n" +
+            '      <value name="CHANNEL">\n' +
+            '        <shadow type="math_number">\n' +
+            '          <field name="">1</field>\n' +
+            "        </shadow>\n" +
+            "      </value>\n" +
+            "    </block>\n",
+    },
+);
+
+Blockly.Blocks['create_servo'] = {
+    init: function () {
+        dummy(this, 'Create servo');
+        value(this, "NAME", "  name:");
+        value(this, "PIN", "  pin:");
+        value(this, "TIMER", "  timer:");
+        value(this, "CHANNEL", "  channel:");
+        inline(this);
+        color(this, "Servo");
+    }
+}
+
+javascriptGenerator.forBlock['create_servo'] = function (b: BlockSvg, g: CodeGenerator) {
+    return 'const ' + getVal(g, b, 'NAME').replaceAll("'", "") + ' = new Servo(' + getVal(g, b, 'PIN') + ', ' + getVal(g, b, 'TIMER') + ', ' + getVal(g, b, "CHANNEL") + ');\n';
 }

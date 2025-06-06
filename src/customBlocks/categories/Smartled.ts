@@ -2,7 +2,7 @@ import Blockly, { BlockSvg } from "blockly";
 import { javascriptGenerator, Order } from "blockly/javascript";
 import { CodeGenerator } from "blockly/core/generator";
 import { toolbox, colors } from "../toolbox";
-import { addItemToToolbox, cfg_inlineInputs, dummy, value, inline, output, color } from "../customBlocks";
+import { addItemToToolbox, dummy, value, inline, output, color, dropdown, getVal, getField, getStatement } from "../customBlocks";
 
 // Smartled import
 addItemToToolbox(toolbox, "Smartled",
@@ -20,14 +20,13 @@ Blockly.Blocks['smartled_import'] = {
     }
 }
 
-javascriptGenerator.forBlock['smartled_import'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = 'import { SmartLed, LED_WS2812, LED_WS2812B, LED_WS2812B_2020, LED_SK6812, LED_WS2813 } from "smartled";\n'
-        + 'function HsvToRgb(h, s, v) { let f = (n, k = (n + h / 60) % 6) => v - v * s * Math.max(Math.min(k, 4 - k, 1), 0);\n'
+javascriptGenerator.forBlock['smartled_import'] = function (b: BlockSvg, g: CodeGenerator) {
+    return 'import { SmartLed, LED_WS2812, LED_WS2812B, LED_WS2812B_2020, LED_SK6812, LED_WS2813 } from "smartled";\n'
+        + 'function HsvToRgb(h, s, v) { let f = (n, k = (n + h / 60) % 6) => v - v * s * Math.max(Math.min(k, 4 - k, 1));\n'
         + '    return { r: Math.round(f(5) * 255), g: Math.round(f(3) * 255), b: Math.round(f(1) * 255)}; }\n'
         + 'function HexToRgb(hex) { const [r, g, b] = hex.replace("#", "").match(/.{1,2}/g).map(c => parseInt(c, 16));\n'
         + '    return { r, g, b }; }\n\n'
 
-    return code;
 }
 
 // ---- //
@@ -68,23 +67,21 @@ Blockly.Blocks['create_strip'] = {
         value(this, "NAME", "  name:");
         value(this, "PIN", "  pin:");
         value(this, "COUNT", "  count:");
-        this.appendDummyInput("")
-            .appendField("  type:")
-            .appendField(new Blockly.FieldDropdown([
-                ['WS2812', 'LED_WS2812'],
-                ['WS2812B', 'LED_WS2812B'],
-                ['WS2812B_2020', 'LED_WS2812B_2020'],
-                ['SK6812', 'LED_SK6812'],
-                ['WS2813', 'LED_WS2813']
-            ]), 'TYPE');
+        dropdown(this, 'TYPE', '  type:', [
+            ['WS2812', 'LED_WS2812'],
+            ['WS2812B', 'LED_WS2812B'],
+            ['WS2812B_2020', 'LED_WS2812B_2020'],
+            ['SK6812', 'LED_SK6812'],
+            ['WS2813', 'LED_WS2813']
+        ]);
 
         inline(this);
         color(this, "Smartled");
     }
 }
 
-javascriptGenerator.forBlock['create_strip'] = function (block: BlockSvg, generator: CodeGenerator) {
-    return 'const ' + generator.valueToCode(block, 'NAME', 0).replaceAll("'", "") + ' = new SmartLed(' + generator.valueToCode(block, 'PIN', 0) + ', ' + generator.valueToCode(block, 'COUNT', 0) + ', ' + block.getFieldValue('TYPE') + ');\n';
+javascriptGenerator.forBlock['create_strip'] = function (b: BlockSvg, g: CodeGenerator) {
+    return 'const ' + getVal(g, b, 'NAME').replaceAll("'", "") + ' = new SmartLed(' + getVal(g, b, 'PIN') + ', ' + getVal(g, b, 'COUNT') + ', ' + getField(b, 'TYPE') + ');\n';
 }
 
 // ---- //
@@ -125,11 +122,10 @@ Blockly.Blocks['set_hex'] = {
     }
 }
 
-javascriptGenerator.forBlock['set_hex'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = generator.valueToCode(block, 'NAME', 0).replaceAll("'", "")
-        + '.set(' + generator.valueToCode(block, 'INDEX', 0)
-        + ', HexToRgb(' + generator.valueToCode(block, 'COLOR', 0) + '));\n';
-    return code;
+javascriptGenerator.forBlock['set_hex'] = function (b: BlockSvg, g: CodeGenerator) {
+    return getVal(g, b, 'NAME').replaceAll("'", "")
+        + '.set(' + getVal(g, b, 'INDEX')
+        + ', HexToRgb(' + getVal(g, b, 'COLOR') + '));\n';
 }
 
 // ---- //
@@ -173,7 +169,7 @@ Blockly.Blocks['set_hsv'] = {
     init: function () {
         dummy(this, 'Set HSV');
         value(this, 'NAME', '  name:');
-        value(this, 'INDEX', '  index:');        
+        value(this, 'INDEX', '  index:');
         value(this, 'HUE', '  H (0-360):');
         value(this, 'SATURATION', '  S (0-1):');
         value(this, 'VALUE', '  V (0-1):');
@@ -183,13 +179,12 @@ Blockly.Blocks['set_hsv'] = {
     }
 }
 
-javascriptGenerator.forBlock['set_hsv'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = generator.valueToCode(block, 'NAME', 0).replaceAll("'", "")
-        + '.set(' + generator.valueToCode(block, 'INDEX', 0)
-        + ', HsvToRgb(' + generator.valueToCode(block, 'HUE', 0)
-        + ', ' + generator.valueToCode(block, 'SATURATION', 0)
-        + ', ' + generator.valueToCode(block, 'VALUE', 0) + '));\n';
-    return code;
+javascriptGenerator.forBlock['set_hsv'] = function (b: BlockSvg, g: CodeGenerator) {
+    return getVal(g, b, 'NAME').replaceAll("'", "")
+        + '.set(' + getVal(g, b, 'INDEX')
+        + ', HsvToRgb(' + getVal(g, b, 'HUE')
+        + ', ' + getVal(g, b, 'SATURATION')
+        + ', ' + getVal(g, b, 'VALUE') + '));\n';
 }
 
 // ---- //
@@ -242,13 +237,12 @@ Blockly.Blocks['set_rgb'] = {
     }
 }
 
-javascriptGenerator.forBlock['set_rgb'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = generator.valueToCode(block, 'NAME', 0).replaceAll("'", "")
-        + '.set(' + generator.valueToCode(block, 'INDEX', 0)
-        + ', {r: ' + generator.valueToCode(block, 'R', 0)
-        + ', g: ' + generator.valueToCode(block, 'G', 0)
-        + ', b: ' + generator.valueToCode(block, 'B', 0) + '});\n';
-    return code;
+javascriptGenerator.forBlock['set_rgb'] = function (b: BlockSvg, g: CodeGenerator) {
+    return getVal(g, b, 'NAME').replaceAll("'", "")
+        + '.set(' + getVal(g, b, 'INDEX')
+        + ', {r: ' + getVal(g, b, 'R')
+        + ', g: ' + getVal(g, b, 'G')
+        + ', b: ' + getVal(g, b, 'B') + '});\n';
 }
 
 // ---- //
@@ -277,9 +271,8 @@ Blockly.Blocks['strip_clear'] = {
     }
 }
 
-javascriptGenerator.forBlock['strip_clear'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = generator.valueToCode(block, 'NAME', 0).replaceAll("'", "") + '.clear();\n'
-    return code;
+javascriptGenerator.forBlock['strip_clear'] = function (b: BlockSvg, g: CodeGenerator) {
+    return getVal(g, b, 'NAME').replaceAll("'", "") + '.clear();\n'
 }
 
 // ---- //
@@ -308,8 +301,7 @@ Blockly.Blocks['strip_show'] = {
     }
 }
 
-javascriptGenerator.forBlock['strip_show'] = function (block: BlockSvg, generator: CodeGenerator) {
-    var code = generator.valueToCode(block, 'NAME', 0).replaceAll("'", "")
+javascriptGenerator.forBlock['strip_show'] = function (b: BlockSvg, g: CodeGenerator) {
+    return getVal(g, b, 'NAME').replaceAll("'", "")
         + '.show();\n'
-    return code;
 }

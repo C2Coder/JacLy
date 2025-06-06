@@ -90,10 +90,10 @@ button:focus-visible {
   max-height: 100%;
 }
 .code-result pre {
-  max-height: 50vh; /* or any specific height you need */
-  overflow-y: auto; /* allows vertical scrolling within the pre element */
-  overflow-x: auto; /* allows horizontal scrolling if lines are too long */
-  white-space: pre-wrap; /* ensures long lines wrap; use 'pre' to disable wrapping */
+  max-height: 50vh;
+  overflow-y: auto; 
+  overflow-x: auto; 
+  white-space: pre-wrap;
 }
 
 .code-result pre code {
@@ -101,3 +101,5 @@ button:focus-visible {
   overflow: hidden;
   white-space: pre-wrap;
 }
+
+
