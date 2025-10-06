@@ -29,7 +29,7 @@ const UploadLibsBtn: FC<UploadLibsBtnProps> = ({ }) => {
     }[]
     const [manifestData, setManifestData] = useState<manifestDataType | null>(null);
 
-    const baseURL = "https://c2coder.github.io/Jaculus-libraries/"
+    const baseURL = "https://c2coder.eu/Jaculus-libraries/"
 
     // Fetch the manifest JSON file
     useEffect(() => {

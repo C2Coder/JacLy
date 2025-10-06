@@ -36,6 +36,9 @@ jobs:
       - name: Build with Vite
         run: npm run build
 
+      - name: Add CNAME file
+        run: echo 'jacly.c2coder.eu' > ./dist/CNAME
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:

@@ -55,7 +55,12 @@ Blockly.Blocks['await'] = {
 }
 
 javascriptGenerator.forBlock['await'] = function (b: BlockSvg, g: CodeGenerator) {
-    return 'await ' + getStatement(g, b, "CODE") + ';\n';
+    const code = getStatement(g, b, "CODE");
+    return code
+        .split('\n')
+        .filter(line => line.trim() !== '')
+        .map(line => 'await ' + line.trim())
+        .join('\n') + '\n';
 }
 
 // ---- //
@@ -87,7 +92,7 @@ Blockly.Blocks['sleep'] = {
 }
 
 javascriptGenerator.forBlock['sleep'] = function (b: BlockSvg, g: CodeGenerator) {
-    return ['sleep(' + getVal(g, b, 'TIME') + ')', Order.VOID];
+    return ['sleep(' + getVal(g, b, 'TIME') + ')', Order.ATOMIC];
 }
 
 // ---- //

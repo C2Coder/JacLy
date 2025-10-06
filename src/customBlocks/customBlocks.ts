@@ -142,6 +142,10 @@ import "./categories/Readline"
 
 import "./categories/Robutek"
 
+// ========== VL53L0X ==========
+
+import "./categories/VL53L0X"
+
 // #################### SEPARATOR ####################
 
 // ========== LEDC ==========
@@ -166,7 +170,7 @@ import "./categories/GridUI"
 
 // ========== I2C ==========
 
-import "./categories/I2C"
+// import "./categories/I2C"
 
 // ========== FS ==========
 

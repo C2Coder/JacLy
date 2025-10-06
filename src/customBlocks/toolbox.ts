@@ -78,7 +78,7 @@ export const colors = {
 
   // project specific libs
   "Robutek":      hexColors[3][0],
-  //"":        hexColors[3][1],
+  "VL53L0X":      hexColors[3][1],
   //"":        hexColors[3][2],
   //"":        hexColors[3][3],
 
@@ -758,6 +758,12 @@ export const toolbox: Toolbox = {
         colour: colors["Robutek"],
         contents: [],
       },
+      {
+        kind: "category",
+        name: "VL53L0X",
+        colour: colors["VL53L0X"],
+        contents: [],
+      },
       { kind: "sep" },
       { // LEDC
         kind: "category",
@@ -789,12 +795,12 @@ export const toolbox: Toolbox = {
         colour: colors["GridUI"],
         contents: [],
       },
-      { // I2C
-        kind: "category",
-        name: "I2C",
-        colour: colors["I2C"],
-        contents: [],
-      },
+      // { // I2C
+      //   kind: "category",
+      //   name: "I2C",
+      //   colour: colors["I2C"],
+      //   contents: [],
+      // },
       { // FS
         kind: "category",
         name: "FS",
