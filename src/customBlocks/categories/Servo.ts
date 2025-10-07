@@ -22,7 +22,7 @@ Blockly.Blocks['servo_import'] = {
 }
 
 javascriptGenerator.forBlock['servo_import'] = function (b: BlockSvg, g: CodeGenerator) {
-    return "import * as servo from './libs/servo.js';\n"
+    return "import { Servo } from './libs/servo.js';\n"
 }
 
 // ---- //

@@ -128,7 +128,7 @@ Blockly.Blocks['robutek_setSpeed'] = {
 }
 
 javascriptGenerator.forBlock['robutek_setSpeed'] = function (b: BlockSvg, g: CodeGenerator) {
-    var speed = getField(b, 'SPEED') || '0';
+    var speed = getVal(g, b, 'SPEED') || '0';
     return "robutek.setSpeed(" + speed + ");\n";
 }
 
@@ -159,7 +159,7 @@ Blockly.Blocks['robutek_setRamp'] = {
 }
 
 javascriptGenerator.forBlock['robutek_setRamp'] = function (b: BlockSvg, g: CodeGenerator) {
-    var ramp = getField(b, 'RAMP') || '0';
+    var ramp = getVal(g, b, 'RAMP') || '0';
     return "robutek.setRamp(" + ramp + ");\n";
 }
 
@@ -293,4 +293,34 @@ Blockly.Blocks['robutek_rotate'] = {
 
 javascriptGenerator.forBlock['robutek_rotate'] = function (b: BlockSvg, g: CodeGenerator) {
     return 'robutek.rotate(' + getVal(g, b, 'ANGLE') + ');\n';
+}
+
+// ---- //
+
+// Robutek stop(break:boolean)
+addItemToToolbox(toolbox, "Robutek",
+    {
+        kind: "block",
+        blockxml:
+            '    <block type="robutek_stop">\n' +
+            '      <value name="BREAK">\n' +
+            '        <shadow type="logic_boolean">\n' +
+            '          <field name="BOOL">FALSE</field>\n' +
+            "        </shadow>\n" +
+            "      </value>\n" +
+            "    </block>\n",
+    },
+);
+
+Blockly.Blocks['robutek_stop'] = {
+    init: function () {
+        dummy(this, 'robutek.stop');
+        value(this, "BREAK", "");
+        inline(this);
+        color(this, "Robutek");
+    }
+}
+
+javascriptGenerator.forBlock['robutek_stop'] = function (b: BlockSvg, g: CodeGenerator) {
+    return 'robutek.stop(' + getVal(g, b, 'BREAK') + ');\n';
 }
