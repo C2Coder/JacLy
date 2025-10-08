@@ -1,6 +1,6 @@
-import Blockly, { BlockSvg } from "blockly";
-import { javascriptGenerator, Order } from "blockly/javascript";
-import { CodeGenerator } from "blockly/core/generator";
+import { Block, Blocks, inputs } from "blockly";
+import { JavascriptGenerator as JsG, javascriptGenerator as jsg, Order } from "blockly/javascript";
+
 import { toolbox } from "../toolbox";
 import { addItemToToolbox, dummy, value, inline, output, color, dropdown, statement, getVal, getField, getStatement } from "../customBlocks";
 import { stat } from "fs";
@@ -14,14 +14,13 @@ addItemToToolbox(toolbox, "Basic",
             '      <field name="TYPE">log</field>\n' +
             '      <value name="TEXT">\n' +
             '        <shadow type="text">\n' +
-            '          <field name="text">abc</field>\n' +
             "        </shadow>\n" +
             "      </value>\n" +
             "    </block>\n",
     },
 );
 
-Blockly.Blocks['console'] = {
+Blocks['console'] = {
     init: function () {
         dropdown(this, "TYPE", "console", [["log", "log"], ["error", "error"], ["info", "info"], ["debug", "debug"]]);
         value(this, "TEXT", "");
@@ -30,7 +29,7 @@ Blockly.Blocks['console'] = {
     }
 };
 
-javascriptGenerator.forBlock['console'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['console'] = function (b: Block, g: JsG) {
     return `console.${getField(b, "TYPE")}(${getVal(g, b, "TEXT")});\n`;
 };
 
@@ -45,7 +44,7 @@ addItemToToolbox(toolbox, "Basic",
     },
 );
 
-Blockly.Blocks['await'] = {
+Blocks['await'] = {
     init: function () {
         dummy(this, 'Await');
         statement(this, "CODE", "  code:");
@@ -54,7 +53,7 @@ Blockly.Blocks['await'] = {
     }
 }
 
-javascriptGenerator.forBlock['await'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['await'] = function (b: Block, g: JsG) {
     const code = getStatement(g, b, "CODE");
     return code
         .split('\n')
@@ -73,25 +72,24 @@ addItemToToolbox(toolbox, "Basic",
             '    <block type="sleep">\n' +
             '      <value name="TIME">\n' +
             '        <shadow type="math_number">\n' +
-            '          <field name="num">100</field>\n' +
             "        </shadow>\n" +
             "      </value>\n" +
             "    </block>\n",
     },
 );
 
-Blockly.Blocks['sleep'] = {
+Blocks['sleep'] = {
     init: function () {
         dummy(this, 'Sleep');
         this.appendValueInput("TIME")
-            .setAlign(Blockly.inputs.Align.RIGHT)
+            .setAlign(inputs.Align.RIGHT)
             .appendField("ms:")
         output(this, Function);
         color(this, "Basic");
     }
 }
 
-javascriptGenerator.forBlock['sleep'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['sleep'] = function (b: Block, g: JsG) {
     return ['sleep(' + getVal(g, b, 'TIME') + ')', Order.ATOMIC];
 }
 
@@ -105,14 +103,13 @@ addItemToToolbox(toolbox, "Basic",
             '    <block type="raw_code">\n' +
             '      <value name="CODE">\n' +
             '        <shadow type="text">\n' +
-            '          <field name="text"></field>\n' +
             "        </shadow>\n" +
             "      </value>\n" +
             "    </block>\n",
     },
 );
 
-Blockly.Blocks['raw_code'] = {
+Blocks['raw_code'] = {
     init: function () {
         value(this, "CODE", "");
         inline(this);
@@ -120,7 +117,7 @@ Blockly.Blocks['raw_code'] = {
     }
 }
 
-javascriptGenerator.forBlock['raw_code'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['raw_code'] = function (b: Block, g: JsG) {
     return getVal(g, b, 'CODE').replaceAll("'", "") + '\n';
 }
 
@@ -134,14 +131,13 @@ addItemToToolbox(toolbox, "Basic",
             '    <block type="comment">\n' +
             '      <value name="COMMENT">\n' +
             '        <shadow type="text">\n' +
-            '          <field name="text"></field>\n' +
             "        </shadow>\n" +
             "      </value>\n" +
             "    </block>\n",
     },
 );
 
-Blockly.Blocks['comment'] = {
+Blocks['comment'] = {
     init: function () {
         value(this, 'COMMENT', '  //');
         inline(this);
@@ -149,7 +145,7 @@ Blockly.Blocks['comment'] = {
     }
 }
 
-javascriptGenerator.forBlock['comment'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['comment'] = function (b: Block, g: JsG) {
     return '// ' + g.valueToCode(b, 'COMMENT', 0).replaceAll("'", "") + '\n';
 }
 
@@ -164,19 +160,17 @@ addItemToToolbox(toolbox, "Basic",
             '    <block type="set_interval">\n' +
             '      <value name="NAME">\n' +
             '        <shadow type="text">\n' +
-            '          <field name="text">abc</field>\n' +
             "        </shadow>\n" +
             "      </value>\n" +
             '      <value name="INTERVAL">\n' +
             '        <shadow type="math_number">\n' +
-            '          <field name="NUM">1000</field>\n' +
             "        </shadow>\n" +
             "      </value>\n" +
             "    </block>\n",
     },
 );
 
-Blockly.Blocks['set_interval'] = {
+Blocks['set_interval'] = {
     init: function () {
 
         dummy(this, 'Set interval');
@@ -188,7 +182,7 @@ Blockly.Blocks['set_interval'] = {
     }
 }
 
-javascriptGenerator.forBlock['set_interval'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['set_interval'] = function (b: Block, g: JsG) {
     return '\nvar ' + getVal(g, b, 'NAME').replaceAll("'", "") + 'Interval = setInterval(function(){\n' + getStatement(g, b, "CODE") + '}, ' + getVal(g, b, 'INTERVAL') + ');\n';
 }
 
@@ -202,14 +196,13 @@ addItemToToolbox(toolbox, "Basic",
             '    <block type="clear_interval">\n' +
             '      <value name="NAME">\n' +
             '        <shadow type="text">\n' +
-            '          <field name="text">abc</field>\n' +
             "        </shadow>\n" +
             "      </value>\n" +
             "    </block>\n",
     },
 );
 
-Blockly.Blocks['clear_interval'] = {
+Blocks['clear_interval'] = {
     init: function () {
         dummy(this, 'Clear interval');
         value(this, "NAME", "  name:");
@@ -218,7 +211,7 @@ Blockly.Blocks['clear_interval'] = {
     }
 }
 
-javascriptGenerator.forBlock['clear_interval'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['clear_interval'] = function (b: Block, g: JsG) {
     return 'clearInterval(' + getVal(g, b, 'NAME').replaceAll("'", "") + 'Interval);\n';
 }
 
@@ -232,19 +225,17 @@ addItemToToolbox(toolbox, "Basic",
             '    <block type="set_timeout">\n' +
             '      <value name="NAME">\n' +
             '        <shadow type="text">\n' +
-            '          <field name="text">abc</field>\n' +
             "        </shadow>\n" +
             "      </value>\n" +
             '      <value name="TIMEOUT">\n' +
             '        <shadow type="math_number">\n' +
-            '          <field name="NUM">1000</field>\n' +
             "        </shadow>\n" +
             "      </value>\n" +
             "    </block>\n",
     },
 );
 
-Blockly.Blocks['set_timeout'] = {
+Blocks['set_timeout'] = {
     init: function () {
         dummy(this, 'Set timeout');
         value(this, "NAME", "  name:");
@@ -255,7 +246,7 @@ Blockly.Blocks['set_timeout'] = {
     }
 }
 
-javascriptGenerator.forBlock['set_timeout'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['set_timeout'] = function (b: Block, g: JsG) {
     return '\nvar ' + getVal(g, b, 'NAME').replaceAll("'", "") + 'Timeout = setTimeout(function(){\n' + getStatement(g, b, 'CODE') + '}, ' + getVal(g, b, 'TIMEOUT') + ');\n';
 }
 
@@ -269,14 +260,13 @@ addItemToToolbox(toolbox, "Basic",
             '    <block type="clear_timeout">\n' +
             '      <value name="NAME">\n' +
             '        <shadow type="text">\n' +
-            '          <field name="text">abc</field>\n' +
             "        </shadow>\n" +
             "      </value>\n" +
             "    </block>\n",
     },
 );
 
-Blockly.Blocks['clear_timeout'] = {
+Blocks['clear_timeout'] = {
     init: function () {
         dummy(this, 'Clear timeout');
         value(this, "NAME", "  name:");
@@ -285,6 +275,6 @@ Blockly.Blocks['clear_timeout'] = {
     }
 }
 
-javascriptGenerator.forBlock['clear_timeout'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['clear_timeout'] = function (b: Block, g: JsG) {
     return 'clearTimeout(' + g.valueToCode(b, 'NAME', 0).replaceAll("'", "") + 'Timeout);\n';;
 }

@@ -26,9 +26,7 @@ export type Toolbox = {
 // saturation = 45%
 // value      = 50%
 
-
 const color_blocks = [[30, 110], [130, 150], [170, 200], [300, 320], [340, 10]];
-
 
 function generateRanges(arr:number[][], increment:number) {
   return arr.map(pair => {
@@ -52,51 +50,80 @@ const hexColors = generateRanges(color_blocks, 10)
 
 console.log(hexColors);
 
+// Enhanced color palette with better organization
+export const colorPalette = {
+  // Core programming concepts
+  core: {
+    "Basic":        "#725BA5",
+    "Basic_gray":   "#888",
+    "Logic":        "#615BA5",
+    "Loops":        "#5B67A5", 
+    "Math":         "#5B80A5",
+    "Text":         "#5BA55B",
+    "Lists":        "#5BA55B",
+    "Variables":    "#A55B80",
+    "Functions":    "#995BA5"
+  },
+  
+  // Hardware/GPIO related
+  hardware: {
+    "GPIO":         hexColors[2][0],
+    "ADC":          hexColors[2][1],
+    "Smartled":     hexColors[2][2],
+    "SimpleRadio":  hexColors[2][3],
+    "LEDC":         hexColors[0][0],
+    "PulseCounter": hexColors[0][1], 
+    "Motor":        hexColors[0][2], 
+    "I2C":          hexColors[0][5]
+  },
+  
+  // Network and system
+  system: {
+    "WiFi":         hexColors[0][3], 
+    "GridUI":       hexColors[0][4], 
+    "FS":           hexColors[0][6], 
+    "Path":         hexColors[0][7]
+  },
+  
+  // Custom libraries
+  libraries: {
+    "Servo":        hexColors[4][0],
+    "Readline":     hexColors[4][1]
+  },
+  
+  // Project specific
+  project: {
+    "Robutek":      hexColors[3][0],
+    "VL53L0X":      hexColors[3][1]
+  },
+  
+  // UI elements
+  ui: {
+    "Custom Button":"#5BA57A"
+  }
+};
+
+// Flatten the color palette for backward compatibility
 export const colors = {
-  "Basic":        "#615BA5", /* 245    */"Basic_gray":   "#888",
-  "Logic":        "#5B80A5", // 210
-  "Loops":        "#5BA55B", // 120
-  "Math":         "#5B67A5", // 230
-  "Text":         "#5BA55B", // 160
-  "Lists":        "#725BA5", // 259
-  "Colour":       "#A5725B", // 19
-                            
-  "Variables":    "#A55B80", // 330
-  "Functions":    "#995BA5", // 290
-                            
-  "GPIO":         hexColors[2][0],
-  "ADC":          hexColors[2][1],
-  "Smartled":     hexColors[2][2],
-  "SimpleRadio":  hexColors[2][3],
+  ...colorPalette.core,
+  ...colorPalette.hardware,
+  ...colorPalette.system,
+  ...colorPalette.libraries,
+  ...colorPalette.project,
+  ...colorPalette.ui
+};
 
-  // custom libs
-  "Servo":        hexColors[4][0],
-  "Colors":       hexColors[4][1],
-  "Readline":     hexColors[4][2],
-  //"":        hexColors[4][3],
-  //"":        hexColors[4][4],
-
-  // project specific libs
-  "Robutek":      hexColors[3][0],
-  "VL53L0X":      hexColors[3][1],
-  //"":        hexColors[3][2],
-  //"":        hexColors[3][3],
-
-  //"":        hexColors[1][0],
-  //"":        hexColors[1][1],
-  //"":        hexColors[1][2],
-  //"":        hexColors[1][3],
-
-  "LEDC":         hexColors[0][0],
-  "PulseCounter": hexColors[0][1], 
-  "Motor":        hexColors[0][2], 
-  "WiFi":         hexColors[0][3], 
-  "GridUI":       hexColors[0][4], 
-  "I2C":          hexColors[0][5], 
-  "FS":           hexColors[0][6], 
-  "Path":         hexColors[0][7], 
-                          
-  "Custom Button":"#5BA57A",
+// Styling configuration for categories
+export const categoryStyles = {
+  default: {
+    border: "1px solid rgba(255, 255, 255, 0.1)",
+    borderRadius: "6px",
+    margin: "2px"
+  },
+  hover: {
+    transform: "translateX(2px)",
+    backgroundColor: "rgba(255, 255, 255, 0.1)"
+  }
 };
 
 export const toolbox: Toolbox = {
@@ -633,7 +660,7 @@ export const toolbox: Toolbox = {
               "    </block>\n",
           },
         ],
-      },
+      },/*
       { // COLOUR
         kind: "category",
         name: "Colour",
@@ -656,17 +683,14 @@ export const toolbox: Toolbox = {
               '    <block type="colour_rgb">\n' +
               '      <value name="RED">\n' +
               '        <shadow type="math_number">\n' +
-              '          <field name="NUM">100</field>\n' +
               "        </shadow>\n" +
               "      </value>\n" +
               '      <value name="GREEN">\n' +
               '        <shadow type="math_number">\n' +
-              '          <field name="NUM">50</field>\n' +
               "        </shadow>\n" +
               "      </value>\n" +
               '      <value name="BLUE">\n' +
               '        <shadow type="math_number">\n' +
-              '          <field name="NUM">0</field>\n' +
               "        </shadow>\n" +
               "      </value>\n" +
               "    </block>\n",
@@ -677,23 +701,20 @@ export const toolbox: Toolbox = {
               '    <block type="colour_blend">\n' +
               '      <value name="COLOUR1">\n' +
               '        <shadow type="colour_picker">\n' +
-              '          <field name="COLOUR">#ff0000</field>\n' +
               "        </shadow>\n" +
               "      </value>\n" +
               '      <value name="COLOUR2">\n' +
               '        <shadow type="colour_picker">\n' +
-              '          <field name="COLOUR">#3333ff</field>\n' +
               "        </shadow>\n" +
               "      </value>\n" +
               '      <value name="RATIO">\n' +
               '        <shadow type="math_number">\n' +
-              '          <field name="NUM">0.5</field>\n' +
               "        </shadow>\n" +
               "      </value>\n" +
               "    </block>\n",
           },
         ],
-      },
+      },*/
       { kind: "sep" },
       { // VARIABLES
         kind: "category",
@@ -737,12 +758,6 @@ export const toolbox: Toolbox = {
         kind: "category",
         name: "Servo",
         colour: colors["Servo"],
-        contents: [],
-      },
-      { // Colors
-        kind: "category",
-        name: "Colors",
-        colour: colors["Colors"],
         contents: [],
       },
       { // Readline
@@ -813,7 +828,7 @@ export const toolbox: Toolbox = {
         colour: colors["Path"],
         contents: [],
       },
-      { kind: "sep" },
+      /*{ kind: "sep" },
       { // CUSTOM BUTTON
         kind: "category",
         name: "Custom Button",
@@ -826,7 +841,7 @@ export const toolbox: Toolbox = {
           },
         ],
       },
-
+*/
 
     ],
   };

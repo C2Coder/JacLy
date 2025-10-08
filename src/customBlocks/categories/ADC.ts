@@ -1,6 +1,6 @@
-import Blockly, { BlockSvg } from "blockly";
-import { javascriptGenerator, Order } from "blockly/javascript";
-import { CodeGenerator } from "blockly/core/generator";
+import { Block, Blocks, FieldDropdown } from "blockly";
+import { JavascriptGenerator as JsG, javascriptGenerator as jsg, Order } from "blockly/javascript";
+
 import { toolbox } from "../toolbox";
 import { addItemToToolbox, dummy, value, inline, output, color } from "../customBlocks";
 
@@ -12,7 +12,7 @@ addItemToToolbox(toolbox, "ADC",
     },
 );
 
-Blockly.Blocks['adc_import'] = {
+Blocks['adc_import'] = {
     init: function () {
         dummy(this, 'Import ADC');
         inline(this);
@@ -20,8 +20,8 @@ Blockly.Blocks['adc_import'] = {
     }
 }
 
-javascriptGenerator.forBlock['adc_import'] = function (b: BlockSvg, g: CodeGenerator) {
-    return  "import * as adc from 'adc';\n";
+jsg.forBlock['adc_import'] = function (b: Block, g: JsG) {
+    return "import * as adc from 'adc';\n";
 }
 
 // ---- //
@@ -41,7 +41,7 @@ addItemToToolbox(toolbox, "ADC",
     }
 );
 
-Blockly.Blocks['adc_configure'] = {
+Blocks['adc_configure'] = {
     init: function () {
         dummy(this, 'Configure ADC');
         value(this, "PIN", "  pin:");
@@ -50,8 +50,8 @@ Blockly.Blocks['adc_configure'] = {
     }
 };
 
-javascriptGenerator.forBlock['adc_configure'] = function (b: BlockSvg, g: CodeGenerator) {
-    return  'adc.configure(' + g.valueToCode(b, 'PIN', 0) + ');\n';
+jsg.forBlock['adc_configure'] = function (b: Block, g: JsG) {
+    return 'adc.configure(' + g.valueToCode(b, 'PIN', 0) + ');\n';
 }
 
 // ---- //
@@ -71,7 +71,7 @@ addItemToToolbox(toolbox, "ADC",
     },
 );
 
-Blockly.Blocks['adc_read'] = {
+Blocks['adc_read'] = {
     init: function () {
         dummy(this, 'ADC read');
         value(this, "PIN", "  pin:");
@@ -80,6 +80,6 @@ Blockly.Blocks['adc_read'] = {
     }
 }
 
-javascriptGenerator.forBlock['adc_read'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['adc_read'] = function (b: Block, g: JsG) {
     return ['adc.read(' + g.valueToCode(b, 'PIN', 0) + ')', Order.NONE];
 }

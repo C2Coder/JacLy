@@ -1,6 +1,6 @@
-import Blockly, { BlockSvg } from "blockly";
-import { javascriptGenerator, Order } from "blockly/javascript";
-import { CodeGenerator } from "blockly/core/generator";
+import { Block, Blocks, FieldDropdown } from "blockly";
+import { JavascriptGenerator as JsG, javascriptGenerator as jsg, Order } from "blockly/javascript";
+
 import { toolbox } from "../toolbox";
 import { addItemToToolbox, dummy, value, inline, output, color, getVal, getField, getStatement } from "../customBlocks";
 
@@ -12,7 +12,7 @@ addItemToToolbox(toolbox, "Path",
     },
 );
 
-Blockly.Blocks['path_import'] = {
+Blocks['path_import'] = {
     init: function () {
         dummy(this, 'Import Path');
         inline(this);
@@ -20,7 +20,7 @@ Blockly.Blocks['path_import'] = {
     }
 }
 
-javascriptGenerator.forBlock['path_import'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['path_import'] = function (b: Block, g: JsG) {
     return "import * as path from 'path';\n"
 }
 
@@ -41,7 +41,7 @@ addItemToToolbox(toolbox, "Path",
 
 );
 
-Blockly.Blocks['path_normalize'] = {
+Blocks['path_normalize'] = {
     init: function () {
         dummy(this, 'Normalize Path');
         value(this, "path", "  path:");
@@ -50,7 +50,7 @@ Blockly.Blocks['path_normalize'] = {
     }
 }
 
-javascriptGenerator.forBlock['path_normalize'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['path_normalize'] = function (b: Block, g: JsG) {
     return ['path.normalize(' + getVal(g, b, 'path') + ')', Order.NONE];
 }
 
@@ -73,7 +73,7 @@ addItemToToolbox(toolbox, "Path",
 
 );
 
-Blockly.Blocks['path_dirname'] = {
+Blocks['path_dirname'] = {
     init: function () {
         dummy(this, 'Path Directory Name');
         value(this, "path", "  path:");
@@ -82,7 +82,7 @@ Blockly.Blocks['path_dirname'] = {
     }
 }
 
-javascriptGenerator.forBlock['path_dirname'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['path_dirname'] = function (b: Block, g: JsG) {
     return ['path.dirname(' + getVal(g, b, 'path') + ')', Order.NONE];
 }
 
@@ -105,17 +105,17 @@ addItemToToolbox(toolbox, "Path",
 
 );
 
-Blockly.Blocks['path_basename'] = {
+Blocks['path_basename'] = {
     init: function () {
         dummy(this, 'Path Basename');
         value(this, "path", "  path:");
         output(this, Boolean);
         color(this, "Path");
-        
+
     }
 }
 
-javascriptGenerator.forBlock['path_basename'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['path_basename'] = function (b: Block, g: JsG) {
     return ['path.basename(' + getVal(g, b, 'path') + ')', Order.NONE];
 }
 

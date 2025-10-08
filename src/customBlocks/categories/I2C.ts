@@ -1,6 +1,6 @@
-import Blockly, { BlockSvg } from "blockly";
-import { javascriptGenerator, Order } from "blockly/javascript";
-import { CodeGenerator } from "blockly/core/generator";
+import { Block, Blocks, FieldDropdown } from "blockly";
+import { JavascriptGenerator as JsG, javascriptGenerator as jsg, Order } from "blockly/javascript";
+
 import { toolbox, colors } from "../toolbox";
 import { addItemToToolbox, dummy, value, inline, output, color, getVal } from "../customBlocks";
 
@@ -12,7 +12,7 @@ addItemToToolbox(toolbox, "I2C",
     },
 );
 
-Blockly.Blocks['i2c_import'] = {
+Blocks['i2c_import'] = {
     init: function () {
         dummy(this, 'Import I2C');
         inline(this);
@@ -20,9 +20,8 @@ Blockly.Blocks['i2c_import'] = {
     }
 }
 
-javascriptGenerator.forBlock['i2c_import'] = function (b: BlockSvg, g: CodeGenerator) {
-    "import * as i2c from 'i2c';\n"
-    return 
+jsg.forBlock['i2c_import'] = function (b: Block, g: JsG) {
+    return "import * as i2c from 'i2c';\n"
 }
 
 // GPIO digitalwrite
@@ -41,7 +40,7 @@ addItemToToolbox(toolbox, "I2C",
 
 );
 
-Blockly.Blocks['i2c_find'] = {
+Blocks['i2c_find'] = {
     init: function () {
         dummy(this, 'Find I2C device');
         value(this, "PIN", "  pin:");
@@ -50,8 +49,7 @@ Blockly.Blocks['i2c_find'] = {
     }
 }
 
-javascriptGenerator.forBlock['i2c_find'] = function (b: BlockSvg, g: CodeGenerator) {
-    'i2c.find(' + getVal(g, b, 'PIN') + ');\n';
-    return 
+jsg.forBlock['i2c_find'] = function (b: Block, g: JsG) {
+    return 'i2c.find(' + getVal(g, b, 'PIN') + ');\n';
 }
 

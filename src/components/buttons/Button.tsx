@@ -1,9 +1,6 @@
-import classNamesOriginal, {Argument} from "classnames";
-import {overrideTailwindClasses} from "tailwind-override";
-import {FC, InputHTMLAttributes} from "react";
 
-export const classNamesOverride = (...args: Argument[]) =>
-    overrideTailwindClasses(classNamesOriginal(...args));
+import { classNamesOverride } from "../../utils/classNamesOverride";
+import { FC, InputHTMLAttributes } from "react";
 
 
 export interface ButtonProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -11,7 +8,6 @@ export interface ButtonProps extends InputHTMLAttributes<HTMLInputElement> {
     classNames?: string,
     onClick?: () => void,
     active?: boolean,
-
 }
 
 

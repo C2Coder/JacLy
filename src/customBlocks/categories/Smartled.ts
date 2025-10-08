@@ -1,6 +1,6 @@
-import Blockly, { BlockSvg } from "blockly";
-import { javascriptGenerator, Order } from "blockly/javascript";
-import { CodeGenerator } from "blockly/core/generator";
+import { Block, Blocks, FieldDropdown } from "blockly";
+import { JavascriptGenerator as JsG, javascriptGenerator as jsg, Order } from "blockly/javascript";
+
 import { toolbox, colors } from "../toolbox";
 import { addItemToToolbox, dummy, value, inline, output, color, dropdown, getVal, getField, getStatement } from "../customBlocks";
 
@@ -12,21 +12,18 @@ addItemToToolbox(toolbox, "Smartled",
     },
 );
 
-Blockly.Blocks['smartled_import'] = {
+Blocks['smartled_import'] = {
     init: function () {
-        dummy(this, 'Import smartled');
+        dummy(this, 'Import Smartled');
         inline(this);
         color(this, "Smartled");
     }
 }
 
-javascriptGenerator.forBlock['smartled_import'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['smartled_import'] = function (b: Block, g: JsG) {
     return 'import { SmartLed, LED_WS2812, LED_WS2812B, LED_WS2812B_2020, LED_SK6812, LED_WS2813 } from "smartled";\n'
-        + 'function HsvToRgb(h, s, v) { let f = (n, k = (n + h / 60) % 6) => v - v * s * Math.max(Math.min(k, 4 - k, 1));\n'
-        + '    return { r: Math.round(f(5) * 255), g: Math.round(f(3) * 255), b: Math.round(f(1) * 255)}; }\n'
-        + 'function HexToRgb(hex) { const [r, g, b] = hex.replace("#", "").match(/.{1,2}/g).map(c => parseInt(c, 16));\n'
-        + '    return { r, g, b }; }\n\n'
-
+        + 'import * as colors from "./libs/colors.js";\n' +
+        'function HexToRgb(hex: string) { hex = hex.replace("#", ""); return { r: parseInt(hex.substring(0, 2), 16), g: parseInt(hex.substring(2, 4), 16), b: parseInt(hex.substring(4, 6), 16) }; }\n';
 }
 
 // ---- //
@@ -61,7 +58,7 @@ addItemToToolbox(toolbox, "Smartled",
     },
 );
 
-Blockly.Blocks['create_strip'] = {
+Blocks['create_strip'] = {
     init: function () {
         dummy(this, 'Create strip');
         value(this, "NAME", "  name:");
@@ -80,8 +77,8 @@ Blockly.Blocks['create_strip'] = {
     }
 }
 
-javascriptGenerator.forBlock['create_strip'] = function (b: BlockSvg, g: CodeGenerator) {
-    return 'const ' + getVal(g, b, 'NAME').replaceAll("'", "") + ' = new SmartLed(' + getVal(g, b, 'PIN') + ', ' + getVal(g, b, 'COUNT') + ', ' + getField(b, 'TYPE') + ');\n';
+jsg.forBlock['create_strip'] = function (b: Block, g: JsG) {
+    return 'const strip_' + getVal(g, b, 'NAME').replaceAll("'", "") + ' = new SmartLed(' + getVal(g, b, 'PIN') + ', ' + getVal(g, b, 'COUNT') + ', ' + getField(b, 'TYPE') + ');\n';
 }
 
 // ---- //
@@ -91,7 +88,7 @@ addItemToToolbox(toolbox, "Smartled",
     {
         kind: "block",
         blockxml:
-            '    <block type="set_hex">\n' +
+            '    <block type="smartled_set">\n' +
             '      <value name="NAME">\n' +
             '        <shadow type="text">\n' +
             '          <field name="text">ledStrip</field>\n' +
@@ -111,9 +108,9 @@ addItemToToolbox(toolbox, "Smartled",
     },
 );
 
-Blockly.Blocks['set_hex'] = {
+Blocks['smartled_set'] = {
     init: function () {
-        dummy(this, 'Set HEX');
+        dummy(this, 'Set Color');
         value(this, 'NAME', '  name:');
         value(this, 'COLOR', '  color:');
         value(this, 'INDEX', '  index:');
@@ -122,127 +119,16 @@ Blockly.Blocks['set_hex'] = {
     }
 }
 
-javascriptGenerator.forBlock['set_hex'] = function (b: BlockSvg, g: CodeGenerator) {
-    return getVal(g, b, 'NAME').replaceAll("'", "")
-        + '.set(' + getVal(g, b, 'INDEX')
-        + ', HexToRgb(' + getVal(g, b, 'COLOR') + '));\n';
-}
-
-// ---- //
-
-// Smartled set hsv
-addItemToToolbox(toolbox, "Smartled",
-    {
-        kind: "block",
-        blockxml:
-            '    <block type="set_hsv">\n' +
-            '      <value name="NAME">\n' +
-            '        <shadow type="text">\n' +
-            '          <field name="text">ledStrip</field>\n' +
-            "        </shadow>\n" +
-            "      </value>\n" +
-            '      <value name="INDEX">\n' +
-            '        <shadow type="math_number">\n' +
-            '          <field name="num">0</field>\n' +
-            "        </shadow>\n" +
-            "      </value>\n" +
-            '      <value name="HUE">\n' +
-            '        <shadow type="math_number">\n' +
-            '          <field name="num">0</field>\n' +
-            "        </shadow>\n" +
-            "      </value>\n" +
-            '      <value name="SATURATION">\n' +
-            '        <shadow type="math_number">\n' +
-            '          <field name="num">0</field>\n' +
-            "        </shadow>\n" +
-            "      </value>\n" +
-            '      <value name="VALUE">\n' +
-            '        <shadow type="math_number">\n' +
-            '          <field name="num">0</field>\n' +
-            "        </shadow>\n" +
-            "      </value>\n" +
-            "    </block>\n",
-    },
-);
-
-Blockly.Blocks['set_hsv'] = {
-    init: function () {
-        dummy(this, 'Set HSV');
-        value(this, 'NAME', '  name:');
-        value(this, 'INDEX', '  index:');
-        value(this, 'HUE', '  H (0-360):');
-        value(this, 'SATURATION', '  S (0-1):');
-        value(this, 'VALUE', '  V (0-1):');
-
-        inline(this);
-        color(this, "Smartled");
+jsg.forBlock['smartled_set'] = function (b: Block, g: JsG) {
+    var color = getVal(g, b, 'COLOR');
+    if (color.startsWith("'") && color.endsWith("'")) {
+        return 'strip_' + getVal(g, b, 'NAME').replaceAll("'", "")
+            + '.set(' + getVal(g, b, 'INDEX')
+            + ', HexToRgb(' + color + '));\n';
     }
-}
-
-javascriptGenerator.forBlock['set_hsv'] = function (b: BlockSvg, g: CodeGenerator) {
-    return getVal(g, b, 'NAME').replaceAll("'", "")
+    return 'strip_' + getVal(g, b, 'NAME').replaceAll("'", "")
         + '.set(' + getVal(g, b, 'INDEX')
-        + ', HsvToRgb(' + getVal(g, b, 'HUE')
-        + ', ' + getVal(g, b, 'SATURATION')
-        + ', ' + getVal(g, b, 'VALUE') + '));\n';
-}
-
-// ---- //
-
-// Smartled set rgb
-addItemToToolbox(toolbox, "Smartled",
-    {
-        kind: "block",
-        blockxml:
-            '    <block type="set_rgb">\n' +
-            '      <value name="NAME">\n' +
-            '        <shadow type="text">\n' +
-            '          <field name="text">ledStrip</field>\n' +
-            "        </shadow>\n" +
-            "      </value>\n" +
-            '      <value name="INDEX">\n' +
-            '        <shadow type="math_number">\n' +
-            '          <field name="num">0</field>\n' +
-            "        </shadow>\n" +
-            "      </value>\n" +
-            '      <value name="R">\n' +
-            '        <shadow type="math_number">\n' +
-            '          <field name="R">0</field>\n' +
-            "        </shadow>\n" +
-            "      </value>\n" +
-            '      <value name="G">\n' +
-            '        <shadow type="math_number">\n' +
-            '          <field name="G">0</field>\n' +
-            "        </shadow>\n" +
-            "      </value>\n" +
-            '      <value name="B">\n' +
-            '        <shadow type="math_number">\n' +
-            '          <field name="B">0</field>\n' +
-            "        </shadow>\n" +
-            "      </value>\n" +
-            "    </block>\n",
-    },
-);
-
-Blockly.Blocks['set_rgb'] = {
-    init: function () {
-        dummy(this, 'Set RGB');
-        value(this, 'NAME', '  name:');
-        value(this, 'INDEX', '  index:');
-        value(this, 'R', '  R (0-256):');
-        value(this, 'G', '  G (0-256):');
-        value(this, 'B', '  B (0-256):');
-        inline(this);
-        color(this, "Smartled");
-    }
-}
-
-javascriptGenerator.forBlock['set_rgb'] = function (b: BlockSvg, g: CodeGenerator) {
-    return getVal(g, b, 'NAME').replaceAll("'", "")
-        + '.set(' + getVal(g, b, 'INDEX')
-        + ', {r: ' + getVal(g, b, 'R')
-        + ', g: ' + getVal(g, b, 'G')
-        + ', b: ' + getVal(g, b, 'B') + '});\n';
+        + ', ' + color + ');\n';
 }
 
 // ---- //
@@ -262,7 +148,7 @@ addItemToToolbox(toolbox, "Smartled",
     },
 );
 
-Blockly.Blocks['strip_clear'] = {
+Blocks['strip_clear'] = {
     init: function () {
         dummy(this, 'Clear strip');
         value(this, "NAME", "  name:");
@@ -271,8 +157,8 @@ Blockly.Blocks['strip_clear'] = {
     }
 }
 
-javascriptGenerator.forBlock['strip_clear'] = function (b: BlockSvg, g: CodeGenerator) {
-    return getVal(g, b, 'NAME').replaceAll("'", "") + '.clear();\n'
+jsg.forBlock['strip_clear'] = function (b: Block, g: JsG) {
+    return 'strip_' + getVal(g, b, 'NAME').replaceAll("'", "") + '.clear();\n'
 }
 
 // ---- //
@@ -292,7 +178,7 @@ addItemToToolbox(toolbox, "Smartled",
     },
 );
 
-Blockly.Blocks['strip_show'] = {
+Blocks['strip_show'] = {
     init: function () {
         dummy(this, 'Show strip');
         value(this, "NAME", "  name:");
@@ -301,7 +187,147 @@ Blockly.Blocks['strip_show'] = {
     }
 }
 
-javascriptGenerator.forBlock['strip_show'] = function (b: BlockSvg, g: CodeGenerator) {
-    return getVal(g, b, 'NAME').replaceAll("'", "")
+jsg.forBlock['strip_show'] = function (b: Block, g: JsG) {
+    return 'strip_' + getVal(g, b, 'NAME').replaceAll("'", "")
         + '.show();\n'
+}
+
+
+// ---- //
+
+// Smartled colors
+addItemToToolbox(toolbox, "Smartled",
+    {
+        kind: "block",
+        blockxml:
+            '    <block type="smartled_color">\n' +
+            '      <value name="COLOR">\n' +
+            '        <shadow type="math_number">\n' +
+            "        </shadow>\n" +
+            "      </value>\n" +
+            '    </block>\n',
+    },
+);
+
+Blocks['smartled_color'] = {
+    init: function () {
+        this.appendDummyInput('').appendField('colors.')
+            .appendField(new FieldDropdown([["red", "red"],
+            ["orange", "orange"],
+            ["yellow", "yellow"],
+            ["green", "green"],
+            ["light_blue", "light_blue"],
+            ["blue", "blue"],
+            ["purple", "purple"],
+            ["pink", "pink"],
+            ["white", "white"],
+            ["off", "off"],
+            ]), "COLOR");
+
+        output(this, Number);
+        color(this, "Smartled");
+    }
+}
+
+jsg.forBlock['smartled_color'] = function (b: Block, g: JsG) {
+    var color = getField(b, 'COLOR');
+    return ["colors." + color, Order.ATOMIC];
+}
+
+
+// ---- //
+
+// Smartled colors rgb
+addItemToToolbox(toolbox, "Smartled",
+    {
+        kind: "block",
+        blockxml:
+            '    <block type="smartled_color_rgb">\n' +
+            '      <value name="R">\n' +
+            '        <shadow type="math_number">\n' +
+            "          <field name=\"NUM\">0</field>\n" +
+            "        </shadow>\n" +
+            "      </value>\n" +
+            '      <value name="G">\n' +
+            '        <shadow type="math_number">\n' +
+            "          <field name=\"NUM\">0</field>\n" +
+            "        </shadow>\n" +
+            "      </value>\n" +
+            '      <value name="B">\n' +
+            '        <shadow type="math_number">\n' +
+            "          <field name=\"NUM\">0</field>\n" +
+            "        </shadow>\n" +
+            "      </value>\n" +
+            '    </block>\n',
+    },
+);
+
+Blocks['smartled_color_rgb'] = {
+    init: function () {
+        this.appendDummyInput('').appendField('R:')
+        this.appendValueInput('R')
+        this.appendDummyInput('').appendField('G:')
+        this.appendValueInput('G')
+        this.appendDummyInput('').appendField('B:')
+        this.appendValueInput('B')
+
+        output(this, Number);
+        color(this, "Smartled");
+    }
+}
+
+jsg.forBlock['smartled_color_rgb'] = function (b: Block, g: JsG) {
+    var rc = getVal(g, b, 'R');
+    var gc = getVal(g, b, 'G');
+    var bc = getVal(g, b, 'B');
+    return ["{r:" + rc + ", g:" + gc + ", b:" + bc + "}", Order.ATOMIC];
+}
+
+
+// ---- //
+
+// Smartled colors hsl
+addItemToToolbox(toolbox, "Smartled",
+    {
+        kind: "block",
+        blockxml:
+            '    <block type="smartled_color_hsl">\n' +
+            '      <value name="H">\n' +
+            '        <shadow type="math_number">\n' +
+            "          <field name=\"NUM\">0</field>\n" +
+            "        </shadow>\n" +
+            "      </value>\n" +
+            '      <value name="S">\n' +
+            '        <shadow type="math_number">\n' +
+            "          <field name=\"NUM\">0</field>\n" +
+            "        </shadow>\n" +
+            "      </value>\n" +
+            '      <value name="L">\n' +
+            '        <shadow type="math_number">\n' +
+            '          <field name="NUM">0</field>\n' +
+            "        </shadow>\n" +
+            "      </value>\n" +
+            '    </block>\n',
+    },
+);
+
+Blocks['smartled_color_hsl'] = {
+    init: function () {
+        this.appendDummyInput('').appendField('H:')
+        this.appendValueInput('H')
+        this.appendDummyInput('').appendField('S:')
+        this.appendValueInput('S')
+        this.appendDummyInput('').appendField('L:')
+        this.appendValueInput('L')
+
+        output(this, Number);
+        color(this, "Smartled");
+    }
+}
+
+jsg.forBlock['smartled_color_hsl'] = function (b: Block, g: JsG) {
+    var hc = getVal(g, b, 'H');
+    var sc = getVal(g, b, 'S');
+    var lc = getVal(g, b, 'L');
+    return ["{h:" + hc + ", s:" + sc + ", l:" + lc + "}", Order.ATOMIC];
 }

@@ -1,0 +1,164 @@
+/* Custom Blockly Toolbox Styling */
+
+/* ===== TOOLBOX BACKGROUND AND LAYOUT ===== */
+.blocklyToolboxCategory {
+    height: 34px;
+  border-right: 2px solid #4a5568 !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  transition: all 0.2s ease !important;
+}
+
+.blocklyToolboxCategoryLabel {
+  font-size: 16px !important;
+  color: #e2e8f0 !important;
+  padding-left: 8px !important;
+}
+
+/* ===== CATEGORY STYLING ===== */
+.blocklyTreeRow {
+  border-radius: 6px !important;
+  margin: 2px 4px !important;
+  transition: all 0.2s ease !important;
+  min-height: 34px !important;
+}
+
+.blocklyTreeRow:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  transform: translateX(2px) !important;
+}
+
+.blocklyTreeRowContentContainer {
+  padding: 4px 8px !important;
+  border-radius: 6px !important;
+}
+
+.blocklyTreeRow.blocklyTreeSelected {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  box-shadow: inset 3px 0 0 #60a5fa !important;
+}
+
+/* ===== CATEGORY LABELS ===== */
+.blocklyTreeLabel {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.025em !important;
+}
+
+.blocklyTreeSelected .blocklyTreeLabel {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* ===== CATEGORY ICONS ===== */
+.blocklyTreeIcon {
+  width: 20px !important;
+  height: 40px !important;
+  margin-right: 8px !important;
+  border-radius: 3px !important;
+  opacity: 0.9 !important;
+}
+
+/* ===== FLYOUT (BLOCKS PANEL) STYLING ===== */
+.blocklyFlyout {
+  background-color: #1a202c !important;
+  border-left: 1px solid #4a5568 !important;
+}
+
+.blocklyFlyoutBackground {
+  fill: #1a202c !important;
+  fill-opacity: 1 !important;
+}
+
+/* ===== SCROLLBAR STYLING ===== */
+.blocklyFlyout .blocklyScrollbarVertical .blocklyScrollbarHandle {
+  fill: #4a5568 !important;
+}
+
+.blocklyFlyout .blocklyScrollbarVertical .blocklyScrollbarBackground {
+  fill: #2d3748 !important;
+}
+
+/* ===== SEARCH BOX (if enabled) ===== */
+.blocklySearchInputField {
+  background-color: #4a5568 !important;
+  border: 1px solid #718096 !important;
+  border-radius: 6px !important;
+  color: #f7fafc !important;
+  padding: 8px 12px !important;
+  margin: 8px !important;
+}
+
+.blocklySearchInputField:focus {
+  border-color: #60a5fa !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2) !important;
+}
+
+/* ===== WORKSPACE STYLING ===== */
+.blocklyMainWorkspaceDiv {
+  background-color: #f7fafc !important;
+}
+
+/* ===== GRID CUSTOMIZATION ===== */
+.blocklyMainWorkspaceDiv .blocklyGridPattern line {
+  stroke: #e2e8f0 !important;
+  stroke-width: 1 !important;
+}
+
+
+
+/* ===== CUSTOM CATEGORY COLOR OVERRIDES ===== */
+/* These can be dynamically set based on your color scheme */
+.blocklyTreeRow[aria-label*="Basic"] .blocklyTreeIcon {
+  background-color: #725BA5 !important;
+}
+
+.blocklyTreeRow[aria-label*="Logic"] .blocklyTreeIcon {
+  background-color: #615BA5 !important;
+}
+
+.blocklyTreeRow[aria-label*="Loops"] .blocklyTreeIcon {
+  background-color: #5B67A5 !important;
+}
+
+.blocklyTreeRow[aria-label*="Math"] .blocklyTreeIcon {
+  background-color: #5B80A5 !important;
+}
+
+.blocklyTreeRow[aria-label*="Text"] .blocklyTreeIcon {
+  background-color: #5BA55B !important;
+}
+
+.blocklyTreeRow[aria-label*="Lists"] .blocklyTreeIcon {
+  background-color: #5BA55B !important;
+}
+
+.blocklyTreeRow[aria-label*="Variables"] .blocklyTreeIcon {
+  background-color: #A55B80 !important;
+}
+
+.blocklyTreeRow[aria-label*="Functions"] .blocklyTreeIcon {
+  background-color: #995BA5 !important;
+}
+
+/* ===== SEPARATOR STYLING ===== */
+.blocklyTreeSeparator {
+  background-color: #4a5568 !important;
+  height: 1px !important;
+  margin: 8px 12px !important;
+  opacity: 0.6 !important;
+}
+
+/* ===== ALTERNATIVE DARK THEME ===== */
+.blockly-dark-theme .blocklyToolboxDiv {
+  background-color: #1e1e1e !important;
+  border-right: 2px solid #333333 !important;
+}
+
+.blockly-dark-theme .blocklyTreeRow:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.blockly-dark-theme .blocklyFlyout {
+  background-color: #252526 !important;
+}

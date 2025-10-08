@@ -1,6 +1,6 @@
-import Blockly, { BlockSvg } from "blockly";
-import { javascriptGenerator, Order } from "blockly/javascript";
-import { CodeGenerator } from "blockly/core/generator";
+import { Block, Blocks, FieldDropdown } from "blockly";
+import { JavascriptGenerator as JsG, javascriptGenerator as jsg, Order } from "blockly/javascript";
+
 import { toolbox } from "../toolbox";
 import { addItemToToolbox, dummy, value, inline, output, color, dropdown, statement, getField, getStatement, getVal } from "../customBlocks";
 
@@ -13,7 +13,7 @@ addItemToToolbox(toolbox, "Robutek",
     },
 );
 
-Blockly.Blocks['robutek_v1_import'] = {
+Blocks['robutek_v1_import'] = {
     init: function () {
         dummy(this, 'Import Robutek V1');
         inline(this);
@@ -21,7 +21,7 @@ Blockly.Blocks['robutek_v1_import'] = {
     }
 }
 
-javascriptGenerator.forBlock['robutek_v1_import'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['robutek_v1_import'] = function (b: Block, g: JsG) {
     return "import { createRobutek } from './libs/robutek.js';\n" +
         "const robutek = createRobutek('V1');\n";
 }
@@ -36,7 +36,7 @@ addItemToToolbox(toolbox, "Robutek",
     },
 );
 
-Blockly.Blocks['robutek_v2_import'] = {
+Blocks['robutek_v2_import'] = {
     init: function () {
         dummy(this, 'Import Robutek V2');
         inline(this);
@@ -44,7 +44,7 @@ Blockly.Blocks['robutek_v2_import'] = {
     }
 }
 
-javascriptGenerator.forBlock['robutek_v2_import'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['robutek_v2_import'] = function (b: Block, g: JsG) {
     return "import { createRobutek } from './libs/robutek.js';\n" +
         "const robutek = createRobutek('V2');\n";
 }
@@ -66,10 +66,10 @@ addItemToToolbox(toolbox, "Robutek",
     },
 );
 
-Blockly.Blocks['robutek_pin'] = {
+Blocks['robutek_pin'] = {
     init: function () {
         this.appendDummyInput('').appendField('robutek.Pins.')
-            .appendField(new Blockly.FieldDropdown([["StatusLED", "StatusLED"],
+            .appendField(new FieldDropdown([["StatusLED", "StatusLED"],
             ["SmartLeds", "SmartLeds"],
             ["ButtonLeft", "ButtonLeft"],
             ["ButtonRight", "ButtonRight"],
@@ -96,7 +96,7 @@ Blockly.Blocks['robutek_pin'] = {
     }
 }
 
-javascriptGenerator.forBlock['robutek_pin'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['robutek_pin'] = function (b: Block, g: JsG) {
     var type = getField(b, 'TYPE');
     return ["robutek.Pins." + type, Order.ATOMIC];
 }
@@ -118,7 +118,7 @@ addItemToToolbox(toolbox, "Robutek",
     },
 );
 
-Blockly.Blocks['robutek_setSpeed'] = {
+Blocks['robutek_setSpeed'] = {
     init: function () {
         dummy(this, 'motor.setSpeed');
         value(this, 'SPEED', '');
@@ -127,7 +127,7 @@ Blockly.Blocks['robutek_setSpeed'] = {
     }
 }
 
-javascriptGenerator.forBlock['robutek_setSpeed'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['robutek_setSpeed'] = function (b: Block, g: JsG) {
     var speed = getVal(g, b, 'SPEED') || '0';
     return "robutek.setSpeed(" + speed + ");\n";
 }
@@ -149,7 +149,7 @@ addItemToToolbox(toolbox, "Robutek",
     },
 );
 
-Blockly.Blocks['robutek_setRamp'] = {
+Blocks['robutek_setRamp'] = {
     init: function () {
         dummy(this, 'motor.setRamp');
         value(this, 'RAMP', '');
@@ -158,7 +158,7 @@ Blockly.Blocks['robutek_setRamp'] = {
     }
 }
 
-javascriptGenerator.forBlock['robutek_setRamp'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['robutek_setRamp'] = function (b: Block, g: JsG) {
     var ramp = getVal(g, b, 'RAMP') || '0';
     return "robutek.setRamp(" + ramp + ");\n";
 }
@@ -185,7 +185,7 @@ addItemToToolbox(toolbox, "Robutek",
     },
 );
 
-Blockly.Blocks['robutek_move_distance'] = {
+Blocks['robutek_move_distance'] = {
     init: function () {
         dummy(this, 'robutek.move');
         value(this, "CURVE", "");
@@ -195,7 +195,7 @@ Blockly.Blocks['robutek_move_distance'] = {
     }
 }
 
-javascriptGenerator.forBlock['robutek_move_distance'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['robutek_move_distance'] = function (b: Block, g: JsG) {
     return 'robutek.move(' + getVal(g, b, 'CURVE') + ', {distance:' + getVal(g, b, 'DISTANCE') + '});\n';
 }
 
@@ -221,7 +221,7 @@ addItemToToolbox(toolbox, "Robutek",
     },
 );
 
-Blockly.Blocks['robutek_move_time'] = {
+Blocks['robutek_move_time'] = {
     init: function () {
         dummy(this, 'robutek.move');
         value(this, "CURVE", "");
@@ -231,7 +231,7 @@ Blockly.Blocks['robutek_move_time'] = {
     }
 }
 
-javascriptGenerator.forBlock['robutek_move_time'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['robutek_move_time'] = function (b: Block, g: JsG) {
     return 'robutek.move(' + getVal(g, b, 'CURVE') + ', {time:' + getVal(g, b, 'TIME') + '});\n';
 }
 
@@ -252,7 +252,7 @@ addItemToToolbox(toolbox, "Robutek",
     },
 );
 
-Blockly.Blocks['robutek_move_inf'] = {
+Blocks['robutek_move_inf'] = {
     init: function () {
         dummy(this, 'robutek.move');
         value(this, "CURVE", "");
@@ -261,7 +261,7 @@ Blockly.Blocks['robutek_move_inf'] = {
     }
 }
 
-javascriptGenerator.forBlock['robutek_move_inf'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['robutek_move_inf'] = function (b: Block, g: JsG) {
     return 'robutek.move(' + getVal(g, b, 'CURVE') + ');\n';
 }
 
@@ -282,7 +282,7 @@ addItemToToolbox(toolbox, "Robutek",
     },
 );
 
-Blockly.Blocks['robutek_rotate'] = {
+Blocks['robutek_rotate'] = {
     init: function () {
         dummy(this, 'robutek.rotate');
         value(this, "ANGLE", "");
@@ -291,7 +291,7 @@ Blockly.Blocks['robutek_rotate'] = {
     }
 }
 
-javascriptGenerator.forBlock['robutek_rotate'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['robutek_rotate'] = function (b: Block, g: JsG) {
     return 'robutek.rotate(' + getVal(g, b, 'ANGLE') + ');\n';
 }
 
@@ -312,7 +312,7 @@ addItemToToolbox(toolbox, "Robutek",
     },
 );
 
-Blockly.Blocks['robutek_stop'] = {
+Blocks['robutek_stop'] = {
     init: function () {
         dummy(this, 'robutek.stop');
         value(this, "BREAK", "");
@@ -321,6 +321,6 @@ Blockly.Blocks['robutek_stop'] = {
     }
 }
 
-javascriptGenerator.forBlock['robutek_stop'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['robutek_stop'] = function (b: Block, g: JsG) {
     return 'robutek.stop(' + getVal(g, b, 'BREAK') + ');\n';
 }

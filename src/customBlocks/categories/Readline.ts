@@ -1,6 +1,6 @@
-import Blockly, { BlockSvg } from "blockly";
-import { javascriptGenerator, Order } from "blockly/javascript";
-import { CodeGenerator } from "blockly/core/generator";
+import { Block, Blocks, FieldDropdown } from "blockly";
+import { JavascriptGenerator as JsG, javascriptGenerator as jsg, Order } from "blockly/javascript";
+
 import { toolbox } from "../toolbox";
 import { addItemToToolbox, dummy, value, inline, output, color } from "../customBlocks";
 
@@ -13,7 +13,7 @@ addItemToToolbox(toolbox, "Readline",
     },
 );
 
-Blockly.Blocks['readline_import'] = {
+Blocks['readline_import'] = {
     init: function () {
         dummy(this, 'Import Readline');
         inline(this);
@@ -21,6 +21,6 @@ Blockly.Blocks['readline_import'] = {
     }
 }
 
-javascriptGenerator.forBlock['readline_import'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['readline_import'] = function (b: Block, g: JsG) {
     return "import * as readline from './libs/readline.js';\n"
 }

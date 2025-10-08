@@ -1,9 +1,9 @@
 import {FC, InputHTMLAttributes, useRef, useState, useEffect} from "react";
 import {useGenerateCode} from "../../context/GenerateCodeContext";
-import Blockly from "blockly";
-import {javascriptGenerator} from "blockly/javascript";
-import {BlocklyWorkspace} from "react-blockly";
+import {javascriptGenerator as jsg} from "blockly/javascript";
+import {BlocklyWorkspace, WorkspaceSvg} from "react-blockly";
 import "./../../customBlocks/customBlocks";
+import "../../styles/blockly-custom.css";
 
 import {toolbox} from "../../customBlocks/toolbox";
 export interface HeaderProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -29,10 +29,10 @@ const BlocklyEditor: FC<HeaderProps> = ({ onWorkspaceChange, externalJson }) => 
         }
     }, [externalJson]);
 
-    const handleWorkspaceChange = (newWorkspace: Blockly.WorkspaceSvg) => {
+    const handleWorkspaceChange = (newWorkspace: WorkspaceSvg) => {
         console.log("Workspace changed")
         try {
-            let jsCode = javascriptGenerator.workspaceToCode(newWorkspace);
+            let jsCode = jsg.workspaceToCode(newWorkspace);
             setCode(jsCode);
         } catch (e) {
             console.error("Error generating code: " + e);
@@ -52,17 +52,99 @@ const BlocklyEditor: FC<HeaderProps> = ({ onWorkspaceChange, externalJson }) => 
     return (
         <BlocklyWorkspace
             key={workspaceKey} // Force re-mount when key changes
-            className="w-full h-full"
+            className="w-full h-full blockly-custom-theme"
             toolboxConfiguration={toolbox}
             onWorkspaceChange={handleWorkspaceChange}
             initialJson={json}
             onJsonChange={onJsonChange}
             workspaceConfiguration={{
                 renderer: "zelos",
+                theme: {
+                    name: "custom",
+                    base: "classic", // Can be 'classic', 'modern', or 'deuteranopia'
+                    componentStyles: {
+                        workspaceBackgroundColour: "#f7fafc",
+                        toolboxBackgroundColour: "#2d3748",
+                        toolboxForegroundColour: "#f7fafc",
+                        flyoutBackgroundColour: "#1a202c",
+                        flyoutForegroundColour: "#f7fafc",
+                        flyoutOpacity: 1,
+                        scrollbarColour: "#4a5568",
+                        insertionMarkerColour: "#60a5fa",
+                        insertionMarkerOpacity: 0.3,
+                        markerColour: "#60a5fa",
+                        cursorColour: "#60a5fa"
+                    },
+                    blockStyles: {
+                        logic_blocks: {
+                            colourPrimary: "#615BA5",
+                            colourSecondary: "#715CA5", 
+                            colourTertiary: "#5B4A95"
+                        },
+                        loop_blocks: {
+                            colourPrimary: "#5B67A5",
+                            colourSecondary: "#6B77B5",
+                            colourTertiary: "#4B5795"
+                        },
+                        math_blocks: {
+                            colourPrimary: "#5B80A5",
+                            colourSecondary: "#6B90B5",
+                            colourTertiary: "#4B7095"
+                        },
+                        text_blocks: {
+                            colourPrimary: "#5BA55B",
+                            colourSecondary: "#6BB56B",
+                            colourTertiary: "#4B954B"
+                        },
+                        list_blocks: {
+                            colourPrimary: "#5BA55B",
+                            colourSecondary: "#6BB56B",
+                            colourTertiary: "#4B954B"
+                        },
+                        variable_blocks: {
+                            colourPrimary: "#A55B80",
+                            colourSecondary: "#B56B90",
+                            colourTertiary: "#954B70"
+                        },
+                        procedure_blocks: {
+                            colourPrimary: "#995BA5",
+                            colourSecondary: "#A96BB5",
+                            colourTertiary: "#894B95"
+                        }
+                    },
+                    categoryStyles: {
+                        logic_category: {
+                            colour: "#615BA5"
+                        },
+                        loop_category: {
+                            colour: "#5B67A5"
+                        },
+                        math_category: {
+                            colour: "#5B80A5"
+                        },
+                        text_category: {
+                            colour: "#5BA55B"
+                        },
+                        list_category: {
+                            colour: "#5BA55B"
+                        },
+                        variable_category: {
+                            colour: "#A55B80"
+                        },
+                        procedure_category: {
+                            colour: "#995BA5"
+                        }
+                    },
+                    fontStyle: {
+                        family: "Inter, system-ui, sans-serif",
+                        weight: "normal",
+                        size: 12
+                    }
+                },
                 grid: {
                     spacing: 20,
                     length: 3,
-                    colour: "#ccc",
+                    colour: "#e2e8f0",
                     snap: true
                 },
                 zoom: {
@@ -71,8 +153,8 @@ const BlocklyEditor: FC<HeaderProps> = ({ onWorkspaceChange, externalJson }) => 
                     startScale: 1.0,
                     maxScale: 3,
                     minScale: 0.3,
-                    scaleSpeed: 1.2
-                },
+                    scaleSpeed: 1.1,
+                }
             }}
         />
     )

@@ -28,7 +28,7 @@ function App() {
     return (
         <DeviceProvider >
             <GenerateCodeProvider>
-                <div className="flex flex-col h-full w-full">
+                <div className="flex flex-col h-full w-full light">
                     <Header />
                     <TopBar 
                         currentWorkspaceJson={currentWorkspaceJson}
