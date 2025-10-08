@@ -1,5 +1,6 @@
 import { FC, InputHTMLAttributes, useState } from "react";
-import Button, { classNamesOverride } from "./Button";
+import Button from "./Button";
+import { classNamesOverride } from "../../utils/classNamesOverride";
 import { useGenerateCode } from "../../context/GenerateCodeContext";
 
 export interface CopyBtnProps extends InputHTMLAttributes<HTMLInputElement> {

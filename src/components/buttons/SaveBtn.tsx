@@ -1,5 +1,6 @@
 import { FC, InputHTMLAttributes, useState } from "react";
-import Button, { classNamesOverride } from "./Button";
+import Button from "./Button";
+import { classNamesOverride } from "../../utils/classNamesOverride";
 import { saveWorkspaceToFile } from "../../utils/blocklyStorage";
 
 export interface SaveBtnProps extends InputHTMLAttributes<HTMLInputElement> {

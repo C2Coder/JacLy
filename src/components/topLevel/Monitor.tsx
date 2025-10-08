@@ -5,11 +5,8 @@ import { Input } from "blockly";
 import { ValueInput } from "blockly/core/inputs";
 import Label from "../labels/Label";
 
-import classNamesOriginal, {Argument} from "classnames";
-import {overrideTailwindClasses} from "tailwind-override";
 
-export const classNamesOverride = (...args: Argument[]) =>
-    overrideTailwindClasses(classNamesOriginal(...args));
+import { classNamesOverride } from "../../utils/classNamesOverride";
 
 
 export interface HeaderProps extends InputHTMLAttributes<HTMLInputElement> { }
