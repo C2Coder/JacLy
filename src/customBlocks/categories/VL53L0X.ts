@@ -23,7 +23,7 @@ Blocks['vl53l0x_import'] = {
 
 jsg.forBlock['vl53l0x_import'] = function (b, g) {
     return "import { I2C1 } from 'i2c';\n" +
-           "import { VL53L0X } from './libs/VL53L0X.js';\n";
+        "import { VL53L0X } from './libs/VL53L0X.js';\n";
 }
 
 // ---- //
@@ -46,7 +46,7 @@ Blocks['vl53l0x_create'] = {
 
 jsg.forBlock['vl53l0x_create'] = function (b, g) {
     return "I2C1.setup({sda: robutek.Pins.SDA, scl: robutek.Pins.SCL, bitrate: 400000});\n" +
-           "const vl = new VL53L0X(I2C1);\n";
+        "const vl = new VL53L0X(I2C1);\n";
 }
 
 // ---- //

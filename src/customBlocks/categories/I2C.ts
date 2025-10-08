@@ -50,6 +50,6 @@ Blocks['i2c_find'] = {
 }
 
 jsg.forBlock['i2c_find'] = function (b: Block, g: JsG) {
-    return  'i2c.find(' + getVal(g, b, 'PIN') + ');\n';
+    return 'i2c.find(' + getVal(g, b, 'PIN') + ');\n';
 }
 

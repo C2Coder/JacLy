@@ -21,7 +21,7 @@ Blocks['adc_import'] = {
 }
 
 jsg.forBlock['adc_import'] = function (b: Block, g: JsG) {
-    return  "import * as adc from 'adc';\n";
+    return "import * as adc from 'adc';\n";
 }
 
 // ---- //
@@ -51,7 +51,7 @@ Blocks['adc_configure'] = {
 };
 
 jsg.forBlock['adc_configure'] = function (b: Block, g: JsG) {
-    return  'adc.configure(' + g.valueToCode(b, 'PIN', 0) + ');\n';
+    return 'adc.configure(' + g.valueToCode(b, 'PIN', 0) + ');\n';
 }
 
 // ---- //

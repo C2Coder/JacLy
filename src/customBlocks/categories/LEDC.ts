@@ -187,7 +187,7 @@ Blocks['ledc_set_frequency'] = {
 
 jsg.forBlock['ledc_set_frequency'] = function (b: Block, g: JsG) {
     return 'ledc.setFrequency(' + getVal(g, b, 'TIMER') + ', ' + getVal(g, b, 'FREQUENCY') + ');\n';
-}   
+}
 
 // ---- //  
 

@@ -111,7 +111,7 @@ Blocks['path_basename'] = {
         value(this, "path", "  path:");
         output(this, Boolean);
         color(this, "Path");
-        
+
     }
 }
 

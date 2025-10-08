@@ -133,10 +133,6 @@ import "./categories/SimpleRadio"
 
 import "./categories/Servo"
 
-// ========== Colors ==========
-
-import "./categories/Colors"
-
 // ========== Readline ==========
 
 import "./categories/Readline"

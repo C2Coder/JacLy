@@ -1,5 +1,5 @@
 import { Block, Blocks, FieldDropdown } from "blockly";
-import { javascriptGenerator as jsg, JavascriptGenerator as JsG} from "blockly/javascript";
+import { javascriptGenerator as jsg, JavascriptGenerator as JsG } from "blockly/javascript";
 
 import { value, inline, color, getVal, getStatement, getField } from "../customBlocks";
 

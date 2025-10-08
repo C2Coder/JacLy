@@ -1,29 +1,29 @@
-import {FC, InputHTMLAttributes} from "react";
-import {useGenerateCode} from "../../context/GenerateCodeContext";
+import { FC, InputHTMLAttributes } from "react";
+import { useGenerateCode } from "../../context/GenerateCodeContext";
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { atomOneDark as theme } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
+
+theme.hljs.padding = "10px";
 
 // @ts-expect-error
-import {INITIAL_TOOLBOX_JSON} from "../../blockly-config";
+import { INITIAL_TOOLBOX_JSON } from "../../blockly-config";
 
 export interface CodeResultProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 
-const CodeResult: FC<CodeResultProps> = ({}) => {
-    const {code} = useGenerateCode();
+const CodeResult: FC<CodeResultProps> = ({ }) => {
+    const { code } = useGenerateCode();
 
 
     return (
         <div className="code-result w-full overflow-auto hide-scrollbar font-mono rounded">
             <SyntaxHighlighter
-              language="javascript" 
-              style={atomDark} 
-              showLineNumbers 
-              lineNumberContainerStyle={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', }} 
-              lineNumberStyle={{ gridColumn: '1', minWidth: 'unset', width: '1.5em', textAlign: 'right', paddingRight: 'unset', marginRight: '1em', marginLeft: '0',}}
-              >
+                language="javascript"
+                style={theme}
+                showLineNumbers
+            >
                 {code}
             </SyntaxHighlighter>
         </div>
