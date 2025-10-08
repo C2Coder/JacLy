@@ -1,6 +1,5 @@
-import Blockly, { BlockSvg } from "blockly";
-import { javascriptGenerator, Order } from "blockly/javascript";
-import { CodeGenerator } from "blockly/core/generator";
+import { Block, Blocks, FieldDropdown } from "blockly";
+import { JavascriptGenerator as JsG, javascriptGenerator as jsg, Order } from "blockly/javascript";
 import { toolbox } from "../toolbox";
 import { addItemToToolbox, dummy, value, inline, output, color } from "../customBlocks";
 
@@ -12,7 +11,7 @@ addItemToToolbox(toolbox, "WiFi",
     },
 );
 
-Blockly.Blocks['wifi_import'] = {
+Blocks['wifi_import'] = {
     init: function () {
         dummy(this, 'Import WiFi');
         inline(this);
@@ -20,8 +19,8 @@ Blockly.Blocks['wifi_import'] = {
     }
 }
 
-javascriptGenerator.forBlock['wifi_import'] = function (b: BlockSvg, g: CodeGenerator) {
-    return "import * as wifi from 'wifi';\n"
+jsg.forBlock['wifi_import'] = function (b: Block, g: JsG) {
+    return "import * as wifi from 'wifi';\n";
 }
 
 // ---- //
@@ -35,7 +34,7 @@ addItemToToolbox(toolbox, "WiFi",
     },
 );
 
-Blockly.Blocks['wifi_currentip'] = {
+Blocks['wifi_currentip'] = {
     init: function () {
         dummy(this, 'Get Current IP');
         output(this, String);
@@ -43,6 +42,6 @@ Blockly.Blocks['wifi_currentip'] = {
     }
 }
 
-javascriptGenerator.forBlock['wifi_currentip'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['wifi_currentip'] = function (b: Block, g: JsG) {
     return ['wifi.currentIP()', Order.NONE];
 }

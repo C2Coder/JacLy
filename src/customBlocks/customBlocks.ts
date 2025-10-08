@@ -1,17 +1,22 @@
-import Blockly, { BlockSvg } from "blockly";
-import { javascriptGenerator, Order } from "blockly/javascript";
-import { CodeGenerator } from "blockly/core/generator";
+import { Block, MenuGenerator, FieldDropdown} from "blockly";
+import { JavascriptGenerator as JsG, javascriptGenerator as jsg, Order } from "blockly/javascript";
+
 import { toolbox, Toolbox, ToolboxItem, CustomCategory, colors } from "./toolbox";
+import {installAllBlocks as installColourBlocks} from '@blockly/field-colour';
 
+// Installs all four blocks, the colour field, and all language generators.
+installColourBlocks({
+  javascript: jsg,
+});
 
-export function getField(_b:BlockSvg, name: string) {
+export function getField(_b:Block, name: string) {
     return _b.getFieldValue(name)
 }
 
-export function getVal(_g:CodeGenerator, _b:BlockSvg, name: string) {
+export function getVal(_g:JsG, _b:Block, name: string) {
     return _g.valueToCode(_b, name, 0)
 }
-export function getStatement(_g:CodeGenerator, _b:BlockSvg, name: string) {
+export function getStatement(_g:JsG, _b:Block, name: string) {
     return _g.statementToCode(_b, name)
 }
 
@@ -26,15 +31,15 @@ export function value(that: any, name: string, text: string) {
         .appendField(text);
 }
 
-export function dropdown(that: any, name: string, text: string, options: Blockly.MenuGenerator) {
+export function dropdown(that: any, name: string, text: string, options: MenuGenerator) {
     if (text === undefined || text === null || text === "") {
         that.appendDummyInput(name)
-            .appendField(new Blockly.FieldDropdown(options), name);
+            .appendField(new FieldDropdown(options), name);
     }
     else {
         that.appendDummyInput(name)
         .appendField(text)
-        .appendField(new Blockly.FieldDropdown(options), name);
+        .appendField(new FieldDropdown(options), name);
     }
 }
 

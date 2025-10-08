@@ -1,6 +1,6 @@
-import Blockly, { BlockSvg } from "blockly";
-import { javascriptGenerator, Order } from "blockly/javascript";
-import { CodeGenerator } from "blockly/core/generator";
+import { Block, Blocks, FieldDropdown } from "blockly";
+import { JavascriptGenerator as JsG, javascriptGenerator as jsg, Order } from "blockly/javascript";
+
 import { toolbox } from "../toolbox";
 import { addItemToToolbox, dummy, value, inline, output, color, dropdown, statement, getVal, getField, getStatement } from "../customBlocks";
 
@@ -13,7 +13,7 @@ addItemToToolbox(toolbox, "Servo",
     },
 );
 
-Blockly.Blocks['servo_import'] = {
+Blocks['servo_import'] = {
     init: function () {
         dummy(this, 'Import Servo');
         inline(this);
@@ -21,7 +21,7 @@ Blockly.Blocks['servo_import'] = {
     }
 }
 
-javascriptGenerator.forBlock['servo_import'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['servo_import'] = function (b: Block, g: JsG) {
     return "import { Servo } from './libs/servo.js';\n"
 }
 
@@ -57,7 +57,7 @@ addItemToToolbox(toolbox, "Servo",
     },
 );
 
-Blockly.Blocks['create_servo'] = {
+Blocks['create_servo'] = {
     init: function () {
         dummy(this, 'Create servo');
         value(this, "NAME", "  name:");
@@ -69,7 +69,7 @@ Blockly.Blocks['create_servo'] = {
     }
 }
 
-javascriptGenerator.forBlock['create_servo'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['create_servo'] = function (b: Block, g: JsG) {
     return 'const servo_' + getVal(g, b, 'NAME').replaceAll("'", "") + ' = new Servo(' + getVal(g, b, 'PIN') + ', ' + getVal(g, b, 'TIMER') + ', ' + getVal(g, b, "CHANNEL") + ');\n';
 }
 
@@ -95,7 +95,7 @@ addItemToToolbox(toolbox, "Servo",
     },
 );
 
-Blockly.Blocks['servo_write'] = {
+Blocks['servo_write'] = {
     init: function () {
         dummy(this, 'Write servo angle');
         value(this, "NAME", "  name:");
@@ -105,7 +105,7 @@ Blockly.Blocks['servo_write'] = {
     }
 }
 
-javascriptGenerator.forBlock['servo_write'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['servo_write'] = function (b: Block, g: JsG) {
     return 'servo_' + getVal(g, b, 'NAME').replaceAll("'", "") + '.write(' + getVal(g, b, 'ANGLE') + ');\n';
 }
 
@@ -127,10 +127,10 @@ addItemToToolbox(toolbox, "Servo",
     },
 );
 
-Blockly.Blocks['servo_penPos'] = {
+Blocks['servo_penPos'] = {
     init: function () {
         this.appendDummyInput('').appendField('robutek.PenPos.')
-            .appendField(new Blockly.FieldDropdown([["Down", "Down"],
+            .appendField(new FieldDropdown([["Down", "Down"],
             ["Up", "Up"],
             ["Unload", "Unload"],
             ]), "POS");
@@ -140,7 +140,7 @@ Blockly.Blocks['servo_penPos'] = {
     }
 }
 
-javascriptGenerator.forBlock['servo_penPos'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['servo_penPos'] = function (b: Block, g: JsG) {
     var pos = getField(b, 'POS');
     return ["robutek.PenPos." + pos, Order.ATOMIC];
 }

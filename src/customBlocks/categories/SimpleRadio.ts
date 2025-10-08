@@ -1,6 +1,6 @@
-import Blockly, { BlockSvg, inputTypes } from "blockly";
-import { javascriptGenerator, Order } from "blockly/javascript";
-import { CodeGenerator } from "blockly/core/generator";
+import { Block, Blocks, FieldDropdown } from "blockly";
+import { JavascriptGenerator as JsG, javascriptGenerator as jsg, Order } from "blockly/javascript";
+
 import { toolbox } from "../toolbox";
 import { addItemToToolbox, dummy, value, inline, output, color, dropdown, statement, getVal, getField, getStatement } from "../customBlocks";
 
@@ -13,7 +13,7 @@ addItemToToolbox(toolbox, "SimpleRadio",
     },
 );
 
-Blockly.Blocks['simpleradio_import'] = {
+Blocks['simpleradio_import'] = {
     init: function () {
         dummy(this, 'Import SimpleRadio');
         inline(this);
@@ -21,7 +21,7 @@ Blockly.Blocks['simpleradio_import'] = {
     }
 }
 
-javascriptGenerator.forBlock['simpleradio_import'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['simpleradio_import'] = function (b: Block, g: JsG) {
     return "import * as simpleradio from 'simpleradio';\n"
 }
 
@@ -42,7 +42,7 @@ addItemToToolbox(toolbox, "SimpleRadio",
     },
 );
 
-Blockly.Blocks['simpleradio_begin'] = {
+Blocks['simpleradio_begin'] = {
     init: function () {
         dummy(this, 'Begin');
         value(this, "GROUP", "  group:");
@@ -51,7 +51,7 @@ Blockly.Blocks['simpleradio_begin'] = {
     }
 }
 
-javascriptGenerator.forBlock['simpleradio_begin'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['simpleradio_begin'] = function (b: Block, g: JsG) {
     return 'simpleradio.begin(' + getVal(g, b, 'GROUP') + ');\n';
 }
 
@@ -73,7 +73,7 @@ addItemToToolbox(toolbox, "SimpleRadio",
     },
 );
 
-Blockly.Blocks['simpleradio_sendstring'] = {
+Blocks['simpleradio_sendstring'] = {
     init: function () {
         dummy(this, 'Send string');
         value(this, "STRING", "  string:");
@@ -82,7 +82,7 @@ Blockly.Blocks['simpleradio_sendstring'] = {
     }
 }
 
-javascriptGenerator.forBlock['simpleradio_sendstring'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['simpleradio_sendstring'] = function (b: Block, g: JsG) {
     return 'simpleradio.sendString(' + getVal(g, b, 'STRING') + ');\n';
 }
 
@@ -103,7 +103,7 @@ addItemToToolbox(toolbox, "SimpleRadio",
     },
 );
 
-Blockly.Blocks['simpleradio_sendnumber'] = {
+Blocks['simpleradio_sendnumber'] = {
     init: function () {
         dummy(this, 'Send number');
         value(this, "NUMBER", "  number:");
@@ -112,7 +112,7 @@ Blockly.Blocks['simpleradio_sendnumber'] = {
     }
 }
 
-javascriptGenerator.forBlock['simpleradio_sendnumber'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['simpleradio_sendnumber'] = function (b: Block, g: JsG) {
     return 'simpleradio.sendNumber(' + getVal(g, b, 'NUMBER') + ');\n';
 }
 
@@ -138,7 +138,7 @@ addItemToToolbox(toolbox, "SimpleRadio",
     },
 );
 
-Blockly.Blocks['simpleradio_sendkeyvalue'] = {
+Blocks['simpleradio_sendkeyvalue'] = {
     init: function () {
         dummy(this, 'Send key value');
         value(this, "KEY", "  key:");
@@ -148,7 +148,7 @@ Blockly.Blocks['simpleradio_sendkeyvalue'] = {
     }
 }
 
-javascriptGenerator.forBlock['simpleradio_sendkeyvalue'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['simpleradio_sendkeyvalue'] = function (b: Block, g: JsG) {
     return 'simpleradio.sendKeyValue(' + getVal(g, b, 'KEY') + ', ' + getVal(g, b, 'VALUE') + ');\n';;
 }
 
@@ -169,7 +169,7 @@ addItemToToolbox(toolbox, "SimpleRadio",
     },
 );
 
-Blockly.Blocks['simpleradio_on'] = {
+Blocks['simpleradio_on'] = {
     init: function () {
         dropdown(this, "TYPE", "Type", [["number", "number"], ["string", "string"], ["keyvalue", "keyvalue"]]);
         statement(this, "CODE", "  do:");
@@ -178,7 +178,7 @@ Blockly.Blocks['simpleradio_on'] = {
     }
 }
 
-javascriptGenerator.forBlock['simpleradio_on'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['simpleradio_on'] = function (b: Block, g: JsG) {
     var type = getField(b, 'TYPE');
 
     switch (type) {
@@ -207,17 +207,17 @@ addItemToToolbox(toolbox, "SimpleRadio",
     },
 );
 
-Blockly.Blocks['simpleradio_values'] = {
+Blocks['simpleradio_values'] = {
     init: function () {
         this.appendDummyInput('')
-            .appendField(new Blockly.FieldDropdown([["num", "num"], ["str", "str"], ["key", "key"], ["value", "value"]]), "TYPE");
+            .appendField(new FieldDropdown([["num", "num"], ["str", "str"], ["key", "key"], ["value", "value"]]), "TYPE");
 
         output(this, String);
         color(this, "SimpleRadio");
     }
 }
 
-javascriptGenerator.forBlock['simpleradio_values'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['simpleradio_values'] = function (b: Block, g: JsG) {
     return [getField(b, 'TYPE'), Order.NONE];
 }
 
@@ -231,18 +231,18 @@ addItemToToolbox(toolbox, "SimpleRadio",
     },
 );
 
-Blockly.Blocks['simpleradio_info'] = {
+Blocks['simpleradio_info'] = {
     init: function () {
         this.appendDummyInput('')
             .appendField('info.')
-            .appendField(new Blockly.FieldDropdown([["group", "group"], ["address", "address"], ["rssi", "rssi"]]), "TYPE");
+            .appendField(new FieldDropdown([["group", "group"], ["address", "address"], ["rssi", "rssi"]]), "TYPE");
 
         output(this, null);
         color(this, "SimpleRadio");
     }
 }
 
-javascriptGenerator.forBlock['simpleradio_info'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['simpleradio_info'] = function (b: Block, g: JsG) {
     return ['info.' + getField(b, 'TYPE'), Order.NONE];
 }
 
@@ -256,7 +256,7 @@ addItemToToolbox(toolbox, "SimpleRadio",
     },
 );
 
-Blockly.Blocks['simpleradio_adress'] = {
+Blocks['simpleradio_adress'] = {
     init: function () {
         dummy(this, 'Address');
         output(this, String);
@@ -264,7 +264,7 @@ Blockly.Blocks['simpleradio_adress'] = {
     }
 }
 
-javascriptGenerator.forBlock['simpleradio_adress'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['simpleradio_adress'] = function (b: Block, g: JsG) {
     return ['simpleradio.adress()', Order.NONE];
 }
 
@@ -278,7 +278,7 @@ addItemToToolbox(toolbox, "SimpleRadio",
     },
 );
 
-Blockly.Blocks['simpleradio_group'] = {
+Blocks['simpleradio_group'] = {
     init: function () {
         dummy(this, 'Group');
         output(this, Number);
@@ -286,7 +286,7 @@ Blockly.Blocks['simpleradio_group'] = {
     }
 }
 
-javascriptGenerator.forBlock['simpleradio_group'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['simpleradio_group'] = function (b: Block, g: JsG) {
     return ['simpleradio.group()', Order.NONE];
 }
 
@@ -307,7 +307,7 @@ addItemToToolbox(toolbox, "SimpleRadio",
     },
 );
 
-Blockly.Blocks['simpleradio_setgroup'] = {
+Blocks['simpleradio_setgroup'] = {
     init: function () {
         dummy(this, 'Set group');
         value(this, "GROUP", "  group:");
@@ -316,7 +316,7 @@ Blockly.Blocks['simpleradio_setgroup'] = {
     }
 }
 
-javascriptGenerator.forBlock['simpleradio_setgroup'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['simpleradio_setgroup'] = function (b: Block, g: JsG) {
     return 'simpleradio.setGroup(' + getVal(g, b, 'GROUP') + ');\n';
 }
 
@@ -330,7 +330,7 @@ addItemToToolbox(toolbox, "SimpleRadio",
     },
 );
 
-Blockly.Blocks['simpleradio_end'] = {
+Blocks['simpleradio_end'] = {
     init: function () {
         dummy(this, 'End SimpleRadio');
         inline(this);
@@ -338,7 +338,7 @@ Blockly.Blocks['simpleradio_end'] = {
     }
 }
 
-javascriptGenerator.forBlock['simpleradio_end'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['simpleradio_end'] = function (b: Block, g: JsG) {
     return 'simpleradio.end();\n';
 }
 
@@ -352,11 +352,11 @@ addItemToToolbox(toolbox, "SimpleRadio",
     },
 );
 
-Blockly.Blocks['simpleradio_off'] = {
+Blocks['simpleradio_off'] = {
     init: function () {
         this.appendDummyInput('')
             .appendField('Off')
-            .appendField(new Blockly.FieldDropdown([["number", "number"], ["string", "string"], ["keyvalue", "keyvalue"]]), "TYPE");
+            .appendField(new FieldDropdown([["number", "number"], ["string", "string"], ["keyvalue", "keyvalue"]]), "TYPE");
 
 
         inline(this);
@@ -364,7 +364,7 @@ Blockly.Blocks['simpleradio_off'] = {
     }
 }
 
-javascriptGenerator.forBlock['simpleradio_off'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['simpleradio_off'] = function (b: Block, g: JsG) {
     return "simpleradio.off('" + getField(b, 'TYPE'); + "');\n";
 
 }

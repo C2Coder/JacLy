@@ -1,6 +1,6 @@
-import Blockly, { BlockSvg } from "blockly";
-import { javascriptGenerator, Order } from "blockly/javascript";
-import { CodeGenerator } from "blockly/core/generator";
+import { Block, Blocks, FieldDropdown } from "blockly";
+import { JavascriptGenerator as JsG, javascriptGenerator as jsg, Order } from "blockly/javascript";
+
 import { toolbox } from "../toolbox";
 import { addItemToToolbox, dummy, value, inline, output, color, getVal, getField, getStatement } from "../customBlocks";
 
@@ -14,7 +14,7 @@ addItemToToolbox(toolbox, "LEDC",
     },
 );
 
-Blockly.Blocks['ledc_import'] = {
+Blocks['ledc_import'] = {
     init: function () {
         dummy(this, 'Import LEDC');
         inline(this);
@@ -22,7 +22,7 @@ Blockly.Blocks['ledc_import'] = {
     }
 }
 
-javascriptGenerator.forBlock['ledc_import'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['ledc_import'] = function (b: Block, g: JsG) {
     return "import * as ledc from 'ledc';\n"
 }
 
@@ -48,7 +48,7 @@ addItemToToolbox(toolbox, "LEDC",
     },
 );
 
-Blockly.Blocks['ledc_configure_timer'] = {
+Blocks['ledc_configure_timer'] = {
     init: function () {
         dummy(this, 'Configure timer');
         value(this, "TIMER", "  timer:");
@@ -58,7 +58,7 @@ Blockly.Blocks['ledc_configure_timer'] = {
     }
 }
 
-javascriptGenerator.forBlock['ledc_configure_timer'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['ledc_configure_timer'] = function (b: Block, g: JsG) {
     return 'ledc.configureTimer(' + getVal(g, b, 'TIMER') + ', ' + getVal(g, b, 'FREQUENCY') + ');\n';
 }
 
@@ -89,7 +89,7 @@ addItemToToolbox(toolbox, "LEDC",
     },
 );
 
-Blockly.Blocks['ledc_configure_timer_resolution'] = {
+Blocks['ledc_configure_timer_resolution'] = {
     init: function () {
         dummy(this, 'Configure timer');
         value(this, "TIMER", "  timer:");
@@ -100,7 +100,7 @@ Blockly.Blocks['ledc_configure_timer_resolution'] = {
     }
 }
 
-javascriptGenerator.forBlock['ledc_configure_timer_resolution'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['ledc_configure_timer_resolution'] = function (b: Block, g: JsG) {
     return 'ledc.configureTimer(' + getVal(g, b, 'TIMER') + ', ' + getVal(g, b, 'FREQUENCY') + ', ' + getVal(g, b, 'RESOLUTION') + ');\n';
 }
 
@@ -136,7 +136,7 @@ addItemToToolbox(toolbox, "LEDC",
     },
 );
 
-Blockly.Blocks['ledc_configure_channel'] = {
+Blocks['ledc_configure_channel'] = {
     init: function () {
         dummy(this, 'Configure channel');
         value(this, "CHANNEL", "  channel:");
@@ -148,7 +148,7 @@ Blockly.Blocks['ledc_configure_channel'] = {
     }
 }
 
-javascriptGenerator.forBlock['ledc_configure_channel'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['ledc_configure_channel'] = function (b: Block, g: JsG) {
     return 'ledc.configureChannel(' + getVal(g, b, 'CHANNEL') + ', ' + getVal(g, b, 'PIN') + ', ' + getVal(g, b, 'TIMER') + ', ' + getVal(g, b, 'DUTY') + ');\n';
 }
 
@@ -174,7 +174,7 @@ addItemToToolbox(toolbox, "LEDC",
     },
 );
 
-Blockly.Blocks['ledc_set_frequency'] = {
+Blocks['ledc_set_frequency'] = {
     init: function () {
 
         dummy(this, 'Set frequency');
@@ -185,7 +185,7 @@ Blockly.Blocks['ledc_set_frequency'] = {
     }
 }
 
-javascriptGenerator.forBlock['ledc_set_frequency'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['ledc_set_frequency'] = function (b: Block, g: JsG) {
     return 'ledc.setFrequency(' + getVal(g, b, 'TIMER') + ', ' + getVal(g, b, 'FREQUENCY') + ');\n';
 }   
 
@@ -211,7 +211,7 @@ addItemToToolbox(toolbox, "LEDC",
     },
 );
 
-Blockly.Blocks['ledc_set_duty'] = {
+Blocks['ledc_set_duty'] = {
     init: function () {
         dummy(this, 'Set duty');
         value(this, "CHANNEL", "  channel:");
@@ -221,7 +221,7 @@ Blockly.Blocks['ledc_set_duty'] = {
     }
 }
 
-javascriptGenerator.forBlock['ledc_set_duty'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['ledc_set_duty'] = function (b: Block, g: JsG) {
     return 'ledc.setDuty(' + getVal(g, b, 'CHANNEL') + ', ' + getVal(g, b, 'DUTY') + ');\n';
 }
 
@@ -242,7 +242,7 @@ addItemToToolbox(toolbox, "LEDC",
     },
 );
 
-Blockly.Blocks['ledc_stop_timer'] = {
+Blocks['ledc_stop_timer'] = {
     init: function () {
         dummy(this, 'Stop timer');
         value(this, "TIMER", "  timer:");
@@ -251,7 +251,7 @@ Blockly.Blocks['ledc_stop_timer'] = {
     }
 }
 
-javascriptGenerator.forBlock['ledc_stop_timer'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['ledc_stop_timer'] = function (b: Block, g: JsG) {
     return 'ledc.stopTimer(' + getVal(g, b, 'TIMER') + ');\n';
 }
 
@@ -272,7 +272,7 @@ addItemToToolbox(toolbox, "LEDC",
     },
 );
 
-Blockly.Blocks['ledc_stop_channel'] = {
+Blocks['ledc_stop_channel'] = {
     init: function () {
         dummy(this, 'Stop channel');
         value(this, "CHANNEL", "  channel:");
@@ -281,6 +281,6 @@ Blockly.Blocks['ledc_stop_channel'] = {
     }
 }
 
-javascriptGenerator.forBlock['ledc_stop_channel'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['ledc_stop_channel'] = function (b: Block, g: JsG) {
     return 'ledc.stopChannel(' + getVal(g, b, 'CHANNEL') + ');\n';
 }

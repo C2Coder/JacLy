@@ -1,9 +1,9 @@
-import Blockly, { BlockSvg } from "blockly";
-import { javascriptGenerator} from "blockly/javascript";
-import { CodeGenerator } from "blockly/core/generator";
+import { Block, Blocks, FieldDropdown } from "blockly";
+import { javascriptGenerator as jsg, JavascriptGenerator as JsG} from "blockly/javascript";
+
 import { value, inline, color, getVal, getStatement, getField } from "../customBlocks";
 
-Blockly.Blocks['async_func'] = {
+Blocks['async_func'] = {
     init: function () {
         value(this, "NAME", "async function name");
         inline(this);
@@ -11,11 +11,11 @@ Blockly.Blocks['async_func'] = {
     }
 }
 
-javascriptGenerator.forBlock['async_func'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['async_func'] = function (b: Block, g: JsG) {
     return 'async function ' + getVal(g, b, 'NAME').replaceAll("'", "") + '(){\n' + getStatement(g, b, 'CODE') + '};\n';
 }
 
-Blockly.Blocks['call_func'] = {
+Blocks['call_func'] = {
     init: function () {
         value(this, "NAME", "function name");
         inline(this);
@@ -23,6 +23,6 @@ Blockly.Blocks['call_func'] = {
     }
 }
 
-javascriptGenerator.forBlock['call_func'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['call_func'] = function (b: Block, g: JsG) {
     return getVal(g, b, 'NAME').replaceAll("'", "") + '();\n';
 }

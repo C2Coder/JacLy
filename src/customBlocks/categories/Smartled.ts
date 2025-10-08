@@ -1,6 +1,6 @@
-import Blockly, { BlockSvg } from "blockly";
-import { javascriptGenerator, Order } from "blockly/javascript";
-import { CodeGenerator } from "blockly/core/generator";
+import { Block, Blocks, FieldDropdown } from "blockly";
+import { JavascriptGenerator as JsG, javascriptGenerator as jsg, Order } from "blockly/javascript";
+
 import { toolbox, colors } from "../toolbox";
 import { addItemToToolbox, dummy, value, inline, output, color, dropdown, getVal, getField, getStatement } from "../customBlocks";
 
@@ -12,7 +12,7 @@ addItemToToolbox(toolbox, "Smartled",
     },
 );
 
-Blockly.Blocks['smartled_import'] = {
+Blocks['smartled_import'] = {
     init: function () {
         dummy(this, 'Import smartled');
         inline(this);
@@ -20,7 +20,7 @@ Blockly.Blocks['smartled_import'] = {
     }
 }
 
-javascriptGenerator.forBlock['smartled_import'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['smartled_import'] = function (b: Block, g: JsG) {
     return 'import { SmartLed, LED_WS2812, LED_WS2812B, LED_WS2812B_2020, LED_SK6812, LED_WS2813 } from "smartled";\n'
         + 'function HsvToRgb(h, s, v) { let f = (n, k = (n + h / 60) % 6) => v - v * s * Math.max(Math.min(k, 4 - k, 1));\n'
         + '    return { r: Math.round(f(5) * 255), g: Math.round(f(3) * 255), b: Math.round(f(1) * 255)}; }\n'
@@ -61,7 +61,7 @@ addItemToToolbox(toolbox, "Smartled",
     },
 );
 
-Blockly.Blocks['create_strip'] = {
+Blocks['create_strip'] = {
     init: function () {
         dummy(this, 'Create strip');
         value(this, "NAME", "  name:");
@@ -80,7 +80,7 @@ Blockly.Blocks['create_strip'] = {
     }
 }
 
-javascriptGenerator.forBlock['create_strip'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['create_strip'] = function (b: Block, g: JsG) {
     return 'const ' + getVal(g, b, 'NAME').replaceAll("'", "") + ' = new SmartLed(' + getVal(g, b, 'PIN') + ', ' + getVal(g, b, 'COUNT') + ', ' + getField(b, 'TYPE') + ');\n';
 }
 
@@ -111,7 +111,7 @@ addItemToToolbox(toolbox, "Smartled",
     },
 );
 
-Blockly.Blocks['set_hex'] = {
+Blocks['set_hex'] = {
     init: function () {
         dummy(this, 'Set HEX');
         value(this, 'NAME', '  name:');
@@ -122,7 +122,7 @@ Blockly.Blocks['set_hex'] = {
     }
 }
 
-javascriptGenerator.forBlock['set_hex'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['set_hex'] = function (b: Block, g: JsG) {
     return getVal(g, b, 'NAME').replaceAll("'", "")
         + '.set(' + getVal(g, b, 'INDEX')
         + ', HexToRgb(' + getVal(g, b, 'COLOR') + '));\n';
@@ -165,7 +165,7 @@ addItemToToolbox(toolbox, "Smartled",
     },
 );
 
-Blockly.Blocks['set_hsv'] = {
+Blocks['set_hsv'] = {
     init: function () {
         dummy(this, 'Set HSV');
         value(this, 'NAME', '  name:');
@@ -179,7 +179,7 @@ Blockly.Blocks['set_hsv'] = {
     }
 }
 
-javascriptGenerator.forBlock['set_hsv'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['set_hsv'] = function (b: Block, g: JsG) {
     return getVal(g, b, 'NAME').replaceAll("'", "")
         + '.set(' + getVal(g, b, 'INDEX')
         + ', HsvToRgb(' + getVal(g, b, 'HUE')
@@ -224,7 +224,7 @@ addItemToToolbox(toolbox, "Smartled",
     },
 );
 
-Blockly.Blocks['set_rgb'] = {
+Blocks['set_rgb'] = {
     init: function () {
         dummy(this, 'Set RGB');
         value(this, 'NAME', '  name:');
@@ -237,7 +237,7 @@ Blockly.Blocks['set_rgb'] = {
     }
 }
 
-javascriptGenerator.forBlock['set_rgb'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['set_rgb'] = function (b: Block, g: JsG) {
     return getVal(g, b, 'NAME').replaceAll("'", "")
         + '.set(' + getVal(g, b, 'INDEX')
         + ', {r: ' + getVal(g, b, 'R')
@@ -262,7 +262,7 @@ addItemToToolbox(toolbox, "Smartled",
     },
 );
 
-Blockly.Blocks['strip_clear'] = {
+Blocks['strip_clear'] = {
     init: function () {
         dummy(this, 'Clear strip');
         value(this, "NAME", "  name:");
@@ -271,7 +271,7 @@ Blockly.Blocks['strip_clear'] = {
     }
 }
 
-javascriptGenerator.forBlock['strip_clear'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['strip_clear'] = function (b: Block, g: JsG) {
     return getVal(g, b, 'NAME').replaceAll("'", "") + '.clear();\n'
 }
 
@@ -292,7 +292,7 @@ addItemToToolbox(toolbox, "Smartled",
     },
 );
 
-Blockly.Blocks['strip_show'] = {
+Blocks['strip_show'] = {
     init: function () {
         dummy(this, 'Show strip');
         value(this, "NAME", "  name:");
@@ -301,7 +301,7 @@ Blockly.Blocks['strip_show'] = {
     }
 }
 
-javascriptGenerator.forBlock['strip_show'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['strip_show'] = function (b: Block, g: JsG) {
     return getVal(g, b, 'NAME').replaceAll("'", "")
         + '.show();\n'
 }

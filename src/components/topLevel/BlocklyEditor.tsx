@@ -1,8 +1,7 @@
 import {FC, InputHTMLAttributes, useRef, useState, useEffect} from "react";
 import {useGenerateCode} from "../../context/GenerateCodeContext";
-import Blockly from "blockly";
-import {javascriptGenerator} from "blockly/javascript";
-import {BlocklyWorkspace} from "react-blockly";
+import {javascriptGenerator as jsg} from "blockly/javascript";
+import {BlocklyWorkspace, WorkspaceSvg} from "react-blockly";
 import "./../../customBlocks/customBlocks";
 
 import {toolbox} from "../../customBlocks/toolbox";
@@ -29,10 +28,10 @@ const BlocklyEditor: FC<HeaderProps> = ({ onWorkspaceChange, externalJson }) => 
         }
     }, [externalJson]);
 
-    const handleWorkspaceChange = (newWorkspace: Blockly.WorkspaceSvg) => {
+    const handleWorkspaceChange = (newWorkspace: WorkspaceSvg) => {
         console.log("Workspace changed")
         try {
-            let jsCode = javascriptGenerator.workspaceToCode(newWorkspace);
+            let jsCode = jsg.workspaceToCode(newWorkspace);
             setCode(jsCode);
         } catch (e) {
             console.error("Error generating code: " + e);

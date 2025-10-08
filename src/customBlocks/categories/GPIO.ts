@@ -1,6 +1,6 @@
-import Blockly, { BlockSvg } from "blockly";
-import { javascriptGenerator, Order } from "blockly/javascript";
-import { CodeGenerator } from "blockly/core/generator";
+import { Block, Blocks, FieldDropdown } from "blockly";
+import { JavascriptGenerator as JsG, javascriptGenerator as jsg, Order } from "blockly/javascript";
+
 import { toolbox } from "../toolbox";
 import { addItemToToolbox, dummy, value, dropdown, inline, output, color, statement, getField, getVal, getStatement } from "../customBlocks";
 // GPIO import
@@ -11,7 +11,7 @@ addItemToToolbox(toolbox, "GPIO",
     },
 );
 
-Blockly.Blocks['gpio_import'] = {
+Blocks['gpio_import'] = {
     init: function () {
         dummy(this, 'Import GPIO');
         inline(this);
@@ -19,7 +19,7 @@ Blockly.Blocks['gpio_import'] = {
     }
 }
 
-javascriptGenerator.forBlock['gpio_import'] = function (b: BlockSvg, generator: CodeGenerator) {
+jsg.forBlock['gpio_import'] = function (b: Block, g: JsG) {
     return "import * as gpio from 'gpio';\n"
 }
 
@@ -43,7 +43,7 @@ addItemToToolbox(toolbox, "GPIO",
 
 );
 
-Blockly.Blocks['gpio_pinmode'] = {
+Blocks['gpio_pinmode'] = {
     init: function () {
         dummy(this, 'Set pin mode');
         value(this, "PIN", "  pin:");
@@ -53,7 +53,7 @@ Blockly.Blocks['gpio_pinmode'] = {
     }
 }
 
-javascriptGenerator.forBlock['gpio_pinmode'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['gpio_pinmode'] = function (b: Block, g: JsG) {
     return 'gpio.pinMode(' + getVal(g, b, "PIN") + ', gpio.PinMode.' + getField(b, "MODE") + ');\n';
 }
 
@@ -80,7 +80,7 @@ addItemToToolbox(toolbox, "GPIO",
 
 );
 
-Blockly.Blocks['gpio_write'] = {
+Blocks['gpio_write'] = {
     init: function () {
         dummy(this, 'Pin write');
         value(this, "PIN", "  pin:");
@@ -90,7 +90,7 @@ Blockly.Blocks['gpio_write'] = {
     }
 }
 
-javascriptGenerator.forBlock['gpio_write'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['gpio_write'] = function (b: Block, g: JsG) {
     return 'gpio.write(' + getVal(g, b, "PIN") + ', ' + getVal(g, b, "VALUE") + ');\n';
 }
 
@@ -112,7 +112,7 @@ addItemToToolbox(toolbox, "GPIO",
 
 );
 
-Blockly.Blocks['gpio_read'] = {
+Blocks['gpio_read'] = {
     init: function () {
         dummy(this, 'Pin read');
         value(this, "PIN", "  pin:");
@@ -121,7 +121,7 @@ Blockly.Blocks['gpio_read'] = {
     }
 }
 
-javascriptGenerator.forBlock['gpio_read'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['gpio_read'] = function (b: Block, g: JsG) {
     return ['gpio.read(' + getVal(g, b, "PIN") + ')', Order.NONE];
 }
 
@@ -143,7 +143,7 @@ addItemToToolbox(toolbox, "GPIO",
 
 );
 
-Blockly.Blocks['gpio_on'] = {
+Blocks['gpio_on'] = {
     init: function () {
         value(this, "PIN", "  pin:");
         dropdown(this, "MODE", "  on:", [["rising", "rising"], ["falling", "falling"], ["change", "change"]]);
@@ -154,7 +154,7 @@ Blockly.Blocks['gpio_on'] = {
     }
 }
 
-javascriptGenerator.forBlock['gpio_on'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['gpio_on'] = function (b: Block, g: JsG) {
     return "gpio.on('" + getField(b, "MODE") + "', " + getVal(g, b, "PIN") + ", (info) => {\n" + getStatement(g, b, 'CODE') + "});\n";
 }
 
@@ -176,7 +176,7 @@ addItemToToolbox(toolbox, "GPIO",
 
 );
 
-Blockly.Blocks['gpio_off'] = {
+Blocks['gpio_off'] = {
     init: function () {
         dummy(this, 'Pin off');
         value(this, "PIN", "  pin:");
@@ -186,6 +186,6 @@ Blockly.Blocks['gpio_off'] = {
     }
 }
 
-javascriptGenerator.forBlock['gpio_off'] = function (b: BlockSvg, g: CodeGenerator) {
+jsg.forBlock['gpio_off'] = function (b: Block, g: JsG) {
     return "gpio.off('" + getField(b, "MODE") + "', " + getVal(g, b, "PIN") + ');\n';
 }
