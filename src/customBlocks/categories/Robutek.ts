@@ -292,7 +292,7 @@ Blocks['robutek_rotate'] = {
 }
 
 jsg.forBlock['robutek_rotate'] = function (b: Block, g: JsG) {
-    return 'robutek.rotate(' + getVal(g, b, 'ANGLE') + ');\n';
+    return 'await robutek.rotate(' + getVal(g, b, 'ANGLE') + ');\n';
 }
 
 // ---- //
