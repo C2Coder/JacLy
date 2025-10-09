@@ -3153,7 +3153,7 @@ const robutek = createRobutek('V2');
         </shadow>
       </value>
     </block>
-`});St.robutek_rotate={init:function(){Gt(this,"robutek.rotate"),Pt(this,"ANGLE",""),Ut(this),bt(this,"Robutek")}};Et.forBlock.robutek_rotate=function(n,o){return"robutek.rotate("+Ct(o,n,"ANGLE")+`);
+`});St.robutek_rotate={init:function(){Gt(this,"robutek.rotate"),Pt(this,"ANGLE",""),Ut(this),bt(this,"Robutek")}};Et.forBlock.robutek_rotate=function(n,o){return"await robutek.rotate("+Ct(o,n,"ANGLE")+`);
 `};$t(yt,"Robutek",{kind:"block",blockxml:`    <block type="robutek_stop">
       <value name="BREAK">
         <shadow type="logic_boolean">
