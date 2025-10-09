@@ -23,7 +23,7 @@ Blocks['smartled_import'] = {
 jsg.forBlock['smartled_import'] = function (b: Block, g: JsG) {
     return 'import { SmartLed, LED_WS2812, LED_WS2812B, LED_WS2812B_2020, LED_SK6812, LED_WS2813 } from "smartled";\n'
         + 'import * as colors from "./libs/colors.js";\n' +
-        'function HexToRgb(hex: string) { hex = hex.replace("#", ""); return { r: parseInt(hex.substring(0, 2), 16), g: parseInt(hex.substring(2, 4), 16), b: parseInt(hex.substring(4, 6), 16) }; }\n';
+        'function HexToRgb(hex_str) { var hex = hex_str.replace("#", ""); return { r: parseInt(hex.substring(0, 2), 16), g: parseInt(hex.substring(2, 4), 16), b: parseInt(hex.substring(4, 6), 16) }; }\n';
 }
 
 // ---- //

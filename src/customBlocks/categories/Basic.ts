@@ -69,7 +69,7 @@ addItemToToolbox(toolbox, "Basic",
     {
         kind: "block",
         blockxml:
-            '    <block type="sleep">\n' +
+            '    <block type="basic_sleep">\n' +
             '      <value name="TIME">\n' +
             '        <shadow type="math_number">\n' +
             "        </shadow>\n" +
@@ -78,20 +78,17 @@ addItemToToolbox(toolbox, "Basic",
     },
 );
 
-Blocks['sleep'] = {
+Blocks['basic_sleep'] = {
     init: function () {
-        dummy(this, 'Sleep');
-        this.appendValueInput("TIME")
-            .setAlign(inputs.Align.RIGHT)
-            .appendField("ms:")
-        output(this, Function);
+        value(this, "TIME", "Sleep ms:");
+        inline(this);
         color(this, "Basic");
     }
 }
 
-jsg.forBlock['sleep'] = function (b: Block, g: JsG) {
-    return ['sleep(' + getVal(g, b, 'TIME') + ')', Order.ATOMIC];
-}
+jsg.forBlock['basic_sleep'] = function (b: Block, g: JsG) {
+    return 'await sleep(' + getVal(g, b, 'TIME') + ');\n';
+};
 
 // ---- //
 

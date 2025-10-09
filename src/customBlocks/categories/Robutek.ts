@@ -196,7 +196,7 @@ Blocks['robutek_move_distance'] = {
 }
 
 jsg.forBlock['robutek_move_distance'] = function (b: Block, g: JsG) {
-    return 'robutek.move(' + getVal(g, b, 'CURVE') + ', {distance:' + getVal(g, b, 'DISTANCE') + '});\n';
+    return 'await robutek.move(' + getVal(g, b, 'CURVE') + ', {distance:' + getVal(g, b, 'DISTANCE') + '});\n';
 }
 
 // ---- //
@@ -232,7 +232,7 @@ Blocks['robutek_move_time'] = {
 }
 
 jsg.forBlock['robutek_move_time'] = function (b: Block, g: JsG) {
-    return 'robutek.move(' + getVal(g, b, 'CURVE') + ', {time:' + getVal(g, b, 'TIME') + '});\n';
+    return 'await robutek.move(' + getVal(g, b, 'CURVE') + ', {time:' + getVal(g, b, 'TIME') + '});\n';
 }
 
 // ---- //
