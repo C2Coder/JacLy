@@ -212,7 +212,7 @@ Blocks['simpleradio_values'] = {
         this.appendDummyInput('')
             .appendField(new FieldDropdown([["num", "num"], ["str", "str"], ["key", "key"], ["value", "value"]]), "TYPE");
 
-        output(this, String);
+        output(this, null);
         color(this, "SimpleRadio");
     }
 }
@@ -259,7 +259,7 @@ addItemToToolbox(toolbox, "SimpleRadio",
 Blocks['simpleradio_adress'] = {
     init: function () {
         dummy(this, 'Address');
-        output(this, String);
+        output(this, null);
         color(this, "SimpleRadio");
     }
 }
@@ -281,7 +281,7 @@ addItemToToolbox(toolbox, "SimpleRadio",
 Blocks['simpleradio_group'] = {
     init: function () {
         dummy(this, 'Group');
-        output(this, Number);
+        output(this, null);
         color(this, "SimpleRadio");
     }
 }

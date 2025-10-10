@@ -135,7 +135,7 @@ Blocks['servo_penPos'] = {
             ["Unload", "Unload"],
             ]), "POS");
 
-        output(this, Number);
+        output(this, null);
         color(this, "Servo");
     }
 }

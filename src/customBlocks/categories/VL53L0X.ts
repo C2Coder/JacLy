@@ -3,6 +3,7 @@ import { JavascriptGenerator as JsG, javascriptGenerator as jsg, Order } from "b
 
 import { toolbox } from "../toolbox";
 import { addItemToToolbox, dummy, value, inline, output, color, dropdown, statement, getVal, getField, getStatement } from "../customBlocks";
+import { NONAME } from "dns";
 
 
 // VL53L0X import
@@ -89,7 +90,7 @@ Blocks['vl53l0x_measurement'] = {
             ["ambientRate", "ambientRate"],
             ["effectiveSpadRtnCount", "effectiveSpadRtnCount"]]), "POS");
 
-        output(this, Number);
+        output(this, null);
         color(this, "VL53L0X");
     }
 }

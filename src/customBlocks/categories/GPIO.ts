@@ -116,7 +116,7 @@ Blocks['gpio_read'] = {
     init: function () {
         dummy(this, 'Pin read');
         value(this, "PIN", "  pin:");
-        output(this, Boolean);
+        output(this, null);
         color(this, "GPIO");
     }
 }

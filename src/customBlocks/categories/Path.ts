@@ -45,7 +45,7 @@ Blocks['path_normalize'] = {
     init: function () {
         dummy(this, 'Normalize Path');
         value(this, "path", "  path:");
-        output(this, Boolean);
+        output(this, null);
         color(this, "Path");
     }
 }
@@ -77,7 +77,7 @@ Blocks['path_dirname'] = {
     init: function () {
         dummy(this, 'Path Directory Name');
         value(this, "path", "  path:");
-        output(this, Boolean);
+        output(this, null);
         color(this, "Path");
     }
 }
@@ -109,7 +109,7 @@ Blocks['path_basename'] = {
     init: function () {
         dummy(this, 'Path Basename');
         value(this, "path", "  path:");
-        output(this, Boolean);
+        output(this, null);
         color(this, "Path");
 
     }

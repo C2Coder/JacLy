@@ -37,7 +37,7 @@ addItemToToolbox(toolbox, "WiFi",
 Blocks['wifi_currentip'] = {
     init: function () {
         dummy(this, 'Get Current IP');
-        output(this, String);
+        output(this, null);
         color(this, "WiFi");
     }
 }

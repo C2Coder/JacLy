@@ -224,7 +224,7 @@ Blocks['smartled_color'] = {
             ["off", "off"],
             ]), "COLOR");
 
-        output(this, Number);
+        output(this, null);
         color(this, "Smartled");
     }
 }
@@ -271,7 +271,7 @@ Blocks['smartled_color_rgb'] = {
         this.appendDummyInput('').appendField('B:')
         this.appendValueInput('B')
 
-        output(this, Number);
+        output(this, null);
         color(this, "Smartled");
     }
 }
@@ -320,7 +320,7 @@ Blocks['smartled_color_hsl'] = {
         this.appendDummyInput('').appendField('L:')
         this.appendValueInput('L')
 
-        output(this, Number);
+        output(this, null);
         color(this, "Smartled");
     }
 }

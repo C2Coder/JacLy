@@ -91,7 +91,7 @@ Blocks['robutek_pin'] = {
                 // ["Enc2B", "Enc2B"],
             ]), "TYPE");
 
-        output(this, Number);
+        output(this, null);
         color(this, "Robutek");
     }
 }

@@ -75,7 +75,7 @@ Blocks['adc_read'] = {
     init: function () {
         dummy(this, 'ADC read');
         value(this, "PIN", "  pin:");
-        output(this, Number);
+        output(this, null);
         color(this, "ADC");
     }
 }
