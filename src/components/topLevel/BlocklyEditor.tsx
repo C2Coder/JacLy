@@ -32,7 +32,23 @@ const BlocklyEditor: FC<HeaderProps> = ({ onWorkspaceChange, externalJson }) => 
     const handleWorkspaceChange = (newWorkspace: WorkspaceSvg) => {
         console.log("Workspace changed")
         try {
-            let jsCode = jsg.workspaceToCode(newWorkspace);
+            let jsCode = jsg.workspaceToCode(newWorkspace) as string;
+
+            // Post-process generated code to ensure function definitions are async.
+            // 1) Function declarations: `function name(...) {` -> `async function name(...) {`
+            // 2) Function expressions: `= function (...) {` -> `= async function (...) {`
+            // Use conservative regexes to avoid accidental replacements in comments/strings.
+            if (typeof jsCode === 'string' && jsCode.length) {
+                // Replace function declarations at start of line (possibly indented)
+                jsCode = jsCode.replace(/^(\s*)function(\s+)/gm, "$1async function$2");
+
+                // Replace function expressions (assignment to function)
+                jsCode = jsCode.replace(/(=\s*)function(\s*\()/g, "$1async function$2");
+
+                // Replace var/let/const name = function(...) patterns
+                jsCode = jsCode.replace(/((?:var|let|const)\s+\w+\s*=\s*)function(\s*\()/g, "$1async function$2");
+            }
+
             setCode(jsCode);
         } catch (e) {
             console.error("Error generating code: " + e);

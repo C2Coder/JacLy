@@ -180,7 +180,7 @@ Blocks['set_interval'] = {
 }
 
 jsg.forBlock['set_interval'] = function (b: Block, g: JsG) {
-    return '\nvar ' + getVal(g, b, 'NAME').replaceAll("'", "") + 'Interval = setInterval(function(){\n' + getStatement(g, b, "CODE") + '}, ' + getVal(g, b, 'INTERVAL') + ');\n';
+    return '\nvar ' + getVal(g, b, 'NAME').replaceAll("'", "") + 'Interval = setInterval(async function(){\n' + getStatement(g, b, "CODE") + '}, ' + getVal(g, b, 'INTERVAL') + ');\n';
 }
 
 // ---- //
@@ -244,7 +244,7 @@ Blocks['set_timeout'] = {
 }
 
 jsg.forBlock['set_timeout'] = function (b: Block, g: JsG) {
-    return '\nvar ' + getVal(g, b, 'NAME').replaceAll("'", "") + 'Timeout = setTimeout(function(){\n' + getStatement(g, b, 'CODE') + '}, ' + getVal(g, b, 'TIMEOUT') + ');\n';
+    return '\nvar ' + getVal(g, b, 'NAME').replaceAll("'", "") + 'Timeout = setTimeout(async function(){\n' + getStatement(g, b, 'CODE') + '}, ' + getVal(g, b, 'TIMEOUT') + ');\n';
 }
 
 // ---- //
