@@ -183,13 +183,13 @@ jsg.forBlock['simpleradio_on'] = function (b: Block, g: JsG) {
 
     switch (type) {
         case "number":
-            return "simpleradio.on('" + type + "', ( num, info ) => {\n" + getStatement(g, b, 'CODE') + '});\n';
+            return "simpleradio.on('" + type + "', async ( num, info ) => {\n" + getStatement(g, b, 'CODE') + '});\n';
             break;
         case "string":
-            return "simpleradio.on('" + type + "', ( str, info ) => {\n" + getStatement(g, b, 'CODE') + '});\n';
+            return "simpleradio.on('" + type + "', async ( str, info ) => {\n" + getStatement(g, b, 'CODE') + '});\n';
             break;
         case "keyvalue":
-            return "simpleradio.on('" + type + "', ( key, value, info ) => {\n" + getStatement(g, b, 'CODE') + '});\n';
+            return "simpleradio.on('" + type + "', async ( key, value, info ) => {\n" + getStatement(g, b, 'CODE') + '});\n';
             break;
         default:
             break;

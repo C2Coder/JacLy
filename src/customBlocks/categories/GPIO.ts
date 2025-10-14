@@ -155,7 +155,7 @@ Blocks['gpio_on'] = {
 }
 
 jsg.forBlock['gpio_on'] = function (b: Block, g: JsG) {
-    return "gpio.on('" + getField(b, "MODE") + "', " + getVal(g, b, "PIN") + ", (info) => {\n" + getStatement(g, b, 'CODE') + "});\n";
+    return "gpio.on('" + getField(b, "MODE") + "', " + getVal(g, b, "PIN") + ", async (info) => {\n" + getStatement(g, b, 'CODE') + "});\n";
 }
 
 // ---- //

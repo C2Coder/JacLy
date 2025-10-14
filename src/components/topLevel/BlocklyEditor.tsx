@@ -49,6 +49,9 @@ const BlocklyEditor: FC<HeaderProps> = ({ onWorkspaceChange, externalJson }) => 
                 jsCode = jsCode.replace(/((?:var|let|const)\s+\w+\s*=\s*)function(\s*\()/g, "$1async function$2");
             }
 
+            // Dirty fix: Remove 'async' from 'async function HexToRgb'
+            jsCode = jsCode.replace(/async function HexToRgb/g, "function HexToRgb");
+
             setCode(jsCode);
         } catch (e) {
             console.error("Error generating code: " + e);

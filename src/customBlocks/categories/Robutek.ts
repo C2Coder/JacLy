@@ -70,7 +70,8 @@ Blocks['robutek_pin'] = {
     init: function () {
         this.appendDummyInput('').appendField('robutek.Pins.')
             .appendField(new FieldDropdown([["StatusLED", "StatusLED"],
-            ["SmartLeds", "SmartLeds"],
+            ["ILED", "ILED"],
+            ["ILEDConnector", "ILEDConnector"],
             ["ButtonLeft", "ButtonLeft"],
             ["ButtonRight", "ButtonRight"],
             ["Servo1", "Servo1"],
